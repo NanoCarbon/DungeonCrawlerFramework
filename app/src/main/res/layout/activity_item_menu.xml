@@ -1,17 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
     tools:context=".ItemMenu">
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/itemMenuRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="4dp"
+        android:layout_height="300dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:padding="8dp"
         android:scrollbars="vertical"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        />
+    <ImageView
+        android:id="@+id/limb1EquippedItem"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginRight="100dp"
+        android:background="@drawable/shape"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</RelativeLayout>
+    <ImageView
+        android:id="@+id/limb2EquippedItem"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/shape"
+        app:layout_constraintEnd_toStartOf="@+id/limb1EquippedItem"
+        app:layout_constraintTop_toTopOf="@+id/limb1EquippedItem" />
+    <ImageView
+        android:id="@+id/limb3EquippedItem"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/shape"
+        app:layout_constraintEnd_toStartOf="@+id/limb2EquippedItem"
+        app:layout_constraintTop_toTopOf="@+id/limb1EquippedItem" />
+
+    <ImageView
+        android:id="@+id/limb4EquippedItem"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/shape"
+        app:layout_constraintEnd_toEndOf="@+id/limb1EquippedItem"
+        app:layout_constraintTop_toBottomOf="@+id/limb1EquippedItem" />
+    <ImageView
+        android:id="@+id/limb5EquippedItem"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/shape"
+        app:layout_constraintEnd_toStartOf="@+id/limb4EquippedItem"
+        app:layout_constraintTop_toTopOf="@+id/limb4EquippedItem" />
+    <ImageView
+        android:id="@+id/limb6EquippedItem"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/shape"
+        app:layout_constraintEnd_toStartOf="@+id/limb5EquippedItem"
+        app:layout_constraintTop_toTopOf="@+id/limb4EquippedItem" />
+
+    <ImageView
+        android:id="@+id/limb7EquippedItem"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/shape"
+        app:layout_constraintEnd_toEndOf="@+id/limb4EquippedItem"
+        app:layout_constraintTop_toBottomOf="@+id/limb4EquippedItem" />
+    <ImageView
+        android:id="@+id/limb8EquippedItem"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/shape"
+        app:layout_constraintEnd_toStartOf="@+id/limb7EquippedItem"
+        app:layout_constraintTop_toTopOf="@+id/limb7EquippedItem" />
+    <ImageView
+        android:id="@+id/limb9EquippedItem"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/shape"
+        app:layout_constraintEnd_toStartOf="@+id/limb8EquippedItem"
+        app:layout_constraintTop_toTopOf="@+id/limb7EquippedItem" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

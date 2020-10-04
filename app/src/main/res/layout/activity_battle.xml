@@ -266,14 +266,14 @@
         app:layout_constraintTop_toTopOf="@+id/playerSPIconImageView" />
 
     <ImageView
-        android:id="@+id/limb1EquippedItem"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginRight="12dp"
-        android:background="@drawable/shape"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/turnCounterTextView" />
+    android:id="@+id/limb1EquippedItem"
+    android:layout_width="30dp"
+    android:layout_height="30dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginRight="12dp"
+    android:background="@drawable/shape"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="@+id/turnCounterTextView" />
 
     <ImageView
         android:id="@+id/limb2EquippedItem"

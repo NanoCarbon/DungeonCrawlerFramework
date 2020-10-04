@@ -10,7 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="4dp">
+        android:layout_margin="4dp"
+        android:background="@drawable/shape">
 
         <ImageView
             android:id="@+id/inventoryItemImageView"
@@ -24,6 +25,8 @@
             android:id="@+id/inventoryItemNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
             android:text="inventoryItemName"
             android:textColor="@android:color/black"
             android:textSize="20sp"
@@ -35,6 +38,8 @@
             android:id="@+id/inventoryItemDescriptionTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
             android:text="inventoryItemDescription"
             app:layout_constraintStart_toEndOf="@+id/inventoryItemImageView"
             app:layout_constraintTop_toBottomOf="@+id/inventoryItemNameTextView" />
