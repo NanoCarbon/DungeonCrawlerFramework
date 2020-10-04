@@ -50,7 +50,8 @@
     <string name="playerSP_StringValue">%d</string>
     <string name="playerCoinPurse_StringValue">Gold: %d</string>
     <string name="saveButton_StringValue">Save</string>
-    <string name="inventoryCount_StringValue">Items in Inventory: %d</string>
+    <string name="inventoryCount_StringValue">Inventory Count: %d</string>
     <string name="leaveDungeon_StringValue">Leave Dungeon</string>
+    <string name="toPlayerInventoryButton_StringValue">Inventory</string>
 
 </resources>

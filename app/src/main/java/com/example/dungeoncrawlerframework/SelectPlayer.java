@@ -23,6 +23,7 @@ public class SelectPlayer extends AppCompatActivity {
     private Button startButton;
     private Button changeClassButton;
     private Button loadButton;
+    private Button toPlayerInventoryButton;
     private Player newPlayer;
     private ImageView selectedClassDisplay;
     private TextView playerHPDisplay;
@@ -127,6 +128,12 @@ public class SelectPlayer extends AppCompatActivity {
             }
         });
 
+        toPlayerInventoryButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                openPlayerInventory();
+            }
+        });
 
 
     }
@@ -201,6 +208,7 @@ public class SelectPlayer extends AppCompatActivity {
         playerSkillPowerDisplay = findViewById(R.id.playerStartSPTextView);
         loadButton = findViewById(R.id.loadButtonView);
         playerInventoryCountDisplay = findViewById(R.id.playerBattleInventoryCountTextView);
+        toPlayerInventoryButton = findViewById(R.id.playerInventoryButton);
     }
 
     public void startBattleActivity(){
@@ -220,6 +228,13 @@ public class SelectPlayer extends AppCompatActivity {
         intent.putExtra(EXTRA_MAXENERGY,playerMaxEnergy);
         intent.putExtra(EXTRA_MAXHP,playerMaxHP);
         intent.putExtra(EXTRA_SHAREDPREF,playerSharedPrefrences);
+        intent.putExtra(EXTRA_PLAYERINVENTORY,playerInventory);
+        startActivity(intent);
+    }
+
+    public void openPlayerInventory(){
+
+        Intent intent = new Intent(this,ItemMenu.class);
         intent.putExtra(EXTRA_PLAYERINVENTORY,playerInventory);
         startActivity(intent);
     }

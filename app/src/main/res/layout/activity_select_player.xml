@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginBottom="200dp"
+        android:layout_marginBottom="300dp"
         app:layout_constraintBottom_toTopOf="@+id/startButtonView"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/leftarm1" />
@@ -54,8 +54,8 @@
         android:id="@+id/playerHPIconImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="80dp"
-        android:layout_marginRight="80dp"
+        android:layout_marginEnd="90dp"
+        android:layout_marginRight="90dp"
         app:layout_constraintEnd_toEndOf="@+id/titleTextView"
         app:layout_constraintTop_toTopOf="@+id/limb1ImageView"
         app:srcCompat="@drawable/hp_icon" />
@@ -124,7 +124,7 @@
         android:id="@+id/changeClassButtonView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="180dp"
         android:text="@string/changeClass_StringValue"
         app:layout_constraintBottom_toTopOf="@+id/startButtonView"
         app:layout_constraintStart_toStartOf="@+id/startingPlayerDescriptionTextView" />
@@ -134,11 +134,9 @@
         android:layout_width="150dp"
         android:layout_height="56dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
         android:gravity="center"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:text="@string/playerDescription_StringValue"
-        app:layout_constraintBottom_toTopOf="@+id/changeClassButtonView"
         app:layout_constraintStart_toStartOf="@+id/limb1ImageView"
         app:layout_constraintTop_toBottomOf="@+id/limb1ImageView" />
 
@@ -171,7 +169,16 @@
         android:id="@+id/playerBattleInventoryCountTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/inventoryCount_StringValue"
-        app:layout_constraintEnd_toEndOf="@+id/playerEnergyIconImageView"
+        app:layout_constraintStart_toStartOf="@+id/playerEnergyIconImageView"
         app:layout_constraintTop_toBottomOf="@+id/playerEnergyIconImageView" />
+
+    <Button
+        android:id="@+id/playerInventoryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/toPlayerInventoryButton_StringValue"
+        app:layout_constraintStart_toStartOf="@+id/loadButtonView"
+        app:layout_constraintTop_toBottomOf="@+id/loadButtonView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

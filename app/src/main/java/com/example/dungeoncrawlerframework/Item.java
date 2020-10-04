@@ -8,15 +8,17 @@ public class Item {
     private int effectValue;
     private int itemEffectType;
     private boolean equippable;
+    private String itemDescription;
 
 
     //todo: [High] add parameter that dictates if the item is to be used on a player or a monster
-    public Item(int itemName, int itemImageId, int effectValue, int itemEffectType,boolean equippable){
+    public Item(int itemName, int itemImageId, int effectValue, int itemEffectType,boolean equippable, String itemDescription){
         this.itemName = itemName;
         this.itemImageId = itemImageId;
         this.effectValue = effectValue;
         this.itemEffectType = itemEffectType;
         this.equippable = equippable;
+        this.itemDescription = itemDescription;
     }
 
     public int getItemName() {
@@ -59,6 +61,13 @@ public class Item {
         this.equippable = equippable;
     }
 
+    public String getItemDescription() {
+        return itemDescription;
+    }
+
+    public void setItemDescription(String itemDescription) {
+        this.itemDescription = itemDescription;
+    }
 
     //todo: [High] create a method tha
 
