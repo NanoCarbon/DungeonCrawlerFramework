@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/hallway"
+    tools:context=".Battle">
+
+    <TextView
+        android:id="@+id/monsterDefenseTextView"
+        android:layout_width="120dp"
+        android:layout_height="25dp"
+        android:gravity="center"
+        android:text="@string/monsterDefense_StringValue"
+        android:textColor="#FFEB3B"
+        android:textSize="6pt"
+        app:layout_constraintStart_toEndOf="@+id/monsterImageView"
+        app:layout_constraintTop_toBottomOf="@+id/monsterAttackTextView" />
+
+    <Button
+        android:id="@+id/atkButtonView"
+        android:layout_width="170dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/attackButton_TextValue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/healButtonView"
+        android:layout_width="170dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/healButton_StringValue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/atkButtonView" />
+
+    <ImageView
+        android:id="@+id/monsterImageView"
+        android:layout_width="117dp"
+        android:layout_height="149dp"
+        android:layout_marginStart="115dp"
+        android:layout_marginLeft="115dp"
+        android:layout_marginBottom="130dp"
+        app:layout_constraintBottom_toTopOf="@+id/playerHPIconImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/monster2" />
+
+    <TextView
+        android:id="@+id/killCountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="11dp"
+        android:text="@string/killCount_StringValue"
+        android:textSize="6pt"
+        app:layout_constraintBottom_toBottomOf="@+id/killCountImageView"
+        app:layout_constraintStart_toEndOf="@+id/killCountImageView" />
+
+    <TextView
+        android:id="@+id/playerHPTextVIew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="11dp"
+        android:text="@string/playerHP_StringValue"
+        android:textSize="6pt"
+        app:layout_constraintBottom_toBottomOf="@+id/playerHPIconImageView"
+        app:layout_constraintStart_toEndOf="@+id/playerHPIconImageView" />
+
+    <TextView
+        android:id="@+id/playerExpTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="11dp"
+        android:text="@string/playerExperience_StringValue"
+        android:textSize="6pt"
+        app:layout_constraintBottom_toBottomOf="@+id/playerExpImageView"
+        app:layout_constraintStart_toEndOf="@+id/playerExpImageView" />
+
+    <TextView
+        android:id="@+id/playerDefenseTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="11dp"
+        android:text="@string/playerDefense_StringValue"
+        android:textSize="6pt"
+        app:layout_constraintBottom_toBottomOf="@+id/playerDefenseImageView"
+        app:layout_constraintStart_toEndOf="@+id/playerDefenseImageView" />
+
+    <TextView
+        android:id="@+id/playerLevelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="11dp"
+        android:text="@string/playerLevel_StringValue"
+        android:textSize="6pt"
+        app:layout_constraintBottom_toBottomOf="@+id/playerLevelImageView"
+        app:layout_constraintStart_toEndOf="@+id/playerLevelImageView" />
+
+    <TextView
+        android:id="@+id/playerAttackTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="11dp"
+        android:text="@string/playerAttack_StringValue"
+        android:textSize="6pt"
+        app:layout_constraintBottom_toBottomOf="@+id/playerAttackImageView"
+        app:layout_constraintStart_toEndOf="@+id/playerAttackImageView" />
+
+    <TextView
+        android:id="@+id/monsterAttackTextView"
+        android:layout_width="120dp"
+        android:layout_height="25dp"
+        android:gravity="center"
+        android:text="@string/monsterAttack_StringValue"
+        android:textColor="#FFEB3B"
+        android:textSize="6pt"
+        app:layout_constraintStart_toEndOf="@+id/monsterImageView"
+        app:layout_constraintTop_toBottomOf="@+id/monsterHpTextView" />
+
+    <TextView
+        android:id="@+id/monsterHpTextView"
+        android:layout_width="120dp"
+        android:layout_height="25dp"
+        android:gravity="center"
+        android:text="@string/monsterHP_StringValue"
+        android:textColor="#FFEB3B"
+        android:textSize="6pt"
+        app:layout_constraintStart_toEndOf="@+id/monsterImageView"
+        app:layout_constraintTop_toTopOf="@+id/monsterImageView" />
+
+
+    <TextView
+        android:id="@+id/turnCounterTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/shape"
+        android:padding="4dp"
+        android:text="@string/turnCounter_StringValue"
+        android:textColor="#FA000000"
+        app:layout_constraintEnd_toEndOf="@+id/leftArmImageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/leftArmImageView"
+        android:layout_width="132dp"
+        android:layout_height="134dp"
+        app:layout_constraintBottom_toTopOf="@+id/combatLogTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/leftarm1" />
+
+    <ImageView
+        android:id="@+id/playerAttackImageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/killCountImageView"
+        app:layout_constraintStart_toEndOf="@+id/playerDefenseTextView"
+        app:srcCompat="@drawable/attack_icon" />
+
+    <ImageView
+        android:id="@+id/playerDefenseImageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/atkButtonView"
+        app:layout_constraintStart_toEndOf="@+id/playerLevelTextView"
+        app:srcCompat="@drawable/defense_icon" />
+
+    <ImageView
+        android:id="@+id/playerExpImageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/atkButtonView"
+        app:layout_constraintStart_toEndOf="@+id/killCountTextView"
+        app:srcCompat="@drawable/exp_icon" />
+
+    <ImageView
+        android:id="@+id/playerHPIconImageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/killCountImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/hp_icon" />
+
+    <ImageView
+        android:id="@+id/killCountImageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/atkButtonView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/killcount_icon" />
+
+    <ImageView
+        android:id="@+id/playerLevelImageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/killCountImageView"
+        app:layout_constraintStart_toEndOf="@+id/playerExpTextView"
+        app:srcCompat="@drawable/level_icon" />
+
+    <Button
+        android:id="@+id/endTurnButtonView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/endTurn_StringValue"
+        app:layout_constraintBottom_toTopOf="@+id/combatLogTextView"
+        app:layout_constraintEnd_toEndOf="@+id/monsterDefenseTextView" />
+
+    <ImageView
+        android:id="@+id/energyIconImageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/playerHPIconImageView"
+        app:layout_constraintStart_toEndOf="@+id/playerHPTextVIew"
+        app:srcCompat="@drawable/energy_icon" />
+
+    <TextView
+        android:id="@+id/playerEnergyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="11dp"
+        android:text="@string/playerEnergy_StringValue"
+        app:layout_constraintBottom_toBottomOf="@+id/energyIconImageView"
+        app:layout_constraintStart_toEndOf="@+id/energyIconImageView" />
+
+    <TextView
+        android:id="@+id/combatLogTextView"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/shape"
+        android:padding="4dp"
+        android:scrollbars="vertical"
+        android:fadeScrollbars="false"
+        android:text="@string/combatLog_StringValue"
+        app:layout_constraintBottom_toTopOf="@+id/playerHPIconImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/playerSPIconImageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/playerHPIconImageView"
+        app:layout_constraintStart_toEndOf="@+id/playerEnergyTextView"
+        app:srcCompat="@drawable/placeholdersp_icon" />
+
+    <TextView
+        android:id="@+id/playerStartSPTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/playerSP_StringValue"
+        app:layout_constraintStart_toEndOf="@+id/playerSPIconImageView"
+        app:layout_constraintTop_toTopOf="@+id/playerSPIconImageView" />
+
+    <ImageView
+        android:id="@+id/limb1EquippedItem"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/shape"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/turnCounterTextView" />
+
+    <ImageView
+        android:id="@+id/limb2EquippedItem"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/shape"
+        app:layout_constraintEnd_toStartOf="@+id/limb1EquippedItem"
+        app:layout_constraintTop_toTopOf="@+id/limb1EquippedItem" />
+    <ImageView
+        android:id="@+id/limb3EquippedItem"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/shape"
+        app:layout_constraintEnd_toStartOf="@+id/limb2EquippedItem"
+        app:layout_constraintTop_toTopOf="@+id/limb1EquippedItem" />
+
+    <ImageView
+        android:id="@+id/limb4EquippedItem"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/shape"
+        app:layout_constraintEnd_toEndOf="@+id/limb1EquippedItem"
+        app:layout_constraintTop_toBottomOf="@+id/limb1EquippedItem" />
+    <ImageView
+        android:id="@+id/limb5EquippedItem"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/shape"
+        app:layout_constraintEnd_toStartOf="@+id/limb4EquippedItem"
+        app:layout_constraintTop_toTopOf="@+id/limb4EquippedItem" />
+    <ImageView
+        android:id="@+id/limb6EquippedItem"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/shape"
+        app:layout_constraintEnd_toStartOf="@+id/limb5EquippedItem"
+        app:layout_constraintTop_toTopOf="@+id/limb4EquippedItem" />
+
+    <ImageView
+        android:id="@+id/limb7EquippedItem"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/shape"
+        app:layout_constraintEnd_toEndOf="@+id/limb4EquippedItem"
+        app:layout_constraintTop_toBottomOf="@+id/limb4EquippedItem" />
+    <ImageView
+        android:id="@+id/limb8EquippedItem"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/shape"
+        app:layout_constraintEnd_toStartOf="@+id/limb7EquippedItem"
+        app:layout_constraintTop_toTopOf="@+id/limb7EquippedItem" />
+    <ImageView
+        android:id="@+id/limb9EquippedItem"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/shape"
+        app:layout_constraintEnd_toStartOf="@+id/limb8EquippedItem"
+        app:layout_constraintTop_toTopOf="@+id/limb7EquippedItem" />
+
+    <TextView
+        android:id="@+id/playerCoinPurseTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/shape"
+        android:padding="4dp"
+        android:text="@string/playerCoinPurse_StringValue"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="@+id/turnCounterTextView"
+        app:layout_constraintTop_toBottomOf="@+id/turnCounterTextView" />
+
+    <Button
+        android:id="@+id/saveButtonView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/saveButton_StringValue"
+        app:layout_constraintStart_toStartOf="@+id/turnCounterTextView"
+        app:layout_constraintTop_toBottomOf="@+id/playerCoinPurseTextView" />
+
+    <Button
+        android:id="@+id/leaveDungeonButtonView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/leaveDungeon_StringValue"
+        app:layout_constraintStart_toStartOf="@+id/saveButtonView"
+        app:layout_constraintTop_toBottomOf="@+id/saveButtonView" />
+
+    <TextView
+        android:id="@+id/playerBattleInventoryCountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="@string/inventoryCount_StringValue"
+        app:layout_constraintStart_toEndOf="@+id/playerStartSPTextView"
+        app:layout_constraintTop_toTopOf="@+id/playerSPIconImageView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

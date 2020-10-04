@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#91FFE0"
+    tools:context=".SelectPlayer">
+
+    <Button
+        android:id="@+id/startButtonView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="24dp"
+        android:background="#000000"
+        android:text="@string/enterDungeon_StringValue"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/limb1ImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginBottom="200dp"
+        app:layout_constraintBottom_toTopOf="@+id/startButtonView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/leftarm1" />
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:background="#000000"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="@string/gameTitle_StringValue"
+        android:textAllCaps="true"
+        android:textColor="#FFFFFF"
+        android:textSize="22dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/playerHPIconImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="80dp"
+        android:layout_marginRight="80dp"
+        app:layout_constraintEnd_toEndOf="@+id/titleTextView"
+        app:layout_constraintTop_toTopOf="@+id/limb1ImageView"
+        app:srcCompat="@drawable/hp_icon" />
+
+    <ImageView
+        android:id="@+id/playerAttackIconImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/playerHPIconImageView"
+        app:layout_constraintTop_toBottomOf="@+id/playerHPIconImageView"
+        app:srcCompat="@drawable/attack_icon" />
+
+    <ImageView
+        android:id="@+id/playerDefenseIconImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/playerHPIconImageView"
+        app:layout_constraintTop_toBottomOf="@+id/playerAttackIconImageView"
+        app:srcCompat="@drawable/defense_icon" />
+
+    <ImageView
+        android:id="@+id/playerEnergyIconImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/playerSPIconImageView"
+        app:layout_constraintTop_toBottomOf="@+id/playerSPIconImageView"
+        app:srcCompat="@drawable/energy_icon" />
+
+    <TextView
+        android:id="@+id/playerStartEnergyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="@string/playerEnergy_StringValue"
+        app:layout_constraintStart_toEndOf="@+id/playerEnergyIconImageView"
+        app:layout_constraintTop_toTopOf="@+id/playerEnergyIconImageView" />
+
+    <TextView
+        android:id="@+id/playerStartHPTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="@string/playerHP_StringValue"
+        app:layout_constraintStart_toEndOf="@+id/playerHPIconImageView"
+        app:layout_constraintTop_toTopOf="@+id/playerHPIconImageView" />
+
+    <TextView
+        android:id="@+id/playerStartAttackTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="@string/playerAttack_StringValue"
+        app:layout_constraintStart_toEndOf="@+id/playerAttackIconImageView"
+        app:layout_constraintTop_toTopOf="@+id/playerAttackIconImageView" />
+
+    <TextView
+        android:id="@+id/playerStartDefenseTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="@string/playerDefense_StringValue"
+        app:layout_constraintStart_toEndOf="@+id/playerDefenseIconImageView"
+        app:layout_constraintTop_toTopOf="@+id/playerDefenseIconImageView" />
+
+    <Button
+        android:id="@+id/changeClassButtonView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:text="@string/changeClass_StringValue"
+        app:layout_constraintBottom_toTopOf="@+id/startButtonView"
+        app:layout_constraintStart_toStartOf="@+id/startingPlayerDescriptionTextView" />
+
+    <TextView
+        android:id="@+id/startingPlayerDescriptionTextView"
+        android:layout_width="150dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:text="@string/playerDescription_StringValue"
+        app:layout_constraintBottom_toTopOf="@+id/changeClassButtonView"
+        app:layout_constraintStart_toStartOf="@+id/limb1ImageView"
+        app:layout_constraintTop_toBottomOf="@+id/limb1ImageView" />
+
+    <ImageView
+        android:id="@+id/playerSPIconImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/playerDefenseIconImageView"
+        app:layout_constraintTop_toBottomOf="@+id/playerDefenseIconImageView"
+        app:srcCompat="@drawable/placeholdersp_icon" />
+
+    <TextView
+        android:id="@+id/playerStartSPTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="@string/playerSP_StringValue"
+        app:layout_constraintStart_toEndOf="@+id/playerSPIconImageView"
+        app:layout_constraintTop_toTopOf="@+id/playerSPIconImageView" />
+
+    <Button
+        android:id="@+id/loadButtonView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Load Saved Hero"
+        app:layout_constraintStart_toStartOf="@+id/changeClassButtonView"
+        app:layout_constraintTop_toBottomOf="@+id/changeClassButtonView" />
+
+    <TextView
+        android:id="@+id/playerBattleInventoryCountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/inventoryCount_StringValue"
+        app:layout_constraintEnd_toEndOf="@+id/playerEnergyIconImageView"
+        app:layout_constraintTop_toBottomOf="@+id/playerEnergyIconImageView" />
+</androidx.constraintlayout.widget.ConstraintLayout>

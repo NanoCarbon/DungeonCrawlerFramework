@@ -1,0 +1,56 @@
+<resources>
+    <!--View string resources-->
+    <string name="app_name">DungeonCrawlerFramework</string>
+    <string name="monster_image_1">monster image</string>
+    <string name="playerExperience_StringValue">%d</string>
+    <string name="killCount_StringValue">%d</string>
+    <string name="monsterDefense_StringValue">Monster Def: %d</string>
+    <string name="monsterAttack_StringValue">Monster Atk: %d</string>
+    <string name="monsterHP_StringValue">Monster HP: %d</string>
+    <string name="turnCounter_StringValue">Turn Counter: %d</string>
+    <string name="playerLevel_StringValue">%d</string>
+    <string name="playerHP_StringValue">%d/%d</string>
+    <string name="playerDefense_StringValue">%d</string>
+    <string name="playerAttack_StringValue">%d</string>
+    <string name="healButton_StringValue">Heal (%d)</string>
+    <string name="endTurn_StringValue">End Turn</string>
+    <string name="attackButton_TextValue">Attack (%d)</string>
+    <string name="playerEnergy_StringValue">%d/%d</string>
+    <string name="enterDungeon_StringValue">Enter the Dungeon</string>
+    <string name="gameTitle_StringValue">Dungeon Crawler Framework</string>
+    <string name="changeClass_StringValue">Change Class</string>
+
+    <!--Monster names-->
+    <string name="monster1">Green Goober</string>
+    <string name="monster2">Goober Mom</string>
+    <string name="monster3">Goober Boss</string>
+    <string name="snelly">Snelly</string>
+
+    <!--Item names-->
+
+    <string name="aquatear">Aqua Tear</string>
+    <string name="miniglobe">Mini Globe</string>
+    <string name="shovel">Normal Shovel</string>
+    <string name="emerald">Life Emerald</string>
+    <!--Player Descriptions-->
+    <string name="player0desc">"This dude is basic."</string>
+    <string name="player1desc">"This dude is intermediate."</string>
+    <string name="player2desc">"This dude is advanced."</string>
+
+    <!--Combat Log-->
+    <string name="combatLog_StringValue">Combat Log:</string>
+    <string name="playerAttackMonster">You attacked %s! You did %d damage!\n</string>
+    <string name="playerHealSelf">You healed for %d HP!\n</string>
+    <string name="monsterAttackPlayer">%s attacked you for %d HP!\n</string>
+    <string name="monsterDeath">%s was vanquished! You gain %d EXP and %d Gold!\n</string>
+    <string name="playerDeath">You died! Press "Leave Dungeon" button to restart.</string>
+    <string name="wildMonsterAppears">A wild %s appeared! Prepare for combat!\n</string>
+    <string name="dropSuccess_StringValue">Lucky! %s dropped a %s! It has been added to your inventory.\n</string>
+    <string name="playerDescription_StringValue">Player Description Placeholder</string>
+    <string name="playerSP_StringValue">%d</string>
+    <string name="playerCoinPurse_StringValue">Gold: %d</string>
+    <string name="saveButton_StringValue">Save</string>
+    <string name="inventoryCount_StringValue">Items in Inventory: %d</string>
+    <string name="leaveDungeon_StringValue">Leave Dungeon</string>
+
+</resources>

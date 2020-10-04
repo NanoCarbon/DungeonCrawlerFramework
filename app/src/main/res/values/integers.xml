@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Monster values-->
+    <integer name = "monster1_healthPoints">15</integer>
+    <integer name = "monster1_attackPower">10</integer>
+    <integer name = "monster1_defensePower">10</integer>
+    <integer name = "monster1_experiencePoints">1</integer>
+
+    <integer name ="monster2_healthPoints">20</integer>
+    <integer name ="monster2_attackPower">20</integer>
+    <integer name="monster2_defensePower">20</integer>
+    <integer name = "monster2_experiencePoints">3</integer>
+
+    <integer name ="monster3_healthPoints">30</integer>
+    <integer name ="monster3_attackPower">30</integer>
+    <integer name="monster3_defensePower">30</integer>
+    <integer name = "monster3_experiencePoints">5</integer>
+
+    <!--Player values-->
+
+</resources>
