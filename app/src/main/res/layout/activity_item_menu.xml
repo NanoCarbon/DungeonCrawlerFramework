@@ -7,7 +7,8 @@
     android:background="@android:color/darker_gray"
     tools:context=".ItemMenu">
 
-
+    <!--todo: [High] nest recycler view into another text view that shows no items if there isn't any-->
+    <!--todo: [High] pretty up and organize; add player stats onto this screen-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/itemMenuRecyclerView"
         android:layout_width="match_parent"

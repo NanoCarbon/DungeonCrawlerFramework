@@ -46,6 +46,8 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
 
     @Override
     public void onBindViewHolder(@NonNull InventoryViewHolder holder, int position) {
+
+
         itemDictionary = new ItemDictionary();
         itemIndex = mPlayerInventory.get(position);
 

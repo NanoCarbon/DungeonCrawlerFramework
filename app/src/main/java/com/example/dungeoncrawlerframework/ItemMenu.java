@@ -12,11 +12,13 @@ import java.util.ArrayList;
 
 
 public class ItemMenu extends AppCompatActivity {
+    //RECYCLER VIEW STUFF - DO NOT TOUCH
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
     private ArrayList<Integer> playerInventory;
+
+    //Add regular views and other nonsenese here
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,8 @@ public class ItemMenu extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.itemMenuRecyclerView);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
+
+        //todo:[BLOCKER] adjust the type of playerInventory being passed - should be a unique list that shows the count of each item
         mAdapter = new InventoryAdapter(playerInventory);
 
         mRecyclerView.setLayoutManager(mLayoutManager);
