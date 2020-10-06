@@ -53,5 +53,6 @@
     <string name="inventoryCount_StringValue">Inventory Count: %d</string>
     <string name="leaveDungeon_StringValue">Leave Dungeon</string>
     <string name="toPlayerInventoryButton_StringValue">Inventory</string>
+    <string name="inventoryItemCount_StringValue">x%d</string>
 
 </resources>

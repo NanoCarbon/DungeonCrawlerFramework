@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 
 public class ItemMenu extends AppCompatActivity {
@@ -27,13 +28,15 @@ public class ItemMenu extends AppCompatActivity {
         Intent intent = getIntent();
         playerInventory = intent.getIntegerArrayListExtra(SelectPlayer.EXTRA_PLAYERINVENTORY);
 
+
         mRecyclerView = findViewById(R.id.itemMenuRecyclerView);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
 
-        //todo:[BLOCKER] adjust the type of playerInventory being passed - should be a unique list that shows the count of each item
-        mAdapter = new InventoryAdapter(playerInventory);
-
+        Set<Integer> hashSet = new LinkedHashSet(playerInventory);
+        ArrayList<Integer> uniquePlayerInventory = new ArrayList(hashSet);
+        mAdapter = new InventoryAdapter(uniquePlayerInventory);
+        ((InventoryAdapter) mAdapter).setPlayerInventory(playerInventory);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
     }
