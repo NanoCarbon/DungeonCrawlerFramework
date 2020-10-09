@@ -544,7 +544,7 @@ public class Battle extends AppCompatActivity {
     }
 
     //todo: [High] return the player back to 1-1 equivalent... need to return them back to the main menu
-    //todo: [Bug] two YoYo's can't seem to play at once,
+
     private void attackPlayer(Player newPlayer){
         YoYo.with(Techniques.Tada)
                 .duration(100)

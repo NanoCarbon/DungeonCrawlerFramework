@@ -9,27 +9,42 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SelectPlayer"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Battle"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden"/>
-           <!-- <intent-filter>
+        <activity
+            android:name=".SelectPlayer"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait">
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>-->
-        <activity android:name=".ItemMenu"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden"/>
+        </activity>
+        <activity
+            android:name=".Battle"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <!--
+ <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        -->
+        <activity
+            android:name=".ItemMenu"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
