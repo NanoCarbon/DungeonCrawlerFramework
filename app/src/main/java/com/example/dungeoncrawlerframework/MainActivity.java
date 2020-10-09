@@ -1,14 +1,14 @@
 package com.example.dungeoncrawlerframework;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.dungeoncrawlerframework.ui.main.SectionsPagerAdapter;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,14 +22,17 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-        FloatingActionButton fab = findViewById(R.id.fab);
-
-        fab.setOnClickListener(new View.OnClickListener() {
+        Button enterLabryinthButton = findViewById(R.id.enterLabryinthButton);
+        enterLabryinthButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startSelectPlayerActivity();
             }
         });
+    }
+    public void startSelectPlayerActivity(){
+        //todo:[Medium] should display the hero's latest save data upon start of this activity
+        Intent intent = new Intent(this,SelectPlayer.class);
+        startActivity(intent);
     }
 }

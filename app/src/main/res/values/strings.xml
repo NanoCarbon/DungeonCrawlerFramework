@@ -54,8 +54,11 @@
     <string name="leaveDungeon_StringValue">Leave Dungeon</string>
     <string name="toPlayerInventoryButton_StringValue">Inventory</string>
     <string name="inventoryItemCount_StringValue">x%d</string>
+
+    <!--Tab Activity-->
     <string name="title_activity_main">MainActivity</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_1">Overview</string>
+    <string name="tab_text_2">Stats</string>
+    <string name="tab_text_3">Inventory</string>
 
 </resources>
