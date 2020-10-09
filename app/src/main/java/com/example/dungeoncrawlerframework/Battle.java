@@ -123,10 +123,6 @@ public class Battle extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //todo: [BLOCKER] when adding a duplicate item, how do I display just the unique list and also the number of duplicates associated with that item?
-        //https://www.quora.com/How-do-I-count-the-duplicate-objects-in-ArrayList-in-Java
-        //todo: [BLOCKER] is there an inventory limit? what is that limit?
-        //todo: [High] generate an item screen
         setContentView(R.layout.activity_battle);
 
         initializeViews();
@@ -156,7 +152,9 @@ public class Battle extends AppCompatActivity {
         newPlayer.addItem2Inventory(0);
         newPlayer.addItem2Inventory(2);
         */
-        getPlayerStats();/*
+        getPlayerStats();
+
+        /*
         newPlayer.playerEquipItem(0,playerLimb1);
         newPlayer.playerEquipItem(1,playerLimb2);
         getPlayerEquipment();
@@ -336,7 +334,7 @@ public class Battle extends AppCompatActivity {
 
         Drawable image = ContextCompat.getDrawable(this, newPlayer.getPlayerLimb1ImageId());
         leftArmDisplay.setImageDrawable(image);
-        leftArmDisplay.animate().alpha(1.0f);
+        leftArmDisplay.setVisibility(View.VISIBLE);
 
         playerExperience = newPlayer.getPlayerExperience();
         playerExperienceDisplay.setText(res.getString(R.string.playerExperience_StringValue,playerExperience));
@@ -546,8 +544,12 @@ public class Battle extends AppCompatActivity {
     }
 
     //todo: [High] return the player back to 1-1 equivalent... need to return them back to the main menu
-
+    //todo: [Bug] two YoYo's can't seem to play at once,
     private void attackPlayer(Player newPlayer){
+        YoYo.with(Techniques.Tada)
+                .duration(100)
+                .repeat(0)
+                .playOn(monsterImageDisplay);
         res = getResources();
         playerHP = playerHP - playerDamage;
         setPlayerStats();
@@ -555,6 +557,7 @@ public class Battle extends AppCompatActivity {
         turnCounter++;
         turnCounterDisplay.setText(res.getString(R.string.turnCounter_StringValue,turnCounter));
         combatLogDisplay.setText(res.getString(R.string.monsterAttackPlayer,monsterName,playerDamage));
+
         YoYo.with(Techniques.Flash)
                 .duration(300)
                 .repeat(0)
@@ -567,11 +570,11 @@ public class Battle extends AppCompatActivity {
 
     private void playerDeath() {
         resetTurnCounter();
-        leftArmDisplay.animate().alpha(0.0f).setDuration(1000);
+        getPlayerStats();
+        leftArmDisplay.setVisibility(View.INVISIBLE);
         endTurnButton.setVisibility(View.INVISIBLE);
         saveButton.setVisibility(View.INVISIBLE);
         combatLogDisplay.append(res.getString(R.string.playerDeath));
-        getPlayerStats();
     }
 
     private void killMonster() {

@@ -10,8 +10,6 @@ public class Item {
     private boolean equippable;
     private String itemDescription;
 
-
-    //todo: [High] add parameter that dictates if the item is to be used on a player or a monster
     public Item(int itemName, int itemImageId, int effectValue, int itemEffectType,boolean equippable, String itemDescription){
         this.itemName = itemName;
         this.itemImageId = itemImageId;
@@ -69,7 +67,7 @@ public class Item {
         this.itemDescription = itemDescription;
     }
 
-    //todo: [High] create a method tha
+    //todo: [High] create a method that unequips item as well
 
     public void equipItem(Limb playerLimb){
         if (this.equippable = true){

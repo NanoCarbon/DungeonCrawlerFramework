@@ -3,7 +3,7 @@ package com.example.dungeoncrawlerframework;
 import java.util.Random;
 
 public class Monster {
-    //todo: [Medium] generate an attack animation for the monster (shift left to right for simple animation and move arm up and down for more complex animations)
+    //todo: [Low] generate an attack animation for the monster (shift left to right for simple animation and move arm up and down for more complex animations)
 
 
     private int name;

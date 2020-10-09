@@ -4,12 +4,6 @@ import java.util.ArrayList;
 
 public class Player{
 
-
-    //todo: [High] create two arm system (1 to hold attack weapon) (1 to hold defense item)
-    //todo: [Medium] remove the kill Count, player EXP and player Level parameters - every class will start those values with 0
-    //todo: [High] add a descriptor parameter
-    //todo: [High] add a method to save player data to be accessed for future runs
-    //todo: [High] add a Magic/Ability Power attribute to the player to act as a function that drives healAmount
     //todo: [High] create a skill class and skill dictionary
 
 
@@ -474,9 +468,6 @@ public class Player{
         itemIndex = playerInventory.get(inventoryIndex);
         item2Equip = itemDictionary.getItem(itemIndex);
         itemType = item2Equip.getItemEffectType();
-
-        //todo:[High] incorporate floor logic in case the effectValue goes higher or below logical floors
-        //todo:[High] incorporate the logic for the other item types
 
         if(item2Equip.isEquippable()) {
             switch (itemType) {

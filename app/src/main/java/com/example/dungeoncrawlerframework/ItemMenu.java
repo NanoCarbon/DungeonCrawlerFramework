@@ -20,7 +20,9 @@ public class ItemMenu extends AppCompatActivity {
     private ArrayList<Integer> playerInventory;
 
     //Add regular views and other nonsenese here
-
+    //todo:[High] refactor to be a fragment in new Tab View
+    //todo: [High] create a way to select the type of equipment you want to bring into battle
+    //todo: [High] create a way to filter recycler view based on the body part selected
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -51,7 +51,8 @@ public class SelectPlayer extends AppCompatActivity {
     private int classIndex = 0;
     private String playerSharedPrefrences;
     private ArrayList<Integer> playerInventory;
-    //todo: [Low] Add a settings menu to adjust bgm
+    //todo: [Critical] refactor this to be a tabbed layout activity: https://www.youtube.com/watch?v=h4HwU_ENXYM
+    //todo: [Medium] Add a settings tab to adjust bgm
     //todo: [Low] refactor Select Player to pass player parcelable rather than just primitives
 
     //INTENT STRING NAMES  - USED TO DEFINE WHAT TO PASS TO BATTLE ACTIVITY
@@ -92,8 +93,7 @@ public class SelectPlayer extends AppCompatActivity {
         setContentView(R.layout.activity_select_player);
 
         initializeViews();
-        //todo: [High] create a way to select the type of skills you want to bring into battle
-        //todo: [High] create a way to select the type of equipment you want to bring into battle
+
         classDictionary = new PlayerClassDictionary();
         newPlayer = classDictionary.getPlayer(classIndex);
         getPlayerStats();

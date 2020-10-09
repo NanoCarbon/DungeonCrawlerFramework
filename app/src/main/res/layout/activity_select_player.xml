@@ -38,7 +38,7 @@
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
+        android:layout_marginBottom="50dp"
         android:background="#000000"
         android:gravity="center"
         android:padding="4dp"
@@ -46,9 +46,9 @@
         android:textAllCaps="true"
         android:textColor="#FFFFFF"
         android:textSize="22dp"
+        app:layout_constraintBottom_toTopOf="@+id/limb1ImageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/playerHPIconImageView"
