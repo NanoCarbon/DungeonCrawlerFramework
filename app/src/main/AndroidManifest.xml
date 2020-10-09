@@ -22,13 +22,15 @@
         <activity
             android:name=".SelectPlayer"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"/>
+        <!-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity
+        -->
         <activity
             android:name=".Battle"
             android:configChanges="orientation|keyboardHidden"
