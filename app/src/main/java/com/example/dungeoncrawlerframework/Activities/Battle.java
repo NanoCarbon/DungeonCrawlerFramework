@@ -107,12 +107,8 @@ public class Battle extends AppCompatActivity {
     private int playerSkillPower;
     private int playerCoinPurse;
     private String playerSharedPreferences;
-
-    private Limb playerLimb1;
-    private Item playerLimb1EquippedItem;
-
-    private Limb playerLimb2;
-    private Item playerLimb2EquippedItem;
+    private ArrayList<Integer> playerInventory;
+    private ArrayList<Limb> playerBodyParts;
 
     //calculated fields
     private TextView turnCounterDisplay;
@@ -123,7 +119,7 @@ public class Battle extends AppCompatActivity {
     private SoundPool soundPool;
     private int sound1,sound2,sound3,sound4,sound5,sound6;
     private boolean loaded;
-    private ArrayList<Integer> playerInventory;
+
     Resources res;
 
     @Override
@@ -134,7 +130,7 @@ public class Battle extends AppCompatActivity {
 
         initializeViews();
 
-        opponent = createMonster(4);
+        opponent = createMonster(0);
 
         Intent intent = getIntent();
         //player starts with max HP and max Energy upon entering the dungeon
@@ -155,10 +151,7 @@ public class Battle extends AppCompatActivity {
         newPlayer.setPlayerMaxEnergy(intent.getIntExtra(SelectPlayer.EXTRA_MAXENERGY,newPlayer.getPlayerMaxEnergy()));
         playerInventory = intent.getIntegerArrayListExtra(SelectPlayer.EXTRA_PLAYERINVENTORY);
         newPlayer.setPlayerInventory(playerInventory);
-        /*
-        newPlayer.addItem2Inventory(0);
-        newPlayer.addItem2Inventory(2);
-        */
+
         getPlayerStats();
 
         /*
@@ -309,9 +302,6 @@ public class Battle extends AppCompatActivity {
         playerLimb4EquippmentDisplay = findViewById(R.id.limb4EquippedItem);
         playerLimb5EquippmentDisplay = findViewById(R.id.limb5EquippedItem);
         playerLimb6EquippmentDisplay = findViewById(R.id.limb6EquippedItem);
-        playerLimb7EquippmentDisplay = findViewById(R.id.limb7EquippedItem);
-        playerLimb8EquippmentDisplay = findViewById(R.id.limb8EquippedItem);
-        playerLimb9EquippmentDisplay = findViewById(R.id.limb9EquippedItem);
         //battle views
         saveButton = findViewById(R.id.saveButtonView);
         saveButton.setVisibility(View.VISIBLE);
@@ -372,9 +362,7 @@ public class Battle extends AppCompatActivity {
         playerSkillPower = newPlayer.getPlayerSkillPower();
         playerSkillPowerDisplay.setText(res.getString(R.string.playerSP_StringValue,playerSkillPower));
 
-
-        playerLimb1 = newPlayer.getPlayerLimb1();
-        playerLimb2 = newPlayer.getPlayerLimb2();
+        playerBodyParts = newPlayer.getPlayerBodyParts();
 
         playerInventory = newPlayer.getPlayerInventory();
         currentInventoryCountDisplay.setText(res.getString(R.string.inventoryCount_StringValue,playerInventory.size()));
@@ -401,6 +389,7 @@ public class Battle extends AppCompatActivity {
         }
     }
 
+    /*
     private void getPlayerEquipment() {
         try {
             playerLimb1EquippedItem = playerLimb1.getEquippedItem();
@@ -419,6 +408,7 @@ public class Battle extends AppCompatActivity {
         }
         getPlayerStats();
     }
+    */
 
     private void setPlayerStats(){
         newPlayer.setPlayerExperience(playerExperience);

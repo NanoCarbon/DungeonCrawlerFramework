@@ -4,6 +4,7 @@ import com.example.dungeoncrawlerframework.Items.Item;
 
 public class Feet extends Limb{
     private Item equippedItem;
+    private int limbType = 5;
     public Feet(){
 
     }
@@ -16,4 +17,11 @@ public class Feet extends Limb{
         this.equippedItem = equippedItem;
     }
 
+    public int getLimbType() {
+        return limbType;
+    }
+
+    public void setLimbType(int limbType) {
+        this.limbType = limbType;
+    }
 }

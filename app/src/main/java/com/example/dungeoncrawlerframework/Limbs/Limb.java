@@ -10,6 +10,7 @@ public class Limb {
     //arms, torso, head, ears, legs, feet
 
     private Item equippedItem;
+    private int limbType = 0;
 
     public Limb(){
     }
@@ -20,6 +21,14 @@ public class Limb {
 
     public void setEquippedItem(Item equippedItem) {
         this.equippedItem = equippedItem;
+    }
+
+    public int getLimbType() {
+        return limbType;
+    }
+
+    public void setLimbType(int limbType) {
+        this.limbType = limbType;
     }
 
 }

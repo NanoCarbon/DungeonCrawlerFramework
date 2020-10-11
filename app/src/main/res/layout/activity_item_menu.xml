@@ -93,29 +93,4 @@
         app:layout_constraintTop_toTopOf="@+id/limb4EquippedItem"
         android:clickable="true"/>
 
-    <ImageView
-        android:id="@+id/limb7EquippedItem"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/shape"
-        app:layout_constraintEnd_toEndOf="@+id/limb4EquippedItem"
-        app:layout_constraintTop_toBottomOf="@+id/limb4EquippedItem"
-        android:clickable="true"/>
-    <ImageView
-        android:id="@+id/limb8EquippedItem"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/shape"
-        app:layout_constraintEnd_toStartOf="@+id/limb7EquippedItem"
-        app:layout_constraintTop_toTopOf="@+id/limb7EquippedItem"
-        android:clickable="true"/>
-    <ImageView
-        android:id="@+id/limb9EquippedItem"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/shape"
-        app:layout_constraintEnd_toStartOf="@+id/limb8EquippedItem"
-        app:layout_constraintTop_toTopOf="@+id/limb7EquippedItem"
-        android:clickable="true"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

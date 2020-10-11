@@ -15,22 +15,36 @@ public class Player{
 
     //todo: [High] create a skill class and skill dictionary
 
-
+    //======THE 7 PLAYER STATS THAT ARE AFFECTED BY ITEMS========//
     private int playerHealth;
+    private int itemHealthEffect = 0;
+
     private int playerAttack;
+    private int itemAttackEffect = 0;
+
     private int playerDefense;
+    private int itemDefenseEffect = 0;
+
     private int playerMaxHealth;
+    private int itemMaxHealthEffect = 0;
+
     private int playerEnergy;
+    private int itemEnergyEffect = 0;
+
     private int playerMaxEnergy;
+    private int itemMaxEnergyEffect = 0;
+
+    private int playerSkillPower;
+    private int itemSkillPowerEffect = 0;
+    //===========================================================//
+
     private int playerLimb1ImageId;
     private ArrayList<Integer> playerInventory;
     private int playerExperience=0;
     private int playerLevel=0;
     private int playerKillCount=0;
-    private int playerSkillPower;
+
     private String playerDescription;
-    private Limb playerLimb1 = new Limb();
-    private Limb playerLimb2 = new Limb();
     private Hand playerHand1 = new Hand();
     private Hand playerHand2 = new Hand();
     private Feet playerFeet = new Feet();
@@ -273,22 +287,6 @@ public class Player{
         this.playerLimb1ImageId = playerLimb1ImageId;
     }
 
-    public Limb getPlayerLimb1() {
-        return playerLimb1;
-    }
-
-    public void setPlayerLimb1(Limb playerLimb1) {
-        this.playerLimb1 = playerLimb1;
-    }
-
-    public Limb getPlayerLimb2() {
-        return playerLimb2;
-    }
-
-    public void setPlayerLimb2(Limb playerLimb2) {
-        this.playerLimb2 = playerLimb2;
-    }
-
     public String getPlayerDescription() {
         return playerDescription;
     }
@@ -313,8 +311,17 @@ public class Player{
         this.playerCoinPurse = playerCoinPurse;
     }
 
+    public ArrayList<Limb> getPlayerBodyParts() {
+        return playerBodyParts;
+    }
 
+    public void setPlayerBodyParts(ArrayList<Limb> playerBodyParts) {
+        this.playerBodyParts = playerBodyParts;
+    }
 
+    public String getPlayerSharedPreferences() {
+        return playerSharedPreferences;
+    }
 
     public int getPlayerStartingAttack() {
         return playerStartingAttack;
@@ -344,9 +351,7 @@ public class Player{
         return playerStartingSkillPower;
     }
 
-    public String getPlayerSharedPreferences() {
-        return playerSharedPreferences;
-    }
+
 
 
 
@@ -413,7 +418,6 @@ public class Player{
         this.playerSkillPower = this.playerStartingSkillPower;
     }
 
-
     public void addItem2Inventory(int itemIndex){
         playerInventory.add(itemIndex);
     }
@@ -424,67 +428,8 @@ public class Player{
         playerInventory.remove(inventoryIndex);
     }
 
-    public void playerUseItem(int inventoryIndex){
-        //method for single use items
-        ItemDictionary itemDictionary = new ItemDictionary();
 
-        int itemIndex;
-        Item item2Use;
-        int itemType;
-
-        itemIndex = playerInventory.get(inventoryIndex);
-        item2Use = itemDictionary.getItem(itemIndex);
-        itemType = item2Use.getItemEffectType();
-
-        //todo:[High] incorporate floor logic in case the effectValue goes higher or below logical floors
-        //todo:[High] incorporate the logic for the other item types
-        //(i.e. death or potions healing above max health)
-
-        switch(itemType){
-            case 1:
-                //affects playerMaxHealth
-                playerMaxHealth = playerMaxHealth + item2Use.getEffectValue();
-                playerHealth = playerMaxHealth;
-                break;
-            case 2:
-                //affects playerHealth
-                if(playerHealth + item2Use.getEffectValue()>=playerMaxHealth){
-                    playerHealth = playerMaxHealth;
-                }else{
-                    playerHealth = playerHealth + item2Use.getEffectValue();
-                }
-                break;
-            case 3:
-                //affects playerAttack
-                playerAttack = playerAttack + item2Use.getEffectValue();
-                break;
-            case 4:
-                //affects playerDefense
-                playerDefense = playerDefense + item2Use.getEffectValue();
-                break;
-            case 5:
-                //affects playerMaxEnergy;
-                playerMaxEnergy = playerMaxEnergy + item2Use.getEffectValue();
-                playerEnergy = playerMaxEnergy;
-                break;
-            case 6:
-                //affects playerEnergy;
-                if(playerEnergy + item2Use.getEffectValue()>=playerMaxEnergy){
-                    playerEnergy = playerMaxEnergy;
-                }else{
-                    playerEnergy = playerEnergy + item2Use.getEffectValue();
-                }
-                break;
-            case 7:
-                //affects playerSkillPower;
-                playerSkillPower = playerSkillPower + item2Use.getEffectValue();
-                break;
-
-        }
-
-        removeItemFromInventory(inventoryIndex);
-    }
-    public void playerEquipItem(int inventoryIndex, Limb limb2Equip){
+    public void playerUseItem(int inventoryIndex, Limb limb2Equip){
         //method for equipment and permanent items
 
         ItemDictionary itemDictionary = new ItemDictionary();
@@ -497,49 +442,62 @@ public class Player{
         item2Equip = itemDictionary.getItem(itemIndex);
         itemType = item2Equip.getItemEffectType();
 
-        if(item2Equip.isEquippable()) {
+        if(item2Equip.isEquippable() && limb2Equip.getLimbType() == item2Equip.getLimbRestriction()) {
             switch (itemType) {
                 case 1:
                     //affects playerMaxHealth
-                    playerMaxHealth = playerMaxHealth + item2Equip.getEffectValue();
+                    itemMaxHealthEffect = itemMaxHealthEffect + item2Equip.getEffectValue();
+                    playerMaxHealth = playerMaxHealth + itemMaxHealthEffect;
                     playerHealth = playerMaxHealth;
                     break;
                 case 2:
                     //affects playerHealth
-                    if (playerHealth + item2Equip.getEffectValue() >= playerMaxHealth) {
+                    itemHealthEffect = itemMaxHealthEffect + item2Equip.getEffectValue();
+                    if (playerHealth + itemHealthEffect>= playerMaxHealth) {
                         playerHealth = playerMaxHealth;
                     } else {
-                        playerHealth = playerHealth + item2Equip.getEffectValue();
+                        playerHealth = playerHealth + itemHealthEffect;
                     }
                     break;
                 case 3:
                     //affects playerAttack
-                    playerAttack = playerAttack + item2Equip.getEffectValue();
+                    itemAttackEffect = itemAttackEffect + item2Equip.getEffectValue();
+                    playerAttack = playerAttack + itemAttackEffect;
                     break;
                 case 4:
                     //affects playerDefense
-                    playerDefense = playerDefense + item2Equip.getEffectValue();
+                    itemDefenseEffect = itemDefenseEffect + item2Equip.getEffectValue();
+                    playerDefense = playerDefense + itemDefenseEffect;
                     break;
                 case 5:
                     //affects playerMaxEnergy;
-                    playerMaxEnergy = playerMaxEnergy + item2Equip.getEffectValue();
+                    itemMaxEnergyEffect = itemMaxEnergyEffect + item2Equip.getEffectValue();
+                    playerMaxEnergy = playerMaxEnergy + itemMaxEnergyEffect;
                     playerEnergy = playerMaxEnergy;
                     break;
                 case 6:
                     //affects playerEnergy;
-                    if (playerEnergy + item2Equip.getEffectValue() >= playerMaxEnergy) {
+                    itemEnergyEffect = itemEnergyEffect + item2Equip.getEffectValue();
+                    if (playerEnergy + itemEnergyEffect >= playerMaxEnergy) {
                         playerEnergy = playerMaxEnergy;
                     } else {
-                        playerEnergy = playerEnergy + item2Equip.getEffectValue();
+                        playerEnergy = playerEnergy + itemEnergyEffect;
                     }
                     break;
                 case 7:
                     //affects playerSkillPower;
-                    playerSkillPower = playerSkillPower + item2Equip.getEffectValue();
+                    itemSkillPowerEffect = itemSkillPowerEffect + item2Equip.getEffectValue();
+                    playerSkillPower = playerSkillPower + itemSkillPowerEffect;
                     break;
 
             }
-            limb2Equip.setEquippedItem(item2Equip);
+            //Checks to see if the item is single use (i.e. where LimbRestriction = 0)//
+            if(item2Equip.getLimbRestriction() ==0){
+                removeItemFromInventory(inventoryIndex);
+            }else{
+                limb2Equip.setEquippedItem(item2Equip);
+            }
+
         }
     }
 

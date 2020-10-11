@@ -19,7 +19,7 @@ public class MonsterDictionary {
 
         monsters[2] = new Monster(R.string.monster3,30,3,3,R.drawable.monster3,50,2,0.5,300);
 
-        monsters[3] = new Monster(R.string.snelly,15,1,5,R.drawable.snelly,15,3,0.5,1000);
+        monsters[3] = new Monster(R.string.snelly,15,1,10,R.drawable.snelly,15,3,0.5,1000);
 
         monsters[4] = new Monster(R.string.commongrunt,50,5,5,R.drawable.commongrunt,100,1,0.5,500);
 
