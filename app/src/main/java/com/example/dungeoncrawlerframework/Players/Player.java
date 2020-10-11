@@ -2,7 +2,12 @@ package com.example.dungeoncrawlerframework.Players;
 
 import com.example.dungeoncrawlerframework.Items.Item;
 import com.example.dungeoncrawlerframework.Items.ItemDictionary;
+import com.example.dungeoncrawlerframework.Limbs.Feet;
+import com.example.dungeoncrawlerframework.Limbs.Hand;
+import com.example.dungeoncrawlerframework.Limbs.Head;
+import com.example.dungeoncrawlerframework.Limbs.Legs;
 import com.example.dungeoncrawlerframework.Limbs.Limb;
+import com.example.dungeoncrawlerframework.Limbs.Torso;
 
 import java.util.ArrayList;
 
@@ -26,7 +31,15 @@ public class Player{
     private String playerDescription;
     private Limb playerLimb1 = new Limb();
     private Limb playerLimb2 = new Limb();
+    private Hand playerHand1 = new Hand();
+    private Hand playerHand2 = new Hand();
+    private Feet playerFeet = new Feet();
+    private Head playerHead = new Head();
+    private Torso playerTorso = new Torso();
+    private Legs playerLegs = new Legs();
+
     private int playerCoinPurse = 0;
+    private ArrayList<Limb> playerBodyParts = new ArrayList<Limb>();
 
 
     //starting values
@@ -63,6 +76,16 @@ public class Player{
         this.playerDescription = playerDescription;
         this.playerSkillPower = playerSkillPower;
         this.playerSharedPreferences = playerSharedPreferences;
+        this.playerBodyParts.add(playerHand1);
+        this.playerBodyParts.add(playerHand2);
+        this.playerBodyParts.add(playerHead);
+        this.playerBodyParts.add(playerTorso);
+        this.playerBodyParts.add(playerLegs);
+        this.playerBodyParts.add(playerFeet);
+
+
+
+
 
         //starting values
         this.playerStartingHealth = playerHealth;
@@ -72,6 +95,7 @@ public class Player{
         this.playerStartingEnergy = playerEnergy;
         this.playerStartingMaxEnergy = playerEnergy;
         this.playerStartingSkillPower = playerSkillPower;
+
     }
 
     // PARCELABLE IMPLEMENTATION METHODS

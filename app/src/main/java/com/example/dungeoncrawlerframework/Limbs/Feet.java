@@ -2,7 +2,7 @@ package com.example.dungeoncrawlerframework.Limbs;
 
 import com.example.dungeoncrawlerframework.Items.Item;
 
-public class Feet {
+public class Feet extends Limb{
     private Item equippedItem;
     public Feet(){
 

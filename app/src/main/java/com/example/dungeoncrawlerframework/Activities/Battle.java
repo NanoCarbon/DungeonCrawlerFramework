@@ -526,10 +526,10 @@ public class Battle extends AppCompatActivity {
         //todo:[High] pass the current room's monster into here
         freshMonster = monsterDictionary.getMonster(monsterNumber);
 
-        Drawable image = ContextCompat.getDrawable(this,freshMonster.getMonsterImageId());
+        Drawable monsterImage = ContextCompat.getDrawable(this,freshMonster.getMonsterImageId());
 
         //todo: [Low] create an updateMonsterStats method same as updatePlayerStats
-        monsterImageDisplay.setImageDrawable(image);
+        monsterImageDisplay.setImageDrawable(monsterImage);
 
         monsterName = res.getString(freshMonster.getName());
         monsterDefense=freshMonster.getDefensePower();

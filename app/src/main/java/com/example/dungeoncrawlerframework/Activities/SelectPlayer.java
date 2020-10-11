@@ -169,6 +169,7 @@ public class SelectPlayer extends AppCompatActivity {
     }
 
     private void getPlayerStats() {
+        //todo:[BUG] player image overwritten with a monster image ID for some reason upon loading
         Drawable image = ContextCompat.getDrawable(this, newPlayer.getPlayerLimb1ImageId());
         selectedClassDisplay.setImageDrawable(image);
         playerEnergy = newPlayer.getPlayerEnergy();

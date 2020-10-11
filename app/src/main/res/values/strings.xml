@@ -26,12 +26,20 @@
     <string name="monster3">Goober Boss</string>
     <string name="snelly">Snelly</string>
     <string name="commongrunt">Common Grunt</string>
+    <string name="gruntbro">Grunt Bro</string>
+    <string name="gruntcaptain">Grunt Captain</string>
+
     <!--Item names-->
 
     <string name="aquatear">Aqua Tear</string>
     <string name="miniglobe">Mini Globe</string>
     <string name="shovel">Normal Shovel</string>
     <string name="emerald">Life Emerald</string>
+    <string name="battery">Battery</string>
+    <string name="bluepotion">Blue Potion</string>
+    <string name="redpotion">Red Potion</string>
+    <string name="greenpotion">Green Potion</string>
+
     <!--Player Descriptions-->
     <string name="player0desc">"This dude is basic."</string>
     <string name="player1desc">"This dude is intermediate."</string>
