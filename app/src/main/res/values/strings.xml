@@ -25,7 +25,7 @@
     <string name="monster2">Goober Mom</string>
     <string name="monster3">Goober Boss</string>
     <string name="snelly">Snelly</string>
-
+    <string name="commongrunt">Common Grunt</string>
     <!--Item names-->
 
     <string name="aquatear">Aqua Tear</string>

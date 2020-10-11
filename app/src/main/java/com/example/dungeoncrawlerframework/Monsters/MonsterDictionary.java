@@ -11,7 +11,7 @@ public class MonsterDictionary {
     public MonsterDictionary(){
 
         //UPDATE WHEN YOU ADD A NEW MONSTER
-        monsters = new Monster[4];
+        monsters = new Monster[5];
 
         monsters[0] = new Monster(R.string.monster1,10,1,1,R.drawable.monster1,10,0,1.0,100);
 
@@ -20,6 +20,8 @@ public class MonsterDictionary {
         monsters[2] = new Monster(R.string.monster3,30,3,3,R.drawable.monster3,50,2,1.0,300);
 
         monsters[3] = new Monster(R.string.snelly,15,1,5,R.drawable.snelly,15,3,1.0,400);
+
+        monsters[4] = new Monster(R.string.commongrunt,50,5,5,R.drawable.commongrunt,100,1,0.5,150);
 
     }
 

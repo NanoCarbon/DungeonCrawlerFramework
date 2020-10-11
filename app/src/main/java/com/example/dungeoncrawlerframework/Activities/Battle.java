@@ -134,7 +134,7 @@ public class Battle extends AppCompatActivity {
 
         initializeViews();
 
-        opponent = createMonster(0);
+        opponent = createMonster(4);
 
         Intent intent = getIntent();
         //player starts with max HP and max Energy upon entering the dungeon
@@ -522,6 +522,8 @@ public class Battle extends AppCompatActivity {
         res = getResources();
         monsterDictionary = new MonsterDictionary();
         Monster freshMonster;
+
+        //todo:[High] pass the current room's monster into here
         freshMonster = monsterDictionary.getMonster(monsterNumber);
 
         Drawable image = ContextCompat.getDrawable(this,freshMonster.getMonsterImageId());

@@ -14,7 +14,7 @@ public class DungeonFloor {
     DungeonFloor(int floorNumber){
 
         this.floorNumber = floorNumber;
-        //todo:[High] randomly generate a list of monsters that you would fight based on the
+        //todo:[High] randomly generate a list of monsters that you would fight based on the population of the Dungeon Floor with one boss monster at the end
     }
 
     public MonsterDictionary getMonsterDictionary() {
