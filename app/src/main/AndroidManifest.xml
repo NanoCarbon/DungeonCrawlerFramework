@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SelectPlayer"
+            android:name=".Activities.SelectPlayer"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -21,12 +21,12 @@
         </activity>
 
         <activity
-            android:name=".Battle"
+            android:name=".Activities.Battle"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ItemMenu"
+            android:name=".Activities.PlayerInventory"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
     </application>

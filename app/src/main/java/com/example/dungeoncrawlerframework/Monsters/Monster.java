@@ -1,4 +1,7 @@
-package com.example.dungeoncrawlerframework;
+package com.example.dungeoncrawlerframework.Monsters;
+
+import com.example.dungeoncrawlerframework.Items.Item;
+import com.example.dungeoncrawlerframework.Items.ItemDictionary;
 
 import java.util.Random;
 

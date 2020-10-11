@@ -1,6 +1,6 @@
 package com.example.dungeoncrawlerframework.Limbs;
 
-import com.example.dungeoncrawlerframework.Item;
+import com.example.dungeoncrawlerframework.Items.Item;
 
 public class Hand extends Limb {
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/darker_gray"
-    tools:context=".ItemMenu">
+    tools:context=".Activities.PlayerInventory">
 
     <!--todo: [High] nest recycler view into another text view that shows no items if there isn't any-->
     <!--todo: [High] pretty up and organize; add player stats onto this screen-->
@@ -17,7 +17,7 @@
         android:background="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:context=".ItemMenu">
+        tools:context=".Activities.PlayerInventory">
 
             <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/itemMenuRecyclerView"

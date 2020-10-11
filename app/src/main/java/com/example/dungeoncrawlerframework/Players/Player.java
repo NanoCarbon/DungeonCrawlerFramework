@@ -1,5 +1,7 @@
-package com.example.dungeoncrawlerframework;
+package com.example.dungeoncrawlerframework.Players;
 
+import com.example.dungeoncrawlerframework.Items.Item;
+import com.example.dungeoncrawlerframework.Items.ItemDictionary;
 import com.example.dungeoncrawlerframework.Limbs.Limb;
 
 import java.util.ArrayList;
@@ -327,15 +329,15 @@ public class Player{
 //MAJOR PLAYER METHODS
 
 
-    LevelTree levelTree = new LevelTree();
+    PlayerLevelTree playerLevelTree = new PlayerLevelTree();
 
-    int[] lowLevelBound = levelTree.getLowLevelBound();
-    int[] hiLevelBound = levelTree.getHiLevelBound();
-    int[] statsTreeAttack = levelTree.getAttackTree();
-    int[] statsTreeDefense = levelTree.getDefenseTree();
-    int[] statsTreeHP = levelTree.getHpTree();
-    int[] statsTreeEnergy = levelTree.getEnergyTree();
-    int[] statsTreeSkillPower = levelTree.getSkillPowerTree();
+    int[] lowLevelBound = playerLevelTree.getLowLevelBound();
+    int[] hiLevelBound = playerLevelTree.getHiLevelBound();
+    int[] statsTreeAttack = playerLevelTree.getAttackTree();
+    int[] statsTreeDefense = playerLevelTree.getDefenseTree();
+    int[] statsTreeHP = playerLevelTree.getHpTree();
+    int[] statsTreeEnergy = playerLevelTree.getEnergyTree();
+    int[] statsTreeSkillPower = playerLevelTree.getSkillPowerTree();
 
     public int checkLevel(int playerExperience){
         int level = -1;

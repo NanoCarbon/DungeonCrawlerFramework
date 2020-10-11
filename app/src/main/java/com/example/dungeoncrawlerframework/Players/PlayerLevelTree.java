@@ -1,9 +1,9 @@
-package com.example.dungeoncrawlerframework;
+package com.example.dungeoncrawlerframework.Players;
 
 
 //import java.util.List;
 
-public class LevelTree {
+public class PlayerLevelTree {
 
 
     //todo: [Low] find a better spot to store these values and create a method to read the stored values - ideally it's an XML file and a method to read the XML files that fills in the array here
@@ -60,7 +60,7 @@ csvReader.close();
     }
 
 
-    public LevelTree() {
+    public PlayerLevelTree() {
     }
 
 

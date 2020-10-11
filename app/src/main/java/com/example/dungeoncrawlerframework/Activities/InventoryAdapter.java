@@ -1,4 +1,4 @@
-package com.example.dungeoncrawlerframework;
+package com.example.dungeoncrawlerframework.Activities;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.dungeoncrawlerframework.Items.Item;
+import com.example.dungeoncrawlerframework.Items.ItemDictionary;
+import com.example.dungeoncrawlerframework.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -67,6 +71,6 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
 
     public void setPlayerInventory(ArrayList<Integer> playerInventory){
         mPlayerInventory = playerInventory;
-    };
+    }
 
 }

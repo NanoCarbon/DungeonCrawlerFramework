@@ -1,18 +1,20 @@
-package com.example.dungeoncrawlerframework;
+package com.example.dungeoncrawlerframework.DungeonStructure;
+
+import com.example.dungeoncrawlerframework.Monsters.Monster;
+import com.example.dungeoncrawlerframework.Monsters.MonsterDictionary;
 
 import java.util.ArrayList;
 
 public class DungeonFloor {
 
-    private MonsterDictionary monsterDictionary;
+    private MonsterDictionary monsterDictionary = new MonsterDictionary();
     private ArrayList<Monster> floorMonsters;
     private int floorNumber;
 
     DungeonFloor(int floorNumber){
 
         this.floorNumber = floorNumber;
-        monsterDictionary = new MonsterDictionary();
-
+        //todo:[High] randomly generate a list of monsters that you would fight based on the
     }
 
     public MonsterDictionary getMonsterDictionary() {

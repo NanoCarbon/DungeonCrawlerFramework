@@ -1,4 +1,6 @@
-package com.example.dungeoncrawlerframework;
+package com.example.dungeoncrawlerframework.Items;
+
+import com.example.dungeoncrawlerframework.R;
 
 public class ItemDictionary {
 

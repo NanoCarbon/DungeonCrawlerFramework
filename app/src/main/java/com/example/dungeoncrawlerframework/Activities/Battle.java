@@ -1,4 +1,4 @@
-package com.example.dungeoncrawlerframework;
+package com.example.dungeoncrawlerframework.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,25 +23,31 @@ import androidx.core.content.ContextCompat;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.example.dungeoncrawlerframework.Items.Item;
+import com.example.dungeoncrawlerframework.Items.ItemDictionary;
 import com.example.dungeoncrawlerframework.Limbs.Limb;
+import com.example.dungeoncrawlerframework.Monsters.Monster;
+import com.example.dungeoncrawlerframework.Monsters.MonsterDictionary;
+import com.example.dungeoncrawlerframework.Players.Player;
+import com.example.dungeoncrawlerframework.R;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import static com.example.dungeoncrawlerframework.SelectPlayer.KILLCOUNT;
-import static com.example.dungeoncrawlerframework.SelectPlayer.PLAYERATTACK;
-import static com.example.dungeoncrawlerframework.SelectPlayer.PLAYERCOINPURSE;
-import static com.example.dungeoncrawlerframework.SelectPlayer.PLAYERDEFENSE;
-import static com.example.dungeoncrawlerframework.SelectPlayer.PLAYERENERGY;
-import static com.example.dungeoncrawlerframework.SelectPlayer.PLAYEREXPERIENCE;
-import static com.example.dungeoncrawlerframework.SelectPlayer.PLAYERHP;
-import static com.example.dungeoncrawlerframework.SelectPlayer.PLAYERIMAGEID;
-import static com.example.dungeoncrawlerframework.SelectPlayer.PLAYERINVENTORY;
-import static com.example.dungeoncrawlerframework.SelectPlayer.PLAYERLEVEL;
-import static com.example.dungeoncrawlerframework.SelectPlayer.PLAYERMAXENERGY;
-import static com.example.dungeoncrawlerframework.SelectPlayer.PLAYERMAXHP;
-import static com.example.dungeoncrawlerframework.SelectPlayer.PLAYERSKILLPOWER;
+import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.KILLCOUNT;
+import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYERATTACK;
+import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYERCOINPURSE;
+import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYERDEFENSE;
+import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYERENERGY;
+import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYEREXPERIENCE;
+import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYERHP;
+import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYERIMAGEID;
+import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYERINVENTORY;
+import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYERLEVEL;
+import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYERMAXENERGY;
+import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYERMAXHP;
+import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYERSKILLPOWER;
 
 public class Battle extends AppCompatActivity {
 

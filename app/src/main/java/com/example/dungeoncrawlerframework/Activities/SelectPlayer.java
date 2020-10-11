@@ -1,4 +1,4 @@
-package com.example.dungeoncrawlerframework;
+package com.example.dungeoncrawlerframework.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +13,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.example.dungeoncrawlerframework.Players.Player;
+import com.example.dungeoncrawlerframework.Players.PlayerClassDictionary;
+import com.example.dungeoncrawlerframework.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -213,7 +216,7 @@ public class SelectPlayer extends AppCompatActivity {
 
     public void startBattleActivity(){
 
-        Intent intent = new Intent(this,Battle.class);
+        Intent intent = new Intent(this, Battle.class);
         intent.putExtra(EXTRA_HP,playerHP);
         intent.putExtra(EXTRA_ATTACK,playerAttack);
         intent.putExtra(EXTRA_DEFENSE,playerDefense);
@@ -234,7 +237,7 @@ public class SelectPlayer extends AppCompatActivity {
 
     public void openPlayerInventory(){
 
-        Intent intent = new Intent(this,ItemMenu.class);
+        Intent intent = new Intent(this, PlayerInventory.class);
         intent.putExtra(EXTRA_PLAYERINVENTORY,playerInventory);
         startActivity(intent);
     }

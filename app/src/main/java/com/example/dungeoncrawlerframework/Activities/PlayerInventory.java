@@ -1,4 +1,4 @@
-package com.example.dungeoncrawlerframework;
+package com.example.dungeoncrawlerframework.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,12 +7,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.dungeoncrawlerframework.R;
+
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 
-public class ItemMenu extends AppCompatActivity {
+public class PlayerInventory extends AppCompatActivity {
     //RECYCLER VIEW STUFF - DO NOT TOUCH
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -20,7 +22,7 @@ public class ItemMenu extends AppCompatActivity {
     private ArrayList<Integer> playerInventory;
 
     //Add regular views and other nonsenese here
-    //todo:[High] refactor to be a fragment in new Tab View
+
     //todo: [High] create a way to select the type of equipment you want to bring into battle
     //todo: [High] create a way to filter recycler view based on the body part selected
     @Override

@@ -1,5 +1,7 @@
-package com.example.dungeoncrawlerframework;
+package com.example.dungeoncrawlerframework.Monsters;
 
+
+import com.example.dungeoncrawlerframework.R;
 
 public class MonsterDictionary {
     //todo: [Low] refactor this to use an ArrayList<Integer> rather than just a fixed array
