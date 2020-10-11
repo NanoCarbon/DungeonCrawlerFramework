@@ -9,33 +9,46 @@
 
     <!--todo: [High] nest recycler view into another text view that shows no items if there isn't any-->
     <!--todo: [High] pretty up and organize; add player stats onto this screen-->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/itemMenuRecyclerView"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="4dp"
-        android:padding="8dp"
-        android:scrollbars="vertical"
-        app:layout_constrainedHeight="true"
+        android:background="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:context=".ItemMenu">
+
+            <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/itemMenuRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="4dp"
+            android:padding="8dp"
+            android:scrollbars="vertical"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
         android:id="@+id/limb1EquippedItem"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginRight="100dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:background="@drawable/shape"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:clickable="true"/>
 
     <ImageView
         android:id="@+id/limb2EquippedItem"
@@ -43,14 +56,17 @@
         android:layout_height="50dp"
         android:background="@drawable/shape"
         app:layout_constraintEnd_toStartOf="@+id/limb1EquippedItem"
-        app:layout_constraintTop_toTopOf="@+id/limb1EquippedItem" />
+        app:layout_constraintTop_toTopOf="@+id/limb1EquippedItem"
+        android:clickable="true"/>
+
     <ImageView
         android:id="@+id/limb3EquippedItem"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/shape"
         app:layout_constraintEnd_toStartOf="@+id/limb2EquippedItem"
-        app:layout_constraintTop_toTopOf="@+id/limb1EquippedItem" />
+        app:layout_constraintTop_toTopOf="@+id/limb1EquippedItem"
+        android:clickable="true"/>
 
     <ImageView
         android:id="@+id/limb4EquippedItem"
@@ -58,21 +74,24 @@
         android:layout_height="50dp"
         android:background="@drawable/shape"
         app:layout_constraintEnd_toEndOf="@+id/limb1EquippedItem"
-        app:layout_constraintTop_toBottomOf="@+id/limb1EquippedItem" />
+        app:layout_constraintTop_toBottomOf="@+id/limb1EquippedItem"
+        android:clickable="true"/>
     <ImageView
         android:id="@+id/limb5EquippedItem"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/shape"
         app:layout_constraintEnd_toStartOf="@+id/limb4EquippedItem"
-        app:layout_constraintTop_toTopOf="@+id/limb4EquippedItem" />
+        app:layout_constraintTop_toTopOf="@+id/limb4EquippedItem"
+        android:clickable="true"/>
     <ImageView
         android:id="@+id/limb6EquippedItem"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/shape"
         app:layout_constraintEnd_toStartOf="@+id/limb5EquippedItem"
-        app:layout_constraintTop_toTopOf="@+id/limb4EquippedItem" />
+        app:layout_constraintTop_toTopOf="@+id/limb4EquippedItem"
+        android:clickable="true"/>
 
     <ImageView
         android:id="@+id/limb7EquippedItem"
@@ -80,20 +99,23 @@
         android:layout_height="50dp"
         android:background="@drawable/shape"
         app:layout_constraintEnd_toEndOf="@+id/limb4EquippedItem"
-        app:layout_constraintTop_toBottomOf="@+id/limb4EquippedItem" />
+        app:layout_constraintTop_toBottomOf="@+id/limb4EquippedItem"
+        android:clickable="true"/>
     <ImageView
         android:id="@+id/limb8EquippedItem"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/shape"
         app:layout_constraintEnd_toStartOf="@+id/limb7EquippedItem"
-        app:layout_constraintTop_toTopOf="@+id/limb7EquippedItem" />
+        app:layout_constraintTop_toTopOf="@+id/limb7EquippedItem"
+        android:clickable="true"/>
     <ImageView
         android:id="@+id/limb9EquippedItem"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/shape"
         app:layout_constraintEnd_toStartOf="@+id/limb8EquippedItem"
-        app:layout_constraintTop_toTopOf="@+id/limb7EquippedItem" />
+        app:layout_constraintTop_toTopOf="@+id/limb7EquippedItem"
+        android:clickable="true"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

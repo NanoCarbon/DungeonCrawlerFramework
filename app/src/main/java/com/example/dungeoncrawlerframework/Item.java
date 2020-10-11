@@ -1,5 +1,7 @@
 package com.example.dungeoncrawlerframework;
 
+import com.example.dungeoncrawlerframework.Limbs.Limb;
+
 public class Item {
 
 
@@ -43,7 +45,7 @@ public class Item {
         this.effectValue = effectValue;
     }
 
-        public int getItemEffectType() {
+    public int getItemEffectType() {
             return itemEffectType;
     }
 

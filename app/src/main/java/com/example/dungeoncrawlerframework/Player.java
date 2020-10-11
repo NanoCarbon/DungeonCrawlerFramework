@@ -1,5 +1,7 @@
 package com.example.dungeoncrawlerframework;
 
+import com.example.dungeoncrawlerframework.Limbs.Limb;
+
 import java.util.ArrayList;
 
 public class Player{

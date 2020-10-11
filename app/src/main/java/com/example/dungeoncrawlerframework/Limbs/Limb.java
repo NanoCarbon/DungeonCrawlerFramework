@@ -1,4 +1,6 @@
-package com.example.dungeoncrawlerframework;
+package com.example.dungeoncrawlerframework.Limbs;
+
+import com.example.dungeoncrawlerframework.Item;
 
 public class Limb {
 

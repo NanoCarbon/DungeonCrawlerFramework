@@ -23,6 +23,7 @@ import androidx.core.content.ContextCompat;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.example.dungeoncrawlerframework.Limbs.Limb;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -611,11 +612,7 @@ public class Battle extends AppCompatActivity {
         boolean dropSuccess;
         Random r = new Random();
         float chance = r.nextFloat();
-        if (chance<=monsterDropChance){
-            dropSuccess = true;
-        }else{
-            dropSuccess = false;
-        }
+        dropSuccess = chance <= monsterDropChance;
         return dropSuccess;
     }
 
