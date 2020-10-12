@@ -12,7 +12,7 @@ public class Item {
     private boolean equippable;
     private String itemDescription;
     private int limbRestriction;
-
+    //=============================CONSTRUCTOR====================================//
     public Item(int itemName, int itemImageId, int effectValue, int itemEffectType,boolean equippable, String itemDescription, int limbRestriction){
         this.itemName = itemName;
         this.itemImageId = itemImageId;
@@ -22,7 +22,9 @@ public class Item {
         this.itemDescription = itemDescription;
         this.limbRestriction = limbRestriction;
     }
+    //=============================CONSTRUCTOR====================================//
 
+    //===========================GETTERS AND SETTERS================================//
     public int getItemName() {
         return itemName;
     }
@@ -78,12 +80,15 @@ public class Item {
     public void setLimbRestriction(int limbRestriction) {
         this.limbRestriction = limbRestriction;
     }
+    //===========================GETTERS AND SETTERS================================//
+
 
     //todo: [High] create a method that unequips item as well
-
+    //====================MAIN ITEM METHODS=========================================//
     public void equipItem(Limb playerLimb){
         if (this.equippable = true && limbRestriction == playerLimb.getLimbType()){
             playerLimb.setEquippedItem(this);
         }
     }
+    //====================MAIN ITEM METHODS=========================================//
 }

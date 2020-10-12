@@ -29,7 +29,7 @@ public class ItemDictionary {
 
         items[3] = new Item(R.string.miniglobe,R.drawable.bluedot,100,5,false,"Single-use; +100 to Max Energy",0);
 
-        items[4] = new Item(R.string.battery,R.drawable.bluedot,100,6,false,"Single-use; +100 to Energy",0);
+        items[4] = new Item(R.string.battery,R.drawable.battery,100,6,false,"Single-use; +100 to Energy",0);
 
         items[5] = new Item(R.string.redpotion,R.drawable.redpotion,10,2,false,"Single-use; +10 to Health",0);
 

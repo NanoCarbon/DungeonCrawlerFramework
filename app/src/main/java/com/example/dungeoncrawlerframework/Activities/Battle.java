@@ -51,13 +51,14 @@ import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYER
 
 public class Battle extends AppCompatActivity {
 
-    //monster related fields
+    //==============MONSTER RELATED VARS================//
     private MonsterDictionary monsterDictionary;
     private Monster opponent;
     private ImageView monsterImageDisplay;
     private TextView monsterAttackDisplay;
     private TextView monsterDefenseDisplay;
     private TextView monsterHpDisplay;
+
     private int monsterHp;
     private int monsterExp;
     private int monsterAttack;
@@ -66,7 +67,9 @@ public class Battle extends AppCompatActivity {
     private int monsterDropItemIndex;
     private double monsterDropChance;
     private int monsterActualGoldDrop;
-    //player related fields
+    //==============MONSTER RELATED VARS================//
+
+    //=======PLAYER RELATED VARS=================//
     private Button saveButton;
     private Button attackButton;
     private Button healButton;
@@ -90,27 +93,43 @@ public class Battle extends AppCompatActivity {
     private ImageView playerLimb4EquippmentDisplay;
     private ImageView playerLimb5EquippmentDisplay;
     private ImageView playerLimb6EquippmentDisplay;
-    private ImageView playerLimb7EquippmentDisplay;
-    private ImageView playerLimb8EquippmentDisplay;
-    private ImageView playerLimb9EquippmentDisplay;
+
     private Player newPlayer;
-    private String playerDescription;
-    private int playerEnergy;
-    private int playerAttack;
-    private int playerDefense;
+    private Drawable playerImage;
+
     private int playerHP;
-    private int killCount;
+    private int equipmentHPEffect;
+
+    private int playerMaxHP;
+    private int equipmentMaxHPEffect;
+
+    private int playerEnergy;
+    private int equipmentEnergyEffect;
+
+    private int playerMaxEnergy;
+    private int equipmentMaxEnergyEffect;
+
+    private int playerAttack;
+    private int equipmentAttackEffect;
+
+    private int playerDefense;
+    private int equipmentDefenseEffect;
+
+    private int playerSkillPower;
+    private int equipmentSkillPowerEffect;
+
     private int playerExperience;
     private int playerLevel;
-    private int playerMaxHP;
-    private int playerMaxEnergy;
-    private int playerSkillPower;
+    private int killCount;
     private int playerCoinPurse;
+
+    private String playerDescription;
     private String playerSharedPreferences;
     private ArrayList<Integer> playerInventory;
     private ArrayList<Limb> playerBodyParts;
+    //============================PLAYER RELATED VARS==================================//
 
-    //calculated fields
+    //============================BATTLE RELATED VARS==================================//
     private TextView turnCounterDisplay;
     private int damage;
     private int healAmount;
@@ -119,8 +138,8 @@ public class Battle extends AppCompatActivity {
     private SoundPool soundPool;
     private int sound1,sound2,sound3,sound4,sound5,sound6;
     private boolean loaded;
-
     Resources res;
+    //============================BATTLE RELATED VARS==================================//
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +148,7 @@ public class Battle extends AppCompatActivity {
         setContentView(R.layout.activity_battle);
 
         initializeViews();
+
 
         opponent = createMonster(0);
 
@@ -153,10 +173,10 @@ public class Battle extends AppCompatActivity {
         newPlayer.setPlayerInventory(playerInventory);
 
         getPlayerStats();
+        updatePlayerStats();
 
         /*
-        newPlayer.playerEquipItem(0,playerLimb1);
-        newPlayer.playerEquipItem(1,playerLimb2);
+        //todo:[High] refactor this method using the latest playerBodyParts framework
         getPlayerEquipment();
         */
         loadSounds();
@@ -207,26 +227,31 @@ public class Battle extends AppCompatActivity {
 
 
 
+
     public void saveData() {
 
-        //[todo]: [Bug]player stats being stored are including weapon buffs
+        //[todo]:[Bug] player stats being stored are including weapon buffs
         SharedPreferences sharedPreferences = getSharedPreferences(playerSharedPreferences, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
-        String json = gson.toJson(playerInventory);
-        editor.putString(PLAYERINVENTORY,json);
+        String jsonPlayerInventory = gson.toJson(playerInventory);
+        editor.putString(PLAYERINVENTORY,jsonPlayerInventory);
+
+        editor.putInt(PLAYERHP,playerHP - equipmentHPEffect);
+        editor.putInt(PLAYERMAXHP,playerMaxHP - equipmentMaxHPEffect);
+        editor.putInt(PLAYERENERGY,playerEnergy - equipmentEnergyEffect);
+        editor.putInt(PLAYERMAXENERGY,playerMaxEnergy - equipmentMaxEnergyEffect);
+        editor.putInt(PLAYERATTACK,playerAttack - equipmentAttackEffect);
+        editor.putInt(PLAYERDEFENSE,playerDefense - equipmentDefenseEffect);
+        editor.putInt(PLAYERSKILLPOWER,playerSkillPower - equipmentSkillPowerEffect);
+
         editor.putInt(PLAYEREXPERIENCE,playerExperience);
         editor.putInt(PLAYERLEVEL,playerLevel);
-        editor.putInt(PLAYERHP,playerHP);
-        editor.putInt(PLAYERMAXHP,playerMaxHP);
-        editor.putInt(PLAYERENERGY,playerEnergy);
-        editor.putInt(PLAYERMAXENERGY,playerMaxEnergy);
-        editor.putInt(PLAYERATTACK,playerAttack);
-        editor.putInt(PLAYERDEFENSE,playerDefense);
         editor.putInt(PLAYERCOINPURSE,playerCoinPurse);
-        editor.putInt(PLAYERSKILLPOWER,playerSkillPower);
         editor.putInt(KILLCOUNT,killCount);
-        editor.putInt(PLAYERIMAGEID,newPlayer.getPlayerLimb1ImageId());
+
+        //todo:[Bug] monster Image id's from the dictionary are overwriting the Shared Preferences on occasion
+        editor.putInt(PLAYERIMAGEID,newPlayer.getPlayerImageId());
         editor.apply();
         Toast.makeText(this,"Data saved",Toast.LENGTH_SHORT).show();
 
@@ -257,7 +282,6 @@ public class Battle extends AppCompatActivity {
         sound1 = soundPool.load(this,R.raw.sound1, 1);
         sound2 = soundPool.load(this,R.raw.sound2, 1);
         sound3 = soundPool.load(this,R.raw.sound3, 1);
-
         /*
 
         //======DO NOT REMOVE THIS CODE IS OKAY! UNCOMMENT WHEN YOU NEED BGM!!!=====================
@@ -325,52 +349,29 @@ public class Battle extends AppCompatActivity {
 
     //todo:[High] refactor so that the get data is separate from the update of the displays like the Select Player activity
     private void getPlayerStats() {
-        playerEnergy = newPlayer.getPlayerEnergy();
-        playerMaxEnergy = newPlayer.getPlayerMaxEnergy();
-        playerEnergyDisplay.setText(res.getString(R.string.playerEnergy_StringValue,playerEnergy,playerMaxEnergy));
-
-        Drawable image = ContextCompat.getDrawable(this, newPlayer.getPlayerLimb1ImageId());
-        leftArmDisplay.setImageDrawable(image);
-        leftArmDisplay.setVisibility(View.VISIBLE);
-
-        playerExperience = newPlayer.getPlayerExperience();
-        playerExperienceDisplay.setText(res.getString(R.string.playerExperience_StringValue,playerExperience));
-
-        playerAttack = newPlayer.getPlayerAttack();
-        playerAttackDisplay.setText(res.getString(R.string.playerAttack_StringValue,playerAttack));
-
-        playerDefense = newPlayer.getPlayerDefense();
-        playerDefenseDisplay.setText(res.getString(R.string.playerDefense_StringValue,playerDefense));
-
+        playerImage = ContextCompat.getDrawable(this, newPlayer.getPlayerImageId());
         playerHP = newPlayer.getPlayerHealth();
         playerMaxHP = newPlayer.getPlayerMaxHealth();
-        playerHPDisplay.setText(res.getString(R.string.playerHP_StringValue,playerHP,playerMaxHP));
-        if(Math.round((playerMaxHP/2))>=playerHP){
-            playerHPDisplay.setTextColor(Color.rgb(255,0,0));
-        }else{
-            playerHPDisplay.setTextColor(Color.rgb(0,0,0));
-        }
-
-        playerLevel = newPlayer.getPlayerLevel();
-        playerLevelDisplay.setText(res.getString(R.string.playerLevel_StringValue,playerLevel));
-
-        killCount = newPlayer.getPlayerKillCount();
-        killCountDisplay.setText(res.getString(R.string.killCount_StringValue,killCount));
-
-        playerDescription = newPlayer.getPlayerDescription();
-
+        playerEnergy = newPlayer.getPlayerEnergy();
+        playerMaxEnergy = newPlayer.getPlayerMaxEnergy();
+        playerAttack = newPlayer.getPlayerAttack();
+        playerDefense = newPlayer.getPlayerDefense();
         playerSkillPower = newPlayer.getPlayerSkillPower();
-        playerSkillPowerDisplay.setText(res.getString(R.string.playerSP_StringValue,playerSkillPower));
-
-        playerBodyParts = newPlayer.getPlayerBodyParts();
-
-        playerInventory = newPlayer.getPlayerInventory();
-        currentInventoryCountDisplay.setText(res.getString(R.string.inventoryCount_StringValue,playerInventory.size()));
-
+        playerExperience = newPlayer.getPlayerExperience();
+        playerLevel = newPlayer.getPlayerLevel();
+        killCount = newPlayer.getPlayerKillCount();
         playerCoinPurse = newPlayer.getPlayerCoinPurse();
-        playerCoinPurseDisplay.setText(res.getString(R.string.playerCoinPurse_StringValue,playerCoinPurse));
+        playerDescription = newPlayer.getPlayerDescription();
+        playerBodyParts = newPlayer.getPlayerBodyParts();
+        playerInventory = newPlayer.getPlayerInventory();
 
-        playerSharedPreferences = newPlayer.getPlayerSharedPreferences();
+        equipmentHPEffect = newPlayer.getItemHealthEffect();
+        equipmentMaxHPEffect = newPlayer.getItemMaxHealthEffect();
+        equipmentEnergyEffect = newPlayer.getItemEnergyEffect();
+        equipmentMaxEnergyEffect = newPlayer.getItemMaxEnergyEffect();
+        equipmentAttackEffect = newPlayer.getItemAttackEffect();
+        equipmentDefenseEffect = newPlayer.getItemDefenseEffect();
+        equipmentSkillPowerEffect = newPlayer.getItemSkillPowerEffect();
 
         //BATTLE CALCULATIONS RELATIVE TO PLAYER
         //todo: [Medium] this cannot be a SOLID coding practice, extract this into its own method
@@ -379,16 +380,37 @@ public class Battle extends AppCompatActivity {
         }else{
             damage = playerAttack - monsterDefense;
         }
-        attackButton.setText(res.getString(R.string.attackButton_TextValue,damage));
+
         healAmount = playerSkillPower+1;
-        healButton.setText(res.getString(R.string.healButton_StringValue,healAmount));
-        if(playerDefense >= monsterAttack){
+            if(playerDefense >= monsterAttack){
             playerDamage = 1;
         }else{
             playerDamage = monsterAttack - playerDefense;
         }
     }
 
+    private void updatePlayerStats() {
+        playerEnergyDisplay.setText(res.getString(R.string.playerEnergy_StringValue,playerEnergy,playerMaxEnergy));
+        leftArmDisplay.setImageDrawable(playerImage);
+        leftArmDisplay.setVisibility(View.VISIBLE);
+        playerExperienceDisplay.setText(res.getString(R.string.playerExperience_StringValue,playerExperience));
+        playerAttackDisplay.setText(res.getString(R.string.playerAttack_StringValue,playerAttack));
+        playerHPDisplay.setText(res.getString(R.string.playerHP_StringValue,playerHP,playerMaxHP));
+        if(Math.round((playerMaxHP/2))>=playerHP){
+            playerHPDisplay.setTextColor(Color.rgb(255,0,0));
+        }else{
+            playerHPDisplay.setTextColor(Color.rgb(0,0,0));
+        }
+        playerLevelDisplay.setText(res.getString(R.string.playerLevel_StringValue,playerLevel));
+        killCountDisplay.setText(res.getString(R.string.killCount_StringValue,killCount));
+        playerSkillPowerDisplay.setText(res.getString(R.string.playerSP_StringValue,playerSkillPower));
+        currentInventoryCountDisplay.setText(res.getString(R.string.inventoryCount_StringValue,playerInventory.size()));
+        playerCoinPurseDisplay.setText(res.getString(R.string.playerCoinPurse_StringValue,playerCoinPurse));
+        playerSharedPreferences = newPlayer.getPlayerSharedPreferences();
+        attackButton.setText(res.getString(R.string.attackButton_TextValue,damage));
+        healButton.setText(res.getString(R.string.healButton_StringValue,healAmount));
+    }
+    //Get Player Equipment Method (NEEDS REFACTORING)
     /*
     private void getPlayerEquipment() {
         try {
@@ -437,6 +459,7 @@ public class Battle extends AppCompatActivity {
             playerEnergy = playerEnergy - 1;
             setPlayerStats();
             getPlayerStats();
+            updatePlayerStats();
             soundPool.play(sound1, 1, 1, 0, 0, 1);
             combatLogDisplay.append(res.getString(R.string.playerAttackMonster,monsterName,damage));
             monsterHpDisplay.setText(res.getString(R.string.monsterHP_StringValue,monsterHp));
@@ -444,6 +467,7 @@ public class Battle extends AppCompatActivity {
                 killMonster();
                 setPlayerStats();
                 getPlayerStats();
+                updatePlayerStats();
             }
         }else if(playerEnergy<=0){
             YoYo.with(Techniques.Flash)
@@ -477,11 +501,13 @@ public class Battle extends AppCompatActivity {
                 playerEnergy = playerEnergy - 1;
                 setPlayerStats();
                 getPlayerStats();
+                updatePlayerStats();
             }else{
                 playerHP = playerHP + healAmount;
                 playerEnergy = playerEnergy - 1;
                 setPlayerStats();
                 getPlayerStats();
+                updatePlayerStats();
             }
             soundPool.play(sound2, 1, 1, 0, 0, 1);
             combatLogDisplay.append(res.getString(R.string.playerHealSelf,healAmount));
@@ -553,6 +579,7 @@ public class Battle extends AppCompatActivity {
         playerHP = playerHP - playerDamage;
         setPlayerStats();
         getPlayerStats();
+        updatePlayerStats();
         turnCounter++;
         turnCounterDisplay.setText(res.getString(R.string.turnCounter_StringValue,turnCounter));
         combatLogDisplay.setText(res.getString(R.string.monsterAttackPlayer,monsterName,playerDamage));
@@ -570,6 +597,7 @@ public class Battle extends AppCompatActivity {
     private void playerDeath() {
         resetTurnCounter();
         getPlayerStats();
+        updatePlayerStats();
         leftArmDisplay.setVisibility(View.INVISIBLE);
         endTurnButton.setVisibility(View.INVISIBLE);
         saveButton.setVisibility(View.INVISIBLE);
@@ -583,6 +611,7 @@ public class Battle extends AppCompatActivity {
         playerCoinPurse = monsterActualGoldDrop + playerCoinPurse;
         setPlayerStats();
         getPlayerStats();
+        updatePlayerStats();
         combatLogDisplay.setText(res.getString(R.string.monsterDeath,monsterName,monsterExp,monsterActualGoldDrop));
         monsterImageDisplay.animate().alpha(0.0f).setDuration(600);
         monsterHpDisplay.setVisibility(View.INVISIBLE);
@@ -592,6 +621,7 @@ public class Battle extends AppCompatActivity {
             if(newPlayer.checkLevel(playerExperience) > newPlayer.getPlayerLevel()){
                 newPlayer.levelUp(newPlayer.checkLevel(playerExperience));
                 getPlayerStats();
+                updatePlayerStats();
             }
 
         }else{

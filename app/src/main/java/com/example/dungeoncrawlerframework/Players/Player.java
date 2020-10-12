@@ -36,27 +36,29 @@ public class Player{
 
     private int playerSkillPower;
     private int itemSkillPowerEffect = 0;
-    //===========================================================//
+    //======THE 7 PLAYER STATS THAT ARE AFFECTED BY ITEMS========//
 
-    private int playerLimb1ImageId;
+    //==============OTHER PARAMETERIZED VARS====================//
+    private int playerImageId;
     private ArrayList<Integer> playerInventory;
+    private String playerDescription;
+    //==============OTHER PARAMETERIZED VARS====================//
+
+    //===================PRE INSTANTIATED VARS==================//
     private int playerExperience=0;
     private int playerLevel=0;
     private int playerKillCount=0;
-
-    private String playerDescription;
+    private int playerCoinPurse = 0;
+    private ArrayList<Limb> playerBodyParts = new ArrayList<Limb>();
     private Hand playerHand1 = new Hand();
     private Hand playerHand2 = new Hand();
     private Feet playerFeet = new Feet();
     private Head playerHead = new Head();
     private Torso playerTorso = new Torso();
     private Legs playerLegs = new Legs();
+    //===================PRE INSTANTIATED VARS==================//
 
-    private int playerCoinPurse = 0;
-    private ArrayList<Limb> playerBodyParts = new ArrayList<Limb>();
-
-
-    //starting values
+    //===================STARTING VARS==========================//
     final private int playerStartingHealth;
     final private int playerStartingAttack;
     final private int playerStartingDefense;
@@ -68,38 +70,35 @@ public class Player{
     final private int playerStartingMaxEnergy;
     final private int playerStartingSkillPower;
     final private String playerSharedPreferences;
+    //===================STARTING VARS==========================//
 
-
+    //=============================CONSTRUCTOR====================================//
     public Player(int playerHealth,
                   int playerAttack,
                   int playerDefense,
                   int playerEnergy,
-                  int playerLimb1ImageId,
+                  int playerImageId,
                   String playerDescription,
                   int playerSkillPower,
                   String playerSharedPreferences) {
 
 
         this.playerHealth = playerHealth;
-        this.playerAttack = playerAttack;
-        this.playerDefense = playerDefense;
         this.playerMaxHealth = playerHealth;
         this.playerEnergy = playerEnergy;
         this.playerMaxEnergy = playerEnergy;
-        this.playerLimb1ImageId = playerLimb1ImageId;
+        this.playerAttack = playerAttack;
+        this.playerDefense = playerDefense;
+        this.playerImageId = playerImageId;
         this.playerDescription = playerDescription;
         this.playerSkillPower = playerSkillPower;
         this.playerSharedPreferences = playerSharedPreferences;
-        this.playerBodyParts.add(playerHand1);
-        this.playerBodyParts.add(playerHand2);
         this.playerBodyParts.add(playerHead);
+        this.playerBodyParts.add(playerHand1);
         this.playerBodyParts.add(playerTorso);
+        this.playerBodyParts.add(playerHand2);
         this.playerBodyParts.add(playerLegs);
         this.playerBodyParts.add(playerFeet);
-
-
-
-
 
         //starting values
         this.playerStartingHealth = playerHealth;
@@ -111,8 +110,10 @@ public class Player{
         this.playerStartingSkillPower = playerSkillPower;
 
     }
+//=============================CONSTRUCTOR====================================//
 
-    // PARCELABLE IMPLEMENTATION METHODS
+
+//====================(UNUTILIZED)PARCELABLE IMPLEMENTATION METHODS==================//
     /*
     protected Player(Parcel in) {
         playerHealth = in.readInt();
@@ -197,8 +198,10 @@ public class Player{
         dest.writeIntArray(statsTreeSkillPower);
     }
 */
+//====================(UNUTILIZED)PARCELABLE IMPLEMENTATION METHODS==================//
 
-    // GETTERS AND SETTERS
+
+//====================GETTERS AND SETTERS============================================//
     public int getPlayerHealth() {
         return playerHealth;
     }
@@ -279,12 +282,12 @@ public class Player{
         this.playerInventory = playerInventory;
     }
 
-    public int getPlayerLimb1ImageId() {
-        return playerLimb1ImageId;
+    public int getPlayerImageId() {
+        return playerImageId;
     }
 
-    public void setPlayerLimb1ImageId(int playerLimb1ImageId) {
-        this.playerLimb1ImageId = playerLimb1ImageId;
+    public void setPlayerImageId(int playerImageId) {
+        this.playerImageId = playerImageId;
     }
 
     public String getPlayerDescription() {
@@ -351,24 +354,78 @@ public class Player{
         return playerStartingSkillPower;
     }
 
+    public int getItemHealthEffect() {
+        return itemHealthEffect;
+    }
 
+    public void setItemHealthEffect(int itemHealthEffect) {
+        this.itemHealthEffect = itemHealthEffect;
+    }
 
+    public int getItemAttackEffect() {
+        return itemAttackEffect;
+    }
 
+    public void setItemAttackEffect(int itemAttackEffect) {
+        this.itemAttackEffect = itemAttackEffect;
+    }
 
-//MAJOR PLAYER METHODS
+    public int getItemDefenseEffect() {
+        return itemDefenseEffect;
+    }
 
+    public void setItemDefenseEffect(int itemDefenseEffect) {
+        this.itemDefenseEffect = itemDefenseEffect;
+    }
 
-    PlayerLevelTree playerLevelTree = new PlayerLevelTree();
+    public int getItemMaxHealthEffect() {
+        return itemMaxHealthEffect;
+    }
 
-    int[] lowLevelBound = playerLevelTree.getLowLevelBound();
-    int[] hiLevelBound = playerLevelTree.getHiLevelBound();
-    int[] statsTreeAttack = playerLevelTree.getAttackTree();
-    int[] statsTreeDefense = playerLevelTree.getDefenseTree();
-    int[] statsTreeHP = playerLevelTree.getHpTree();
-    int[] statsTreeEnergy = playerLevelTree.getEnergyTree();
-    int[] statsTreeSkillPower = playerLevelTree.getSkillPowerTree();
+    public void setItemMaxHealthEffect(int itemMaxHealthEffect) {
+        this.itemMaxHealthEffect = itemMaxHealthEffect;
+    }
+
+    public int getItemEnergyEffect() {
+        return itemEnergyEffect;
+    }
+
+    public void setItemEnergyEffect(int itemEnergyEffect) {
+        this.itemEnergyEffect = itemEnergyEffect;
+    }
+
+    public int getItemMaxEnergyEffect() {
+        return itemMaxEnergyEffect;
+    }
+
+    public void setItemMaxEnergyEffect(int itemMaxEnergyEffect) {
+        this.itemMaxEnergyEffect = itemMaxEnergyEffect;
+    }
+
+    public int getItemSkillPowerEffect() {
+        return itemSkillPowerEffect;
+    }
+
+    public void setItemSkillPowerEffect(int itemSkillPowerEffect) {
+        this.itemSkillPowerEffect = itemSkillPowerEffect;
+    }
+
+//====================GETTERS AND SETTERS============================================//
+
+//====================LEVELING METHODS===============================================//
 
     public int checkLevel(int playerExperience){
+
+        PlayerLevelTree playerLevelTree = new PlayerLevelTree();
+
+        int[] lowLevelBound = playerLevelTree.getLowLevelBound();
+        int[] hiLevelBound = playerLevelTree.getHiLevelBound();
+        int[] statsTreeAttack = playerLevelTree.getAttackTree();
+        int[] statsTreeDefense = playerLevelTree.getDefenseTree();
+        int[] statsTreeHP = playerLevelTree.getHpTree();
+        int[] statsTreeEnergy = playerLevelTree.getEnergyTree();
+        int[] statsTreeSkillPower = playerLevelTree.getSkillPowerTree();
+
         int level = -1;
         for (int i = 0; i<=lowLevelBound.length; i++){
             if(playerExperience >= lowLevelBound[i] && playerExperience < hiLevelBound[i]){
@@ -379,8 +436,18 @@ public class Player{
         return level;
     }
 
-
     public void levelUp(int playerLevel){
+
+        PlayerLevelTree playerLevelTree = new PlayerLevelTree();
+
+        int[] lowLevelBound = playerLevelTree.getLowLevelBound();
+        int[] hiLevelBound = playerLevelTree.getHiLevelBound();
+        int[] statsTreeAttack = playerLevelTree.getAttackTree();
+        int[] statsTreeDefense = playerLevelTree.getDefenseTree();
+        int[] statsTreeHP = playerLevelTree.getHpTree();
+        int[] statsTreeEnergy = playerLevelTree.getEnergyTree();
+        int[] statsTreeSkillPower = playerLevelTree.getSkillPowerTree();
+
         if (playerLevel - 1 == this.playerLevel){
             this.playerAttack = this.playerAttack + statsTreeAttack[playerLevel];
             this.playerDefense = this.playerDefense + statsTreeDefense[playerLevel];
@@ -405,7 +472,8 @@ public class Player{
 
     }
 
-    public void resetPlayer(){
+    //Deprecated Reset Player Method
+    /*public void resetPlayer(){
         this.playerHealth = this.playerStartingHealth;
         this.playerAttack = this.playerStartingAttack;
         this.playerDefense = this.playerStartingDefense;
@@ -417,17 +485,22 @@ public class Player{
         this.playerMaxEnergy = this.playerStartingMaxEnergy;
         this.playerSkillPower = this.playerStartingSkillPower;
     }
+    */
+
+//====================LEVELING METHODS===============================================//
+
+
+//============================INVENTORY AND ITEM RELATED METHODS==============================//
 
     public void addItem2Inventory(int itemIndex){
         playerInventory.add(itemIndex);
     }
 
-    public void getItemFromInventory(int inventoryIndex){ playerInventory.get(inventoryIndex);}
-
     public void removeItemFromInventory(int inventoryIndex){
         playerInventory.remove(inventoryIndex);
     }
 
+    public void getItemFromInventory(int inventoryIndex){ playerInventory.get(inventoryIndex);}
 
     public void playerUseItem(int inventoryIndex, Limb limb2Equip){
         //method for equipment and permanent items
@@ -501,5 +574,5 @@ public class Player{
         }
     }
 
-
+//============================INVENTORY AND ITEM RELATED METHODS==============================//
 }

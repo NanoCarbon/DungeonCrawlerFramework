@@ -170,7 +170,7 @@ public class SelectPlayer extends AppCompatActivity {
 
     private void getPlayerStats() {
         //todo:[BUG] player image overwritten with a monster image ID for some reason upon loading
-        Drawable image = ContextCompat.getDrawable(this, newPlayer.getPlayerLimb1ImageId());
+        Drawable image = ContextCompat.getDrawable(this, newPlayer.getPlayerImageId());
         selectedClassDisplay.setImageDrawable(image);
         playerEnergy = newPlayer.getPlayerEnergy();
         playerAttack = newPlayer.getPlayerAttack();
@@ -179,7 +179,7 @@ public class SelectPlayer extends AppCompatActivity {
         killCount = newPlayer.getPlayerKillCount();
         playerExperience = newPlayer.getPlayerExperience();
         playerLevel = newPlayer.getPlayerLevel();
-        playerLimb1ImageId = newPlayer.getPlayerLimb1ImageId();
+        playerLimb1ImageId = newPlayer.getPlayerImageId();
         playerMaxHP = newPlayer.getPlayerMaxHealth();
         playerMaxEnergy = newPlayer.getPlayerMaxEnergy();
         playerDescription = newPlayer.getPlayerDescription();

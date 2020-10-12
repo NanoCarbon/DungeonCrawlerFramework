@@ -8,7 +8,7 @@ import java.util.Random;
 public class Monster {
     //todo: [Low] generate an attack animation for the monster (shift left to right for simple animation and move arm up and down for more complex animations)
 
-
+    //===============================MONSTER VARS========================================//
     private int name;
     private int healthPoints;
     private int attackPower;
@@ -18,7 +18,9 @@ public class Monster {
     private int itemIndex;
     private double itemDropChance;
     private int baseGoldDrop;
+    //===============================MONSTER VARS========================================//
 
+    //===============================CONSTRUCTOR=========================================//
     public Monster(int monsterName, int healthPoints, int attackPower, int defensePower, int monsterSprite, int experience, int itemIndex, double itemDropChance, int baseGoldDrop) {
         this.name = monsterName;
         this.healthPoints = healthPoints;
@@ -30,6 +32,9 @@ public class Monster {
         this.itemDropChance = itemDropChance;
         this.baseGoldDrop = baseGoldDrop;
     }
+    //===============================CONSTRUCTOR=========================================//
+
+    //===============================GETTERS AND SETTERS=========================================//
     public int getName() {
         return name;
     }
@@ -101,8 +106,10 @@ public class Monster {
     public void setBaseGoldDrop(int baseGoldDrop) {
         this.baseGoldDrop = baseGoldDrop;
     }
+    //===============================GETTERS AND SETTERS=========================================//
 
 
+    //===============================MAIN MONSTER METHODS=========================================//
     public Item dropItem(int itemIndex){
             ItemDictionary itemDictionary = new ItemDictionary();
             Item item2Return = itemDictionary.getItem(itemIndex);
@@ -118,5 +125,5 @@ public class Monster {
         actualGoldDrop = (int) Math.round(num);
         return actualGoldDrop;
     }
-
+    //===============================MAIN MONSTER METHODS=========================================//
 }
