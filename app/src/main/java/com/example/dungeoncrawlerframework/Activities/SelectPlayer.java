@@ -1,5 +1,7 @@
 package com.example.dungeoncrawlerframework.Activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -37,28 +39,30 @@ public class SelectPlayer extends AppCompatActivity {
     private TextView playerSkillPowerDisplay;
     private TextView playerInventoryCountDisplay;
 
+    private int playerImageId;
+    private int playerHP;
+    private int playerMaxHP;
     private int playerEnergy;
+    private int playerMaxEnergy;
     private int playerAttack;
     private int playerDefense;
-    private int playerHP;
-    private int killCount = 0;
-    private int playerExperience=0;
-    private int playerLevel = 0;
-    private int playerMaxHP;
-    private int playerMaxEnergy;
-    private int playerLimb1ImageId;
-    private String playerDescription;
     private int playerSkillPower;
+
+    private int killCount;
+    private int playerExperience;
+    private int playerLevel;
     private int playerCoinPurse;
-    private PlayerClassDictionary classDictionary;
-    private int classIndex = 0;
+    private String playerDescription;
     private String playerSharedPrefrences;
+
+    private int classIndex = 0;
+    private PlayerClassDictionary classDictionary;
     private ArrayList<Integer> playerInventory;
-    //todo: [Critical] refactor this to be a tabbed layout activity: https://www.youtube.com/watch?v=h4HwU_ENXYM
+
     //todo: [Medium] Add a settings tab to adjust bgm
     //todo: [Low] refactor Select Player to pass player parcelable rather than just primitives
 
-    //INTENT STRING NAMES  - USED TO DEFINE WHAT TO PASS TO BATTLE ACTIVITY
+    //==========INTENT STRING NAMES  - USED TO DEFINE WHAT TO PASS TO BATTLE ACTIVITY=================//
     public static final String EXTRA_ENERGY = "com.example.dungeoncrawlerframework.EXTRA_ENERGY";
     public static final String EXTRA_ATTACK = "com.example.dungeoncrawlerframework.EXTRA_ATTACK";
     public static final String EXTRA_DEFENSE = "com.example.dungeoncrawlerframework.EXTRA_DEFENSE";
@@ -74,8 +78,10 @@ public class SelectPlayer extends AppCompatActivity {
     public static final String EXTRA_MAXHP = "com.example.dungeoncrawlerframework.EXTRA_MAXHP";
     public static final String EXTRA_SHAREDPREF = "com.example.dungeoncrawlerframework.EXTRA_SHAREDPREF";
     public static final String EXTRA_PLAYERINVENTORY = "com.example.dungeoncrawlerframework.EXTRA_PLAYERINVENTORY";
+    //==========INTENT STRING NAMES  - USED TO DEFINE WHAT TO PASS TO BATTLE ACTIVITY=================//
 
-    //SAVED PREFERENCES STRING NAMES - USED TO NAME PRIMITIVES BEING SAVED
+
+    //===================SAVED PREFERENCES STRING NAMES - USED TO NAME PRIMITIVES BEING SAVED===================//
     public static final String PLAYERENERGY = "playerenergy";
     public static final String PLAYERATTACK = "playerattack";
     public static final String PLAYERDEFENSE = "playerdefense";
@@ -89,6 +95,7 @@ public class SelectPlayer extends AppCompatActivity {
     public static final String PLAYERCOINPURSE = "playercoinpurse";
     public static final String PLAYERIMAGEID = "playerimageid";
     public static final String PLAYERINVENTORY = "playerinventory";
+    //===================SAVED PREFERENCES STRING NAMES - USED TO NAME PRIMITIVES BEING SAVED===================//
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,8 +145,19 @@ public class SelectPlayer extends AppCompatActivity {
             }
         });
 
-
+        BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+                if (action.equals("finish_activity")) {
+                    finish();
+                    // DO WHATEVER YOU WANT.
+                }
+            }
+        };
     }
+
+
 
 
     public void loadData(){
@@ -160,7 +178,7 @@ public class SelectPlayer extends AppCompatActivity {
         killCount = sharedPreferences.getInt(KILLCOUNT,killCount);
         playerExperience = sharedPreferences.getInt(PLAYEREXPERIENCE,playerExperience);
         playerLevel = sharedPreferences.getInt(PLAYERLEVEL,playerLevel);
-        playerLimb1ImageId = sharedPreferences.getInt(PLAYERIMAGEID,playerLimb1ImageId);
+        playerImageId = sharedPreferences.getInt(PLAYERIMAGEID, playerImageId);
         playerMaxHP = sharedPreferences.getInt(PLAYERMAXHP, playerMaxHP);
         playerMaxEnergy = sharedPreferences.getInt(PLAYERMAXENERGY, playerMaxEnergy);
         playerSkillPower = sharedPreferences.getInt(PLAYERSKILLPOWER, playerSkillPower);
@@ -179,7 +197,7 @@ public class SelectPlayer extends AppCompatActivity {
         killCount = newPlayer.getPlayerKillCount();
         playerExperience = newPlayer.getPlayerExperience();
         playerLevel = newPlayer.getPlayerLevel();
-        playerLimb1ImageId = newPlayer.getPlayerImageId();
+        playerImageId = newPlayer.getPlayerImageId();
         playerMaxHP = newPlayer.getPlayerMaxHealth();
         playerMaxEnergy = newPlayer.getPlayerMaxEnergy();
         playerDescription = newPlayer.getPlayerDescription();
@@ -222,7 +240,7 @@ public class SelectPlayer extends AppCompatActivity {
         intent.putExtra(EXTRA_ATTACK,playerAttack);
         intent.putExtra(EXTRA_DEFENSE,playerDefense);
         intent.putExtra(EXTRA_ENERGY,playerEnergy);
-        intent.putExtra(EXTRA_LIMB1,playerLimb1ImageId);
+        intent.putExtra(EXTRA_LIMB1, playerImageId);
         intent.putExtra(EXTRA_PLAYERDESCRIPTION,playerDescription);
         intent.putExtra(EXTRA_SKILLPOWER,playerSkillPower);
         intent.putExtra(EXTRA_KILLCOUNT,killCount);

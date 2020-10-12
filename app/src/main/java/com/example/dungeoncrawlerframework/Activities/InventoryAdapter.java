@@ -23,6 +23,15 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
     private ItemDictionary itemDictionary;
     private int itemIndex;
     private ArrayList<Integer> mPlayerInventory;
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        mListener = listener;
+    }
 
     public static class InventoryViewHolder extends RecyclerView.ViewHolder{
         public ImageView itemImageDisplay;
@@ -30,12 +39,26 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
         public TextView itemDescriptionDisplay;
         public TextView itemCountDisplay;
 
-        public InventoryViewHolder(@NonNull View itemView) {
+        public InventoryViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
             itemImageDisplay = itemView.findViewById(R.id.inventoryItemImageView);
             itemNameDisplay = itemView.findViewById(R.id.inventoryItemNameTextView);
             itemDescriptionDisplay = itemView.findViewById(R.id.inventoryItemDescriptionTextView);
             itemCountDisplay = itemView.findViewById(R.id.inventoryItemCountTextView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
+
+
         }
     }
 
@@ -47,7 +70,7 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
     @Override
     public InventoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.inventoryitem,parent,false);
-        InventoryViewHolder inventoryViewHolder = new InventoryViewHolder(v);
+        InventoryViewHolder inventoryViewHolder = new InventoryViewHolder(v,mListener);
         return inventoryViewHolder;
     }
 

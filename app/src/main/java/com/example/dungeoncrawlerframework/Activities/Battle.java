@@ -25,6 +25,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.dungeoncrawlerframework.Items.Item;
 import com.example.dungeoncrawlerframework.Items.ItemDictionary;
+import com.example.dungeoncrawlerframework.Limbs.Hand;
 import com.example.dungeoncrawlerframework.Limbs.Limb;
 import com.example.dungeoncrawlerframework.Monsters.Monster;
 import com.example.dungeoncrawlerframework.Monsters.MonsterDictionary;
@@ -75,7 +76,7 @@ public class Battle extends AppCompatActivity {
     private Button healButton;
     private Button endTurnButton;
     private Button leaveDungeonButton;
-    private ImageView leftArmDisplay;
+    private ImageView playerImageDisplay;
     private TextView killCountDisplay;
     private TextView combatLogDisplay;
     private TextView playerExperienceDisplay;
@@ -127,6 +128,9 @@ public class Battle extends AppCompatActivity {
     private String playerSharedPreferences;
     private ArrayList<Integer> playerInventory;
     private ArrayList<Limb> playerBodyParts;
+
+    private Hand playerHand1;
+    private Hand playerHand2;
     //============================PLAYER RELATED VARS==================================//
 
     //============================BATTLE RELATED VARS==================================//
@@ -171,6 +175,9 @@ public class Battle extends AppCompatActivity {
         newPlayer.setPlayerMaxEnergy(intent.getIntExtra(SelectPlayer.EXTRA_MAXENERGY,newPlayer.getPlayerMaxEnergy()));
         playerInventory = intent.getIntegerArrayListExtra(SelectPlayer.EXTRA_PLAYERINVENTORY);
         newPlayer.setPlayerInventory(playerInventory);
+
+        Intent finishPriorActivities = new Intent("finish_activity");
+        sendBroadcast(finishPriorActivities);
 
         getPlayerStats();
         updatePlayerStats();
@@ -307,7 +314,7 @@ public class Battle extends AppCompatActivity {
     private void initializeViews() {
         res = getResources();
         //player views
-        leftArmDisplay = findViewById(R.id.leftArmImageView);
+        playerImageDisplay = findViewById(R.id.leftArmImageView);
         playerHPDisplay = findViewById(R.id.playerHPTextVIew);
         playerAttackDisplay = findViewById(R.id.playerAttackTextView);
         playerDefenseDisplay = findViewById(R.id.playerDefenseTextView);
@@ -390,23 +397,27 @@ public class Battle extends AppCompatActivity {
     }
 
     private void updatePlayerStats() {
-        playerEnergyDisplay.setText(res.getString(R.string.playerEnergy_StringValue,playerEnergy,playerMaxEnergy));
-        leftArmDisplay.setImageDrawable(playerImage);
-        leftArmDisplay.setVisibility(View.VISIBLE);
-        playerExperienceDisplay.setText(res.getString(R.string.playerExperience_StringValue,playerExperience));
-        playerAttackDisplay.setText(res.getString(R.string.playerAttack_StringValue,playerAttack));
+
+        playerImageDisplay.setImageDrawable(playerImage);
+        playerImageDisplay.setVisibility(View.VISIBLE);
         playerHPDisplay.setText(res.getString(R.string.playerHP_StringValue,playerHP,playerMaxHP));
-        if(Math.round((playerMaxHP/2))>=playerHP){
+            if(Math.round((playerMaxHP/2))>=playerHP){
             playerHPDisplay.setTextColor(Color.rgb(255,0,0));
         }else{
             playerHPDisplay.setTextColor(Color.rgb(0,0,0));
         }
+        playerEnergyDisplay.setText(res.getString(R.string.playerEnergy_StringValue,playerEnergy,playerMaxEnergy));
+        playerAttackDisplay.setText(res.getString(R.string.playerAttack_StringValue,playerAttack));
+        playerDefenseDisplay.setText(res.getString(R.string.playerDefense_StringValue,playerDefense));
+        playerSkillPowerDisplay.setText(res.getString(R.string.playerSP_StringValue,playerSkillPower));
+
+        playerExperienceDisplay.setText(res.getString(R.string.playerExperience_StringValue,playerExperience));
         playerLevelDisplay.setText(res.getString(R.string.playerLevel_StringValue,playerLevel));
         killCountDisplay.setText(res.getString(R.string.killCount_StringValue,killCount));
-        playerSkillPowerDisplay.setText(res.getString(R.string.playerSP_StringValue,playerSkillPower));
-        currentInventoryCountDisplay.setText(res.getString(R.string.inventoryCount_StringValue,playerInventory.size()));
         playerCoinPurseDisplay.setText(res.getString(R.string.playerCoinPurse_StringValue,playerCoinPurse));
         playerSharedPreferences = newPlayer.getPlayerSharedPreferences();
+        currentInventoryCountDisplay.setText(res.getString(R.string.inventoryCount_StringValue,playerInventory.size()));
+
         attackButton.setText(res.getString(R.string.attackButton_TextValue,damage));
         healButton.setText(res.getString(R.string.healButton_StringValue,healAmount));
     }
@@ -514,7 +525,7 @@ public class Battle extends AppCompatActivity {
             YoYo.with(Techniques.Tada)
                     .duration(300)
                     .repeat(0)
-                    .playOn(leftArmDisplay);
+                    .playOn(playerImageDisplay);
         }else if (playerEnergy <=0) {
             YoYo.with(Techniques.Flash)
                     .duration(1000)
@@ -587,7 +598,7 @@ public class Battle extends AppCompatActivity {
         YoYo.with(Techniques.Flash)
                 .duration(300)
                 .repeat(0)
-                .playOn(leftArmDisplay);
+                .playOn(playerImageDisplay);
         if (playerHP<=0){
             playerDeath();
 
@@ -598,7 +609,7 @@ public class Battle extends AppCompatActivity {
         resetTurnCounter();
         getPlayerStats();
         updatePlayerStats();
-        leftArmDisplay.setVisibility(View.INVISIBLE);
+        playerImageDisplay.setVisibility(View.INVISIBLE);
         endTurnButton.setVisibility(View.INVISIBLE);
         saveButton.setVisibility(View.INVISIBLE);
         combatLogDisplay.append(res.getString(R.string.playerDeath));
