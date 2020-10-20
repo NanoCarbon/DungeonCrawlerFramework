@@ -12,8 +12,8 @@ import com.example.dungeoncrawlerframework.Limbs.Torso;
 import java.util.ArrayList;
 
 public class Player{
-
-    //todo: [High] create a skill class and skill dictionary
+    //todo: [Critial] implement serializable so we're not always passing primitives back and fourth and always having to keep track
+    //todo: [Medium] create a skill class and skill dictionary
 
     //======THE 7 PLAYER STATS THAT ARE AFFECTED BY ITEMS========//
     private int playerHealth;
