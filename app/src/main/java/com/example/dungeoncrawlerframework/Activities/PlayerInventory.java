@@ -41,8 +41,15 @@ public class PlayerInventory extends AppCompatActivity {
     private ImageView playerLimb4EquippmentDisplay;
     private ImageView playerLimb5EquippmentDisplay;
     private ImageView playerLimb6EquippmentDisplay;
-    private ItemDictionary itemDictionary;
+    private final ItemDictionary itemDictionary = new ItemDictionary();
 
+    Head playerLimb1 = new Head();
+    Hand playerLimb2 = new Hand();
+    Torso playerLimb3 = new Torso();
+    Hand playerLimb4 = new Hand();
+    Legs playerLimb5 = new Legs();
+    Feet playerLimb6 = new Feet();
+    Limb selectedLimb;
     //Add regular views and other nonsenese here
 
     //todo: [High] create a way to select the type of equipment you want to bring into battle
@@ -68,14 +75,23 @@ public class PlayerInventory extends AppCompatActivity {
         playerLimb6EquippmentDisplay = findViewById(R.id.limb6EquippedItem);
 
         //todo: [High] replace with the selected character's limbs - see Player class for serializable implementation
-        Head playerLimb1 = new Head();
-        final Hand playerLimb2 = new Hand();
-        Torso playerLimb3 = new Torso();
-        Hand playerLimb4 = new Hand();
-        Legs playerLimb5 = new Legs();
-        Feet playerLimb6 = new Feet();
+
 
         buildRecyclerView();
+
+        playerLimb1EquippmentDisplay.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                //todo:[Low] replace with a better looking "selected" visual
+                playerLimb1EquippmentDisplay.setBackgroundColor(Color.RED);
+                //filteredPlayerInventory.clear();
+                filteredPlayerInventory = getFilteredInventory(playerLimb1);
+                Set<Integer> hashSet = new LinkedHashSet(filteredPlayerInventory);
+                uniquePlayerInventory = new ArrayList(hashSet);
+                selectedLimb = playerLimb1;
+                buildRecyclerView();
+            }
+        });
 
         playerLimb2EquippmentDisplay.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -86,11 +102,66 @@ public class PlayerInventory extends AppCompatActivity {
                 filteredPlayerInventory = getFilteredInventory(playerLimb2);
                 Set<Integer> hashSet = new LinkedHashSet(filteredPlayerInventory);
                 uniquePlayerInventory = new ArrayList(hashSet);
+                selectedLimb = playerLimb2;
                 buildRecyclerView();
             }
         });
 
+        playerLimb3EquippmentDisplay.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                //todo:[Low] replace with a better looking "selected" visual
+                playerLimb2EquippmentDisplay.setBackgroundColor(Color.RED);
+                //filteredPlayerInventory.clear();
+                filteredPlayerInventory = getFilteredInventory(playerLimb3);
+                Set<Integer> hashSet = new LinkedHashSet(filteredPlayerInventory);
+                uniquePlayerInventory = new ArrayList(hashSet);
+                selectedLimb = playerLimb3;
+                buildRecyclerView();
+            }
+        });
 
+        playerLimb4EquippmentDisplay.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                //todo:[Low] replace with a better looking "selected" visual
+                playerLimb2EquippmentDisplay.setBackgroundColor(Color.RED);
+                //filteredPlayerInventory.clear();
+                filteredPlayerInventory = getFilteredInventory(playerLimb4);
+                Set<Integer> hashSet = new LinkedHashSet(filteredPlayerInventory);
+                uniquePlayerInventory = new ArrayList(hashSet);
+                selectedLimb = playerLimb4;
+                buildRecyclerView();
+            }
+        });
+
+        playerLimb5EquippmentDisplay.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                //todo:[Low] replace with a better looking "selected" visual
+                playerLimb2EquippmentDisplay.setBackgroundColor(Color.RED);
+                //filteredPlayerInventory.clear();
+                filteredPlayerInventory = getFilteredInventory(playerLimb5);
+                Set<Integer> hashSet = new LinkedHashSet(filteredPlayerInventory);
+                uniquePlayerInventory = new ArrayList(hashSet);
+                selectedLimb = playerLimb5;
+                buildRecyclerView();
+            }
+        });
+
+        playerLimb6EquippmentDisplay.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                //todo:[Low] replace with a better looking "selected" visual
+                playerLimb2EquippmentDisplay.setBackgroundColor(Color.RED);
+                //filteredPlayerInventory.clear();
+                filteredPlayerInventory = getFilteredInventory(playerLimb6);
+                Set<Integer> hashSet = new LinkedHashSet(filteredPlayerInventory);
+                uniquePlayerInventory = new ArrayList(hashSet);
+                selectedLimb = playerLimb6;
+                buildRecyclerView();
+            }
+        });
         BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -101,7 +172,7 @@ public class PlayerInventory extends AppCompatActivity {
                 }
             }
         };
-
+    
     }
     //fixme: java.lang.NullPointerException: Attempt to invoke virtual method 'com.example.dungeoncrawlerframework.Items.Item com.example.dungeoncrawlerframework.Items.ItemDictionary.getItem(int)' on a null object reference
     private ArrayList<Integer> getFilteredInventory(Limb limb){
@@ -129,7 +200,13 @@ public class PlayerInventory extends AppCompatActivity {
             //todo:[High] create a method to get the item in that position
                 //todo:[High] create a method to equip the item
                 //todo:[High] within the equip item method, unequip item if there is already an item
+                
+                playerEquipItem(uniquePlayerInventory.get(position));
             }
         });
+    }
+
+    private void playerEquipItem(Integer itemIndex) {
+        Item equippedItem = itemDictionary.getItem(itemIndex);
     }
 }
