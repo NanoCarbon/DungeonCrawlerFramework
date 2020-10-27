@@ -4,11 +4,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,6 +37,8 @@ public class PlayerInventory extends AppCompatActivity {
     private ArrayList<Integer> playerInventory;
     private ArrayList<Integer> uniquePlayerInventory;
     private ArrayList<Integer> filteredPlayerInventory;
+
+    private View menuLayoutDisplay;
     private ImageView playerLimb1EquippmentDisplay;
     private ImageView playerLimb2EquippmentDisplay;
     private ImageView playerLimb3EquippmentDisplay;
@@ -50,23 +54,20 @@ public class PlayerInventory extends AppCompatActivity {
     Legs playerLimb5 = new Legs();
     Feet playerLimb6 = new Feet();
     Limb selectedLimb;
+    ImageView selectedView;
     //Add regular views and other nonsenese here
 
-    //todo: [High] create a way to select the type of equipment you want to bring into battle
-    //todo: [High] create a way to filter recycler view based on the body part selected
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_menu);
         Intent intent = getIntent();
         playerInventory = intent.getIntegerArrayListExtra(SelectPlayer.EXTRA_PLAYERINVENTORY);
-        //todo:[Critical] Create an on button click listener that creates a new filteredPlayerInventory from playerInventory and based on the limb associated with that image view
-        //todo:[Critical] Pass the filteredPlayerInventory through the Build Recycler View method instead
-        //todo:[Critical] Use the filteredPlayerInventory to generate the uniquePlayerInventory then rebuild
 
         Set<Integer> hashSet = new LinkedHashSet(playerInventory);
         uniquePlayerInventory = new ArrayList(hashSet);
 
+        menuLayoutDisplay = findViewById(R.id.itemMenuLayoutLayer);
         playerLimb1EquippmentDisplay = findViewById(R.id.limb1EquippedItem);
         playerLimb2EquippmentDisplay = findViewById(R.id.limb2EquippedItem);
         playerLimb3EquippmentDisplay = findViewById(R.id.limb3EquippedItem);
@@ -74,21 +75,35 @@ public class PlayerInventory extends AppCompatActivity {
         playerLimb5EquippmentDisplay = findViewById(R.id.limb5EquippedItem);
         playerLimb6EquippmentDisplay = findViewById(R.id.limb6EquippedItem);
 
-        //todo: [High] replace with the selected character's limbs - see Player class for serializable implementation
+        //todo: [Critical] replace with the selected character's limbs - see Player class for parcelable implementation
 
 
         buildRecyclerView();
 
+        menuLayoutDisplay.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                filteredPlayerInventory.clear();
+                Set<Integer> hashSet = new LinkedHashSet(playerInventory);
+                uniquePlayerInventory = new ArrayList(hashSet);
+                selectedLimb = null;
+                selectedView = null;
+                applySelectionFormat();
+                buildRecyclerView();
+            }
+        });
+
         playerLimb1EquippmentDisplay.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //todo:[Low] replace with a better looking "selected" visual
-                playerLimb1EquippmentDisplay.setBackgroundColor(Color.RED);
+
                 //filteredPlayerInventory.clear();
                 filteredPlayerInventory = getFilteredInventory(playerLimb1);
                 Set<Integer> hashSet = new LinkedHashSet(filteredPlayerInventory);
                 uniquePlayerInventory = new ArrayList(hashSet);
                 selectedLimb = playerLimb1;
+                selectedView = playerLimb1EquippmentDisplay;
+                applySelectionFormat();
                 buildRecyclerView();
             }
         });
@@ -96,13 +111,14 @@ public class PlayerInventory extends AppCompatActivity {
         playerLimb2EquippmentDisplay.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //todo:[Low] replace with a better looking "selected" visual
-                playerLimb2EquippmentDisplay.setBackgroundColor(Color.RED);
+
                 //filteredPlayerInventory.clear();
                 filteredPlayerInventory = getFilteredInventory(playerLimb2);
                 Set<Integer> hashSet = new LinkedHashSet(filteredPlayerInventory);
                 uniquePlayerInventory = new ArrayList(hashSet);
                 selectedLimb = playerLimb2;
+                selectedView = playerLimb2EquippmentDisplay;
+                applySelectionFormat();
                 buildRecyclerView();
             }
         });
@@ -110,13 +126,14 @@ public class PlayerInventory extends AppCompatActivity {
         playerLimb3EquippmentDisplay.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //todo:[Low] replace with a better looking "selected" visual
-                playerLimb2EquippmentDisplay.setBackgroundColor(Color.RED);
+
                 //filteredPlayerInventory.clear();
                 filteredPlayerInventory = getFilteredInventory(playerLimb3);
                 Set<Integer> hashSet = new LinkedHashSet(filteredPlayerInventory);
                 uniquePlayerInventory = new ArrayList(hashSet);
                 selectedLimb = playerLimb3;
+                selectedView = playerLimb3EquippmentDisplay;
+                applySelectionFormat();
                 buildRecyclerView();
             }
         });
@@ -124,13 +141,14 @@ public class PlayerInventory extends AppCompatActivity {
         playerLimb4EquippmentDisplay.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //todo:[Low] replace with a better looking "selected" visual
-                playerLimb2EquippmentDisplay.setBackgroundColor(Color.RED);
+
                 //filteredPlayerInventory.clear();
                 filteredPlayerInventory = getFilteredInventory(playerLimb4);
                 Set<Integer> hashSet = new LinkedHashSet(filteredPlayerInventory);
                 uniquePlayerInventory = new ArrayList(hashSet);
                 selectedLimb = playerLimb4;
+                selectedView = playerLimb4EquippmentDisplay;
+                applySelectionFormat();
                 buildRecyclerView();
             }
         });
@@ -138,13 +156,13 @@ public class PlayerInventory extends AppCompatActivity {
         playerLimb5EquippmentDisplay.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //todo:[Low] replace with a better looking "selected" visual
-                playerLimb2EquippmentDisplay.setBackgroundColor(Color.RED);
                 //filteredPlayerInventory.clear();
                 filteredPlayerInventory = getFilteredInventory(playerLimb5);
                 Set<Integer> hashSet = new LinkedHashSet(filteredPlayerInventory);
                 uniquePlayerInventory = new ArrayList(hashSet);
                 selectedLimb = playerLimb5;
+                selectedView = playerLimb5EquippmentDisplay;
+                applySelectionFormat();
                 buildRecyclerView();
             }
         });
@@ -152,16 +170,18 @@ public class PlayerInventory extends AppCompatActivity {
         playerLimb6EquippmentDisplay.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //todo:[Low] replace with a better looking "selected" visual
-                playerLimb2EquippmentDisplay.setBackgroundColor(Color.RED);
+
                 //filteredPlayerInventory.clear();
                 filteredPlayerInventory = getFilteredInventory(playerLimb6);
                 Set<Integer> hashSet = new LinkedHashSet(filteredPlayerInventory);
                 uniquePlayerInventory = new ArrayList(hashSet);
                 selectedLimb = playerLimb6;
+                selectedView = playerLimb6EquippmentDisplay;
+                applySelectionFormat();
                 buildRecyclerView();
             }
         });
+
         BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -174,7 +194,7 @@ public class PlayerInventory extends AppCompatActivity {
         };
     
     }
-    //fixme: java.lang.NullPointerException: Attempt to invoke virtual method 'com.example.dungeoncrawlerframework.Items.Item com.example.dungeoncrawlerframework.Items.ItemDictionary.getItem(int)' on a null object reference
+
     private ArrayList<Integer> getFilteredInventory(Limb limb){
         ArrayList<Integer> filteredInventory = new ArrayList<Integer>();
         for (int i = 0; i < playerInventory.size(); i++){
@@ -197,16 +217,32 @@ public class PlayerInventory extends AppCompatActivity {
         mAdapter.setOnItemClickListener(new InventoryAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-            //todo:[High] create a method to get the item in that position
-                //todo:[High] create a method to equip the item
-                //todo:[High] within the equip item method, unequip item if there is already an item
-                
-                playerEquipItem(uniquePlayerInventory.get(position));
+                if(selectedLimb != null){
+                    playerEquipItem(uniquePlayerInventory.get(position));
+                }
             }
         });
     }
 
+    private void applySelectionFormat(){
+        //todo: [Low] update format/include a new shape drawable with a red border
+        Drawable shape = getResources().getDrawable(R.drawable.shape);
+        playerLimb1EquippmentDisplay.setBackground(shape);
+        playerLimb2EquippmentDisplay.setBackground(shape);
+        playerLimb3EquippmentDisplay.setBackground(shape);
+        playerLimb4EquippmentDisplay.setBackground(shape);
+        playerLimb5EquippmentDisplay.setBackground(shape);
+        playerLimb6EquippmentDisplay.setBackground(shape);
+        if(selectedView != null){
+            selectedView.setBackgroundColor(Color.RED);
+        }
+
+    }
+
     private void playerEquipItem(Integer itemIndex) {
         Item equippedItem = itemDictionary.getItem(itemIndex);
+        selectedLimb.setEquippedItem(equippedItem);
+        Drawable itemImage = ContextCompat.getDrawable(this,selectedLimb.getEquippedItem().getItemImageId());
+        selectedView.setImageDrawable(itemImage);
     }
 }

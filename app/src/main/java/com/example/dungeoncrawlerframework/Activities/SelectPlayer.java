@@ -15,6 +15,11 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.example.dungeoncrawlerframework.Limbs.Feet;
+import com.example.dungeoncrawlerframework.Limbs.Hand;
+import com.example.dungeoncrawlerframework.Limbs.Head;
+import com.example.dungeoncrawlerframework.Limbs.Legs;
+import com.example.dungeoncrawlerframework.Limbs.Torso;
 import com.example.dungeoncrawlerframework.Players.Player;
 import com.example.dungeoncrawlerframework.Players.PlayerClassDictionary;
 import com.example.dungeoncrawlerframework.R;
@@ -47,6 +52,13 @@ public class SelectPlayer extends AppCompatActivity {
     private int playerAttack;
     private int playerDefense;
     private int playerSkillPower;
+    private Head playerHead;
+    private Torso playerTorso;
+    private Hand playerHand1;
+    private Hand playerHand2;
+    private Legs playerLegs;
+    private Feet playerFeet;
+
 
     private int killCount;
     private int playerExperience;
@@ -81,7 +93,7 @@ public class SelectPlayer extends AppCompatActivity {
     //==========INTENT STRING NAMES  - USED TO DEFINE WHAT TO PASS TO BATTLE ACTIVITY=================//
 
 
-    //===================SAVED PREFERENCES STRING NAMES - USED TO NAME PRIMITIVES BEING SAVED===================//
+    //===================SHARED PREFERENCES STRING NAMES - USED TO NAME PRIMITIVES BEING SAVED===================//
     public static final String PLAYERENERGY = "playerenergy";
     public static final String PLAYERATTACK = "playerattack";
     public static final String PLAYERDEFENSE = "playerdefense";
@@ -95,7 +107,14 @@ public class SelectPlayer extends AppCompatActivity {
     public static final String PLAYERCOINPURSE = "playercoinpurse";
     public static final String PLAYERIMAGEID = "playerimageid";
     public static final String PLAYERINVENTORY = "playerinventory";
-    //===================SAVED PREFERENCES STRING NAMES - USED TO NAME PRIMITIVES BEING SAVED===================//
+    public static final String PLAYERHEAD = "playerhead";
+    public static final String PLAYERTORSO = "playertorso";
+    public static final String PLAYERHAND1 = "playerhand1";
+    public static final String PLAYERHAND2 = "playerhand2";
+    public static final String PLAYERLEGS = "playerlegs";
+    public static final String PLAYERFEET = "playerfeet";
+
+    //===================SHARED PREFERENCES STRING NAMES - USED TO NAME PRIMITIVES BEING SAVED===================//
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -255,7 +274,8 @@ public class SelectPlayer extends AppCompatActivity {
     }
 
     public void openPlayerInventory(){
-
+        //todo:[High] get and the player limbs and generate the corresponding intent variables
+        //todo:[High] pass the limbs as a gson intent to the InventoryMenu activity
         Intent intent = new Intent(this, PlayerInventory.class);
         intent.putExtra(EXTRA_PLAYERINVENTORY,playerInventory);
         startActivity(intent);
