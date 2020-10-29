@@ -16,12 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dungeoncrawlerframework.Items.Item;
 import com.example.dungeoncrawlerframework.Items.ItemDictionary;
-import com.example.dungeoncrawlerframework.Limbs.Feet;
-import com.example.dungeoncrawlerframework.Limbs.Hand;
-import com.example.dungeoncrawlerframework.Limbs.Head;
-import com.example.dungeoncrawlerframework.Limbs.Legs;
 import com.example.dungeoncrawlerframework.Limbs.Limb;
-import com.example.dungeoncrawlerframework.Limbs.Torso;
+import com.example.dungeoncrawlerframework.Players.Player;
 import com.example.dungeoncrawlerframework.R;
 
 import java.util.ArrayList;
@@ -47,12 +43,12 @@ public class PlayerInventory extends AppCompatActivity {
     private ImageView playerLimb6EquippmentDisplay;
     private final ItemDictionary itemDictionary = new ItemDictionary();
 
-    Head playerLimb1 = new Head();
-    Hand playerLimb2 = new Hand();
-    Torso playerLimb3 = new Torso();
-    Hand playerLimb4 = new Hand();
-    Legs playerLimb5 = new Legs();
-    Feet playerLimb6 = new Feet();
+    Limb playerLimb1;
+    Limb playerLimb2;
+    Limb playerLimb3;
+    Limb playerLimb4;
+    Limb playerLimb5;
+    Limb playerLimb6;
     Limb selectedLimb;
     ImageView selectedView;
     //Add regular views and other nonsenese here
@@ -62,10 +58,16 @@ public class PlayerInventory extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_menu);
         Intent intent = getIntent();
-        playerInventory = intent.getIntegerArrayListExtra(SelectPlayer.EXTRA_PLAYERINVENTORY);
-
-        Set<Integer> hashSet = new LinkedHashSet(playerInventory);
-        uniquePlayerInventory = new ArrayList(hashSet);
+        //fixme:[Critical] the player being pulled up from SharedPreferences is not the same player being passed in the intent
+        Player newPlayer = intent.getParcelableExtra("NEWPLAYER");
+        playerLimb1 = newPlayer.getPlayerHead();
+        playerLimb2 = newPlayer.getPlayerHand1();
+        playerLimb3 = newPlayer.getPlayerTorso();
+        playerLimb4 = newPlayer.getPlayerHand2();
+        playerLimb5 = newPlayer.getPlayerLegs();
+        playerLimb6 = newPlayer.getPlayerFeet();
+        int playerAttack = newPlayer.getPlayerAttack();
+        playerInventory = newPlayer.getPlayerInventory();
 
         menuLayoutDisplay = findViewById(R.id.itemMenuLayoutLayer);
         playerLimb1EquippmentDisplay = findViewById(R.id.limb1EquippedItem);
@@ -76,9 +78,12 @@ public class PlayerInventory extends AppCompatActivity {
         playerLimb6EquippmentDisplay = findViewById(R.id.limb6EquippedItem);
 
         //todo: [Critical] replace with the selected character's limbs - see Player class for parcelable implementation
+        if (playerInventory != null ){
+            Set<Integer> hashSet = new LinkedHashSet(playerInventory);
+            uniquePlayerInventory = new ArrayList(hashSet);
+            buildRecyclerView();
+        }
 
-
-        buildRecyclerView();
 
         menuLayoutDisplay.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -98,13 +103,16 @@ public class PlayerInventory extends AppCompatActivity {
             public void onClick(View view) {
 
                 //filteredPlayerInventory.clear();
-                filteredPlayerInventory = getFilteredInventory(playerLimb1);
-                Set<Integer> hashSet = new LinkedHashSet(filteredPlayerInventory);
-                uniquePlayerInventory = new ArrayList(hashSet);
+
                 selectedLimb = playerLimb1;
                 selectedView = playerLimb1EquippmentDisplay;
                 applySelectionFormat();
-                buildRecyclerView();
+                if(playerInventory != null){
+                    filteredPlayerInventory = getFilteredInventory(playerLimb1);
+                    Set<Integer> hashSet = new LinkedHashSet(filteredPlayerInventory);
+                    uniquePlayerInventory = new ArrayList(hashSet);
+                    buildRecyclerView();
+                }
             }
         });
 
@@ -113,13 +121,16 @@ public class PlayerInventory extends AppCompatActivity {
             public void onClick(View view) {
 
                 //filteredPlayerInventory.clear();
-                filteredPlayerInventory = getFilteredInventory(playerLimb2);
-                Set<Integer> hashSet = new LinkedHashSet(filteredPlayerInventory);
-                uniquePlayerInventory = new ArrayList(hashSet);
+
                 selectedLimb = playerLimb2;
                 selectedView = playerLimb2EquippmentDisplay;
                 applySelectionFormat();
-                buildRecyclerView();
+                if(playerInventory != null){
+                    filteredPlayerInventory = getFilteredInventory(playerLimb2);
+                    Set<Integer> hashSet = new LinkedHashSet(filteredPlayerInventory);
+                    uniquePlayerInventory = new ArrayList(hashSet);
+                    buildRecyclerView();
+                }
             }
         });
 
@@ -128,13 +139,16 @@ public class PlayerInventory extends AppCompatActivity {
             public void onClick(View view) {
 
                 //filteredPlayerInventory.clear();
-                filteredPlayerInventory = getFilteredInventory(playerLimb3);
-                Set<Integer> hashSet = new LinkedHashSet(filteredPlayerInventory);
-                uniquePlayerInventory = new ArrayList(hashSet);
+
                 selectedLimb = playerLimb3;
                 selectedView = playerLimb3EquippmentDisplay;
                 applySelectionFormat();
-                buildRecyclerView();
+                if(playerInventory != null){
+                    filteredPlayerInventory = getFilteredInventory(playerLimb3);
+                    Set<Integer> hashSet = new LinkedHashSet(filteredPlayerInventory);
+                    uniquePlayerInventory = new ArrayList(hashSet);
+                    buildRecyclerView();
+                }
             }
         });
 
@@ -143,13 +157,16 @@ public class PlayerInventory extends AppCompatActivity {
             public void onClick(View view) {
 
                 //filteredPlayerInventory.clear();
-                filteredPlayerInventory = getFilteredInventory(playerLimb4);
-                Set<Integer> hashSet = new LinkedHashSet(filteredPlayerInventory);
-                uniquePlayerInventory = new ArrayList(hashSet);
+
                 selectedLimb = playerLimb4;
                 selectedView = playerLimb4EquippmentDisplay;
                 applySelectionFormat();
-                buildRecyclerView();
+                if(playerInventory != null){
+                    filteredPlayerInventory = getFilteredInventory(playerLimb4);
+                    Set<Integer> hashSet = new LinkedHashSet(filteredPlayerInventory);
+                    uniquePlayerInventory = new ArrayList(hashSet);
+                    buildRecyclerView();
+                }
             }
         });
 
@@ -157,13 +174,16 @@ public class PlayerInventory extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //filteredPlayerInventory.clear();
-                filteredPlayerInventory = getFilteredInventory(playerLimb5);
-                Set<Integer> hashSet = new LinkedHashSet(filteredPlayerInventory);
-                uniquePlayerInventory = new ArrayList(hashSet);
+
                 selectedLimb = playerLimb5;
                 selectedView = playerLimb5EquippmentDisplay;
                 applySelectionFormat();
-                buildRecyclerView();
+                if(playerInventory != null){
+                    filteredPlayerInventory = getFilteredInventory(playerLimb5);
+                    Set<Integer> hashSet = new LinkedHashSet(filteredPlayerInventory);
+                    uniquePlayerInventory = new ArrayList(hashSet);
+                    buildRecyclerView();
+                }
             }
         });
 
@@ -172,13 +192,16 @@ public class PlayerInventory extends AppCompatActivity {
             public void onClick(View view) {
 
                 //filteredPlayerInventory.clear();
-                filteredPlayerInventory = getFilteredInventory(playerLimb6);
-                Set<Integer> hashSet = new LinkedHashSet(filteredPlayerInventory);
-                uniquePlayerInventory = new ArrayList(hashSet);
+
                 selectedLimb = playerLimb6;
                 selectedView = playerLimb6EquippmentDisplay;
                 applySelectionFormat();
-                buildRecyclerView();
+                if(playerInventory != null){
+                    filteredPlayerInventory = getFilteredInventory(playerLimb6);
+                    Set<Integer> hashSet = new LinkedHashSet(filteredPlayerInventory);
+                    uniquePlayerInventory = new ArrayList(hashSet);
+                    buildRecyclerView();
+                }
             }
         });
 

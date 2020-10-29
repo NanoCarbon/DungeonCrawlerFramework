@@ -10,9 +10,10 @@ public class Limb {
     //arms, torso, head, ears, legs, feet
 
     private Item equippedItem;
-    private int limbType = 0;
+    private int limbType;
 
-    public Limb(){
+    public Limb(int limbType){
+        this.limbType = limbType;
     }
 
     public Item getEquippedItem() {

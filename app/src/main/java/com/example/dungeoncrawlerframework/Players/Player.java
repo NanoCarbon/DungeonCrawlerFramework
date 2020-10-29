@@ -1,18 +1,16 @@
 package com.example.dungeoncrawlerframework.Players;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.example.dungeoncrawlerframework.Items.Item;
 import com.example.dungeoncrawlerframework.Items.ItemDictionary;
-import com.example.dungeoncrawlerframework.Limbs.Feet;
-import com.example.dungeoncrawlerframework.Limbs.Hand;
-import com.example.dungeoncrawlerframework.Limbs.Head;
-import com.example.dungeoncrawlerframework.Limbs.Legs;
 import com.example.dungeoncrawlerframework.Limbs.Limb;
-import com.example.dungeoncrawlerframework.Limbs.Torso;
 
 import java.util.ArrayList;
 
-public class Player{
-    //todo: [Critial] implement serializable so we're not always passing primitives back and fourth and always having to keep track
+public class Player implements Parcelable {
+    //todo: [BLOCKER] implement Parcelable so we're not always passing primitives back and fourth and always having to keep track
     //todo: [Medium] create a skill class and skill dictionary
 
     //======THE 7 PLAYER STATS THAT ARE AFFECTED BY ITEMS========//
@@ -40,7 +38,7 @@ public class Player{
 
     //==============OTHER PARAMETERIZED VARS====================//
     private int playerImageId;
-    private ArrayList<Integer> playerInventory;
+    private ArrayList<Integer> playerInventory = new ArrayList<Integer>();
     private String playerDescription;
     //==============OTHER PARAMETERIZED VARS====================//
 
@@ -50,21 +48,21 @@ public class Player{
     private int playerKillCount=0;
     private int playerCoinPurse = 0;
     private ArrayList<Limb> playerBodyParts = new ArrayList<Limb>();
-    private Hand playerHand1 = new Hand();
-    private Hand playerHand2 = new Hand();
-    private Feet playerFeet = new Feet();
-    private Head playerHead = new Head();
-    private Torso playerTorso = new Torso();
-    private Legs playerLegs = new Legs();
+    private final Limb playerHand1 = new Limb(3);
+    private final Limb playerHand2 = new Limb(3);
+    private final Limb playerFeet = new Limb(5);
+    private final Limb playerHead = new Limb(1);
+    private final Limb playerTorso = new Limb(2);
+    private final Limb playerLegs = new Limb(4);
     //===================PRE INSTANTIATED VARS==================//
 
     //===================STARTING VARS==========================//
     final private int playerStartingHealth;
     final private int playerStartingAttack;
     final private int playerStartingDefense;
-    final private int playerStartingExperience=0;
-    final private int playerStartingLevel=0;
-    final private int playerStartingKillCount=0;
+    private int playerStartingExperience=0;
+    private int playerStartingLevel=0;
+    private int playerStartingKillCount=0;
     final private int playerStartingMaxHealth;
     final private int playerStartingEnergy;
     final private int playerStartingMaxEnergy;
@@ -111,23 +109,28 @@ public class Player{
 
     }
 //=============================CONSTRUCTOR====================================//
-
-
-//====================(UNUTILIZED)PARCELABLE IMPLEMENTATION METHODS==================//
-    /*
+//===================PARCELABLE CREATOR==============================================//
     protected Player(Parcel in) {
         playerHealth = in.readInt();
+        itemHealthEffect = in.readInt();
         playerAttack = in.readInt();
+        itemAttackEffect = in.readInt();
         playerDefense = in.readInt();
+        itemDefenseEffect = in.readInt();
         playerMaxHealth = in.readInt();
+        itemMaxHealthEffect = in.readInt();
         playerEnergy = in.readInt();
+        itemEnergyEffect = in.readInt();
         playerMaxEnergy = in.readInt();
-        playerLimb1ImageId = in.readInt();
+        itemMaxEnergyEffect = in.readInt();
+        playerSkillPower = in.readInt();
+        itemSkillPowerEffect = in.readInt();
+        playerImageId = in.readInt();
+        playerDescription = in.readString();
         playerExperience = in.readInt();
         playerLevel = in.readInt();
         playerKillCount = in.readInt();
-        playerSkillPower = in.readInt();
-        playerDescription = in.readString();
+        playerCoinPurse = in.readInt();
         playerStartingHealth = in.readInt();
         playerStartingAttack = in.readInt();
         playerStartingDefense = in.readInt();
@@ -138,15 +141,9 @@ public class Player{
         playerStartingEnergy = in.readInt();
         playerStartingMaxEnergy = in.readInt();
         playerStartingSkillPower = in.readInt();
-        lowLevelBound = in.createIntArray();
-        hiLevelBound = in.createIntArray();
-        statsTreeAttack = in.createIntArray();
-        statsTreeDefense = in.createIntArray();
-        statsTreeHP = in.createIntArray();
-        statsTreeEnergy = in.createIntArray();
-        statsTreeSkillPower = in.createIntArray();
+        playerSharedPreferences = in.readString();
+        playerInventory = in.readArrayList(null);
     }
-
 
     public static final Creator<Player> CREATOR = new Creator<Player>() {
         @Override
@@ -159,49 +156,9 @@ public class Player{
             return new Player[size];
         }
     };
+    //===================PARCELABLE CREATOR==============================================//
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(playerHealth);
-        dest.writeInt(playerAttack);
-        dest.writeInt(playerDefense);
-        dest.writeInt(playerMaxHealth);
-        dest.writeInt(playerEnergy);
-        dest.writeInt(playerMaxEnergy);
-        dest.writeInt(playerLimb1ImageId);
-        dest.writeInt(playerExperience);
-        dest.writeInt(playerLevel);
-        dest.writeInt(playerKillCount);
-        dest.writeInt(playerSkillPower);
-        dest.writeString(playerDescription);
-        dest.writeInt(playerStartingHealth);
-        dest.writeInt(playerStartingAttack);
-        dest.writeInt(playerStartingDefense);
-        dest.writeInt(playerStartingExperience);
-        dest.writeInt(playerStartingLevel);
-        dest.writeInt(playerStartingKillCount);
-        dest.writeInt(playerStartingMaxHealth);
-        dest.writeInt(playerStartingEnergy);
-        dest.writeInt(playerStartingMaxEnergy);
-        dest.writeInt(playerStartingSkillPower);
-        dest.writeIntArray(lowLevelBound);
-        dest.writeIntArray(hiLevelBound);
-        dest.writeIntArray(statsTreeAttack);
-        dest.writeIntArray(statsTreeDefense);
-        dest.writeIntArray(statsTreeHP);
-        dest.writeIntArray(statsTreeEnergy);
-        dest.writeIntArray(statsTreeSkillPower);
-    }
-*/
-//====================(UNUTILIZED)PARCELABLE IMPLEMENTATION METHODS==================//
-
-
-//====================GETTERS AND SETTERS============================================//
+    //====================GETTERS AND SETTERS============================================//
     public int getPlayerHealth() {
         return playerHealth;
     }
@@ -410,6 +367,29 @@ public class Player{
         this.itemSkillPowerEffect = itemSkillPowerEffect;
     }
 
+    public Limb getPlayerHand1(){
+        return playerHand1;
+    }
+
+    public Limb getPlayerHand2() {
+        return playerHand2;
+    }
+
+    public Limb getPlayerFeet() {
+        return playerFeet;
+    }
+
+    public Limb getPlayerHead() {
+        return playerHead;
+    }
+
+    public Limb getPlayerTorso() {
+        return playerTorso;
+    }
+
+    public Limb getPlayerLegs() {
+        return playerLegs;
+    }
 //====================GETTERS AND SETTERS============================================//
 
 //====================LEVELING METHODS===============================================//
@@ -472,20 +452,6 @@ public class Player{
 
     }
 
-    //Deprecated Reset Player Method
-    /*public void resetPlayer(){
-        this.playerHealth = this.playerStartingHealth;
-        this.playerAttack = this.playerStartingAttack;
-        this.playerDefense = this.playerStartingDefense;
-        this.playerExperience = this.playerStartingExperience;
-        this.playerLevel = this.playerStartingLevel;
-        this.playerKillCount = this.playerStartingKillCount;
-        this.playerMaxHealth = this.playerStartingMaxHealth;
-        this.playerEnergy = this.playerStartingEnergy;
-        this.playerMaxEnergy = this.playerStartingMaxEnergy;
-        this.playerSkillPower = this.playerStartingSkillPower;
-    }
-    */
 
 //====================LEVELING METHODS===============================================//
 
@@ -574,5 +540,49 @@ public class Player{
         }
     }
 
-//============================INVENTORY AND ITEM RELATED METHODS==============================//
+    //============================INVENTORY AND ITEM RELATED METHODS==============================//
+
+    //=============================PARCELABLE METHODS=======================//
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(playerHealth);
+        dest.writeInt(itemHealthEffect);
+        dest.writeInt(playerAttack);
+        dest.writeInt(itemAttackEffect);
+        dest.writeInt(playerDefense);
+        dest.writeInt(itemDefenseEffect);
+        dest.writeInt(playerMaxHealth);
+        dest.writeInt(itemMaxHealthEffect);
+        dest.writeInt(playerEnergy);
+        dest.writeInt(itemEnergyEffect);
+        dest.writeInt(playerMaxEnergy);
+        dest.writeInt(itemMaxEnergyEffect);
+        dest.writeInt(playerSkillPower);
+        dest.writeInt(itemSkillPowerEffect);
+        dest.writeInt(playerImageId);
+        dest.writeString(playerDescription);
+        dest.writeInt(playerExperience);
+        dest.writeInt(playerLevel);
+        dest.writeInt(playerKillCount);
+        dest.writeInt(playerCoinPurse);
+        dest.writeInt(playerStartingHealth);
+        dest.writeInt(playerStartingAttack);
+        dest.writeInt(playerStartingDefense);
+        dest.writeInt(playerStartingExperience);
+        dest.writeInt(playerStartingLevel);
+        dest.writeInt(playerStartingKillCount);
+        dest.writeInt(playerStartingMaxHealth);
+        dest.writeInt(playerStartingEnergy);
+        dest.writeInt(playerStartingMaxEnergy);
+        dest.writeInt(playerStartingSkillPower);
+        dest.writeString(playerSharedPreferences);
+        dest.writeList(playerInventory);
+    }
+    //=============================PARCELABLE METHODS=======================//
+
 }

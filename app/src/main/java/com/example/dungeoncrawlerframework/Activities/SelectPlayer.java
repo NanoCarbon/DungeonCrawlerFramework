@@ -15,18 +15,12 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.example.dungeoncrawlerframework.Limbs.Feet;
-import com.example.dungeoncrawlerframework.Limbs.Hand;
-import com.example.dungeoncrawlerframework.Limbs.Head;
-import com.example.dungeoncrawlerframework.Limbs.Legs;
-import com.example.dungeoncrawlerframework.Limbs.Torso;
+import com.example.dungeoncrawlerframework.Limbs.Limb;
 import com.example.dungeoncrawlerframework.Players.Player;
 import com.example.dungeoncrawlerframework.Players.PlayerClassDictionary;
 import com.example.dungeoncrawlerframework.R;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class SelectPlayer extends AppCompatActivity {
@@ -52,12 +46,12 @@ public class SelectPlayer extends AppCompatActivity {
     private int playerAttack;
     private int playerDefense;
     private int playerSkillPower;
-    private Head playerHead;
-    private Torso playerTorso;
-    private Hand playerHand1;
-    private Hand playerHand2;
-    private Legs playerLegs;
-    private Feet playerFeet;
+    private Limb playerHead;
+    private Limb playerTorso;
+    private Limb playerHand1;
+    private Limb playerHand2;
+    private Limb playerLegs;
+    private Limb playerFeet;
 
 
     private int killCount;
@@ -181,28 +175,25 @@ public class SelectPlayer extends AppCompatActivity {
 
     public void loadData(){
         SharedPreferences sharedPreferences = getSharedPreferences(playerSharedPrefrences,MODE_PRIVATE);
-
         Gson gson = new Gson();
-        String json = sharedPreferences.getString(PLAYERINVENTORY,null);
-        Type type = new TypeToken<ArrayList<Integer>>() {}.getType();
-
-        playerInventory = gson.fromJson(json,type);
-        if (playerInventory == null){
-            playerInventory = new ArrayList<Integer>();
+        String jsonOldPlayer = sharedPreferences.getString("OLDPLAYER",null);
+        Player oldPlayer = gson.fromJson(jsonOldPlayer,Player.class);
+        if (oldPlayer!= null) {
+            newPlayer = oldPlayer;
+            playerInventory = newPlayer.getPlayerInventory();
+            playerEnergy = newPlayer.getPlayerEnergy();
+            playerAttack = newPlayer.getPlayerAttack();
+            playerDefense = newPlayer.getPlayerDefense();
+            playerHP = newPlayer.getPlayerHealth();
+            killCount = newPlayer.getPlayerKillCount();
+            playerExperience = newPlayer.getPlayerKillCount();
+            playerLevel = newPlayer.getPlayerLevel();
+            playerImageId = newPlayer.getPlayerImageId();
+            playerMaxHP = newPlayer.getPlayerMaxHealth();
+            playerMaxEnergy = newPlayer.getPlayerMaxEnergy();
+            playerSkillPower = newPlayer.getPlayerSkillPower();
+            playerCoinPurse = newPlayer.getPlayerCoinPurse();
         }
-        playerEnergy = sharedPreferences.getInt(PLAYERMAXENERGY,playerEnergy);
-        playerAttack = sharedPreferences.getInt(PLAYERATTACK,playerAttack);
-        playerDefense = sharedPreferences.getInt(PLAYERDEFENSE,playerDefense);
-        playerHP = sharedPreferences.getInt(PLAYERMAXHP,playerHP);
-        killCount = sharedPreferences.getInt(KILLCOUNT,killCount);
-        playerExperience = sharedPreferences.getInt(PLAYEREXPERIENCE,playerExperience);
-        playerLevel = sharedPreferences.getInt(PLAYERLEVEL,playerLevel);
-        playerImageId = sharedPreferences.getInt(PLAYERIMAGEID, playerImageId);
-        playerMaxHP = sharedPreferences.getInt(PLAYERMAXHP, playerMaxHP);
-        playerMaxEnergy = sharedPreferences.getInt(PLAYERMAXENERGY, playerMaxEnergy);
-        playerSkillPower = sharedPreferences.getInt(PLAYERSKILLPOWER, playerSkillPower);
-        playerCoinPurse = sharedPreferences.getInt(PLAYERCOINPURSE, playerCoinPurse);
-
     }
 
     private void getPlayerStats() {
@@ -255,21 +246,7 @@ public class SelectPlayer extends AppCompatActivity {
     public void startBattleActivity(){
 
         Intent intent = new Intent(this, Battle.class);
-        intent.putExtra(EXTRA_HP,playerHP);
-        intent.putExtra(EXTRA_ATTACK,playerAttack);
-        intent.putExtra(EXTRA_DEFENSE,playerDefense);
-        intent.putExtra(EXTRA_ENERGY,playerEnergy);
-        intent.putExtra(EXTRA_LIMB1, playerImageId);
-        intent.putExtra(EXTRA_PLAYERDESCRIPTION,playerDescription);
-        intent.putExtra(EXTRA_SKILLPOWER,playerSkillPower);
-        intent.putExtra(EXTRA_KILLCOUNT,killCount);
-        intent.putExtra(EXTRA_EXPERIENCE,playerExperience);
-        intent.putExtra(EXTRA_LEVEL,playerLevel);
-        intent.putExtra(EXTRA_COINPURSE,playerCoinPurse);
-        intent.putExtra(EXTRA_MAXENERGY,playerMaxEnergy);
-        intent.putExtra(EXTRA_MAXHP,playerMaxHP);
-        intent.putExtra(EXTRA_SHAREDPREF,playerSharedPrefrences);
-        intent.putExtra(EXTRA_PLAYERINVENTORY,playerInventory);
+        intent.putExtra("NEWPLAYER",newPlayer);
         startActivity(intent);
     }
 
@@ -277,7 +254,7 @@ public class SelectPlayer extends AppCompatActivity {
         //todo:[High] get and the player limbs and generate the corresponding intent variables
         //todo:[High] pass the limbs as a gson intent to the InventoryMenu activity
         Intent intent = new Intent(this, PlayerInventory.class);
-        intent.putExtra(EXTRA_PLAYERINVENTORY,playerInventory);
+        intent.putExtra("NEWPLAYER",newPlayer);
         startActivity(intent);
     }
 }

@@ -25,7 +25,6 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.example.dungeoncrawlerframework.Items.Item;
 import com.example.dungeoncrawlerframework.Items.ItemDictionary;
-import com.example.dungeoncrawlerframework.Limbs.Hand;
 import com.example.dungeoncrawlerframework.Limbs.Limb;
 import com.example.dungeoncrawlerframework.Monsters.Monster;
 import com.example.dungeoncrawlerframework.Monsters.MonsterDictionary;
@@ -35,20 +34,6 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Random;
-
-import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.KILLCOUNT;
-import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYERATTACK;
-import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYERCOINPURSE;
-import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYERDEFENSE;
-import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYERENERGY;
-import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYEREXPERIENCE;
-import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYERHP;
-import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYERIMAGEID;
-import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYERINVENTORY;
-import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYERLEVEL;
-import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYERMAXENERGY;
-import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYERMAXHP;
-import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYERSKILLPOWER;
 
 public class Battle extends AppCompatActivity {
 
@@ -129,8 +114,6 @@ public class Battle extends AppCompatActivity {
     private ArrayList<Integer> playerInventory;
     private ArrayList<Limb> playerBodyParts;
 
-    private Hand playerHand1;
-    private Hand playerHand2;
     //============================PLAYER RELATED VARS==================================//
 
     //============================BATTLE RELATED VARS==================================//
@@ -158,23 +141,8 @@ public class Battle extends AppCompatActivity {
 
         Intent intent = getIntent();
         //player starts with max HP and max Energy upon entering the dungeon
-        newPlayer = new Player(
-                intent.getIntExtra(SelectPlayer.EXTRA_MAXHP,0),
-                intent.getIntExtra(SelectPlayer.EXTRA_ATTACK,0),
-                intent.getIntExtra(SelectPlayer.EXTRA_DEFENSE,0),
-                intent.getIntExtra(SelectPlayer.EXTRA_MAXENERGY,0),
-                intent.getIntExtra(SelectPlayer.EXTRA_LIMB1,0),
-                intent.getStringExtra(SelectPlayer.EXTRA_PLAYERDESCRIPTION),
-                intent.getIntExtra(SelectPlayer.EXTRA_SKILLPOWER,0),
-                intent.getStringExtra(SelectPlayer.EXTRA_SHAREDPREF));
-        newPlayer.setPlayerLevel(intent.getIntExtra(SelectPlayer.EXTRA_LEVEL,0));
-        newPlayer.setPlayerExperience(intent.getIntExtra(SelectPlayer.EXTRA_EXPERIENCE,0));
-        newPlayer.setPlayerKillCount(intent.getIntExtra(SelectPlayer.EXTRA_KILLCOUNT,0));
-        newPlayer.setPlayerCoinPurse(intent.getIntExtra(SelectPlayer.EXTRA_COINPURSE,0));
-        newPlayer.setPlayerMaxHealth(intent.getIntExtra(SelectPlayer.EXTRA_MAXHP,newPlayer.getPlayerMaxHealth()));
-        newPlayer.setPlayerMaxEnergy(intent.getIntExtra(SelectPlayer.EXTRA_MAXENERGY,newPlayer.getPlayerMaxEnergy()));
-        playerInventory = intent.getIntegerArrayListExtra(SelectPlayer.EXTRA_PLAYERINVENTORY);
-        newPlayer.setPlayerInventory(playerInventory);
+        newPlayer = intent.getParcelableExtra("NEWPLAYER");
+        playerInventory = newPlayer.getPlayerInventory();
 
         Intent finishPriorActivities = new Intent("finish_activity");
         sendBroadcast(finishPriorActivities);
@@ -241,6 +209,9 @@ public class Battle extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(playerSharedPreferences, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
+        String jsonPlayer = gson.toJson(newPlayer);
+        editor.putString("OLDPLAYER",jsonPlayer);
+        /*
         String jsonPlayerInventory = gson.toJson(playerInventory);
         editor.putString(PLAYERINVENTORY,jsonPlayerInventory);
 
@@ -258,7 +229,7 @@ public class Battle extends AppCompatActivity {
         editor.putInt(KILLCOUNT,killCount);
 
         //todo:[Bug] monster Image id's from the dictionary are overwriting the Shared Preferences on occasion
-        editor.putInt(PLAYERIMAGEID,newPlayer.getPlayerImageId());
+        editor.putInt(PLAYERIMAGEID,newPlayer.getPlayerImageId());*/
         editor.apply();
         Toast.makeText(this,"Data saved",Toast.LENGTH_SHORT).show();
 
@@ -416,8 +387,11 @@ public class Battle extends AppCompatActivity {
         killCountDisplay.setText(res.getString(R.string.killCount_StringValue,killCount));
         playerCoinPurseDisplay.setText(res.getString(R.string.playerCoinPurse_StringValue,playerCoinPurse));
         playerSharedPreferences = newPlayer.getPlayerSharedPreferences();
-        currentInventoryCountDisplay.setText(res.getString(R.string.inventoryCount_StringValue,playerInventory.size()));
-
+        if(playerInventory != null) {
+            currentInventoryCountDisplay.setText(res.getString(R.string.inventoryCount_StringValue, playerInventory.size()));
+        }else{
+            currentInventoryCountDisplay.setText(res.getString(R.string.inventoryCount_StringValue, 0));
+        }
         attackButton.setText(res.getString(R.string.attackButton_TextValue,damage));
         healButton.setText(res.getString(R.string.healButton_StringValue,healAmount));
     }
