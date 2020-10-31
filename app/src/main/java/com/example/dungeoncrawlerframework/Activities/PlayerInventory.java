@@ -263,7 +263,6 @@ public class PlayerInventory extends AppCompatActivity {
             if(selectedLimb.getEquippedItem() != null){
                 int itemEffectType = selectedLimb.getEquippedItem().getItemEffectType();
                 int itemEffectValue = selectedLimb.getEquippedItem().getEffectValue();
-                //todo:[BLOCKER] find a way to remove the item effect
                 switch (itemEffectType) {
                     case 1:
                         //affects playerMaxHealth
@@ -433,7 +432,6 @@ public class PlayerInventory extends AppCompatActivity {
 
     private void playerEquipItem(Integer itemIndex) {
 
-        //todo: run the unequipItem method if there's already an item there
         if (selectedLimb.getEquippedItem() != null){
             unequipItem();
         }
