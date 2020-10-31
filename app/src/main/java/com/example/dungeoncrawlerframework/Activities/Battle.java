@@ -35,6 +35,9 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.EXTRA_PLAYER;
+import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYERSAVE;
+
 public class Battle extends AppCompatActivity {
 
     //==============MONSTER RELATED VARS================//
@@ -73,12 +76,6 @@ public class Battle extends AppCompatActivity {
     private TextView playerSkillPowerDisplay;
     private TextView playerCoinPurseDisplay;
     private TextView currentInventoryCountDisplay;
-    private ImageView playerLimb1EquippmentDisplay;
-    private ImageView playerLimb2EquippmentDisplay;
-    private ImageView playerLimb3EquippmentDisplay;
-    private ImageView playerLimb4EquippmentDisplay;
-    private ImageView playerLimb5EquippmentDisplay;
-    private ImageView playerLimb6EquippmentDisplay;
 
     private Player newPlayer;
     private Drawable playerImage;
@@ -141,8 +138,10 @@ public class Battle extends AppCompatActivity {
 
         Intent intent = getIntent();
         //player starts with max HP and max Energy upon entering the dungeon
-        newPlayer = intent.getParcelableExtra("NEWPLAYER");
+        newPlayer = intent.getParcelableExtra(EXTRA_PLAYER);
         playerInventory = newPlayer.getPlayerInventory();
+
+
 
         Intent finishPriorActivities = new Intent("finish_activity");
         sendBroadcast(finishPriorActivities);
@@ -151,7 +150,7 @@ public class Battle extends AppCompatActivity {
         updatePlayerStats();
 
         /*
-        //todo:[High] refactor this method using the latest playerBodyParts framework
+        //todo: [High] use the new newPlayer.activateEquipment() method instead
         getPlayerEquipment();
         */
         loadSounds();
@@ -205,43 +204,26 @@ public class Battle extends AppCompatActivity {
 
     public void saveData() {
 
-        //[todo]:[Bug] player stats being stored are including weapon buffs
+        //[fixme]:[Bug] player stats being stored are including weapon buffs
         SharedPreferences sharedPreferences = getSharedPreferences(playerSharedPreferences, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
         String jsonPlayer = gson.toJson(newPlayer);
-        editor.putString("OLDPLAYER",jsonPlayer);
-        /*
-        String jsonPlayerInventory = gson.toJson(playerInventory);
-        editor.putString(PLAYERINVENTORY,jsonPlayerInventory);
+        editor.putString(PLAYERSAVE,jsonPlayer);
 
-        editor.putInt(PLAYERHP,playerHP - equipmentHPEffect);
-        editor.putInt(PLAYERMAXHP,playerMaxHP - equipmentMaxHPEffect);
-        editor.putInt(PLAYERENERGY,playerEnergy - equipmentEnergyEffect);
-        editor.putInt(PLAYERMAXENERGY,playerMaxEnergy - equipmentMaxEnergyEffect);
-        editor.putInt(PLAYERATTACK,playerAttack - equipmentAttackEffect);
-        editor.putInt(PLAYERDEFENSE,playerDefense - equipmentDefenseEffect);
-        editor.putInt(PLAYERSKILLPOWER,playerSkillPower - equipmentSkillPowerEffect);
-
-        editor.putInt(PLAYEREXPERIENCE,playerExperience);
-        editor.putInt(PLAYERLEVEL,playerLevel);
-        editor.putInt(PLAYERCOINPURSE,playerCoinPurse);
-        editor.putInt(KILLCOUNT,killCount);
-
-        //todo:[Bug] monster Image id's from the dictionary are overwriting the Shared Preferences on occasion
-        editor.putInt(PLAYERIMAGEID,newPlayer.getPlayerImageId());*/
+        //fixme:[Bug] monster Image id's from the dictionary are overwriting the Shared Preferences on occasion
         editor.apply();
         Toast.makeText(this,"Data saved",Toast.LENGTH_SHORT).show();
 
     }
 
     public void startSelectPlayerActivity(){
-        //todo:[Medium] should display the hero's latest save data upon start of this activity
+
         Intent intent = new Intent(this,SelectPlayer.class);
         startActivity(intent);
     }
     private void loadSounds() {
-        //todo:[BUG] the sound is adjusted using the System sounds bar and not the Media volumes
+        //fixme:[Bug] the sound is adjusted using the System sounds bar and not the Media volumes
         //creates a pool of sounds
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
@@ -298,12 +280,6 @@ public class Battle extends AppCompatActivity {
         attackButton = findViewById(R.id.atkButtonView);
         healButton = findViewById(R.id.healButtonView);
         playerCoinPurseDisplay = findViewById(R.id.playerCoinPurseTextView);
-        playerLimb1EquippmentDisplay = findViewById(R.id.limb1EquippedItem);
-        playerLimb2EquippmentDisplay = findViewById(R.id.limb2EquippedItem);
-        playerLimb3EquippmentDisplay = findViewById(R.id.limb3EquippedItem);
-        playerLimb4EquippmentDisplay = findViewById(R.id.limb4EquippedItem);
-        playerLimb5EquippmentDisplay = findViewById(R.id.limb5EquippedItem);
-        playerLimb6EquippmentDisplay = findViewById(R.id.limb6EquippedItem);
         //battle views
         saveButton = findViewById(R.id.saveButtonView);
         saveButton.setVisibility(View.VISIBLE);
@@ -353,6 +329,7 @@ public class Battle extends AppCompatActivity {
 
         //BATTLE CALCULATIONS RELATIVE TO PLAYER
         //todo: [Medium] this cannot be a SOLID coding practice, extract this into its own method
+        //todo: [High] refactor this so that the damage is a function of playerAttack and itemEffects on player Attack
         if(playerAttack - monsterDefense <=0){
             damage = 1;
         }else{

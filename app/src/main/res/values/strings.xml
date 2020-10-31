@@ -19,6 +19,16 @@
     <string name="enterDungeon_StringValue">Enter the Dungeon</string>
     <string name="gameTitle_StringValue">Dungeon Crawler Framework</string>
     <string name="changeClass_StringValue">Change Class</string>
+    <string name="unequipSingle_StringValue">Unequip Selected</string>
+    <string name="unequipAll_StringValue">Unequip All</string>
+
+    <!--Temp view string resources-->
+    <string name="inventoryHP_StringValue">Total Player Health: %d/%d + %d/%d = %d/%d</string>
+    <string name="inventoryAttack_StringValue">Total Player Attack: %d + %d = %d</string>
+    <string name="inventoryDefense_StringValue">Total Player Defense: %d + %d = %d</string>
+    <string name="inventorySkillPower_StringValue">Total Player Skill Power: %d + %d = %d</string>
+    <string name="inventoryEnergy_StringValue">Total Player Energy: %d/%d + %d/%d = %d/%d</string>
+
 
     <!--Monster names-->
     <string name="monster1">Green Goober</string>

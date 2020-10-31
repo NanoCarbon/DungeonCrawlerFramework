@@ -66,51 +66,19 @@ public class SelectPlayer extends AppCompatActivity {
     private ArrayList<Integer> playerInventory;
 
     //todo: [Medium] Add a settings tab to adjust bgm
-    //todo: [Low] refactor Select Player to pass player parcelable rather than just primitives
 
     //==========INTENT STRING NAMES  - USED TO DEFINE WHAT TO PASS TO BATTLE ACTIVITY=================//
-    public static final String EXTRA_ENERGY = "com.example.dungeoncrawlerframework.EXTRA_ENERGY";
-    public static final String EXTRA_ATTACK = "com.example.dungeoncrawlerframework.EXTRA_ATTACK";
-    public static final String EXTRA_DEFENSE = "com.example.dungeoncrawlerframework.EXTRA_DEFENSE";
-    public static final String EXTRA_HP = "com.example.dungeoncrawlerframework.EXTRA_HP";
-    public static final String EXTRA_LIMB1 = "com.example.dungeoncrawlerframework.EXTRA_LIMB1";
-    public static final String EXTRA_PLAYERDESCRIPTION="com.example.dungeoncrawlerframework.EXTRA_PLAYERDESCRIPTION";
-    public static final String EXTRA_SKILLPOWER = "com.example.dungeoncrawlerframework.EXTRA_SKILLPOWER";
-    public static final String EXTRA_KILLCOUNT = "com.example.dungeoncrawlerframework.EXTRA_KILLCOUNT";
-    public static final String EXTRA_EXPERIENCE = "com.example.dungeoncrawlerframework.EXTRA_EXPERIENCE";
-    public static final String EXTRA_LEVEL = "com.example.dungeoncrawlerframework.EXTRA_LEVEL";
-    public static final String EXTRA_COINPURSE = "com.example.dungeoncrawlerframework.EXTRA_COINPURSE";
-    public static final String EXTRA_MAXENERGY = "EXTRA_MAXENERGY";
-    public static final String EXTRA_MAXHP = "com.example.dungeoncrawlerframework.EXTRA_MAXHP";
-    public static final String EXTRA_SHAREDPREF = "com.example.dungeoncrawlerframework.EXTRA_SHAREDPREF";
-    public static final String EXTRA_PLAYERINVENTORY = "com.example.dungeoncrawlerframework.EXTRA_PLAYERINVENTORY";
+    public static final String EXTRA_PLAYER = "com.example.dungeoncrawlerframework.EXTRA_PLAYER";
     //==========INTENT STRING NAMES  - USED TO DEFINE WHAT TO PASS TO BATTLE ACTIVITY=================//
 
 
     //===================SHARED PREFERENCES STRING NAMES - USED TO NAME PRIMITIVES BEING SAVED===================//
-    public static final String PLAYERENERGY = "playerenergy";
-    public static final String PLAYERATTACK = "playerattack";
-    public static final String PLAYERDEFENSE = "playerdefense";
-    public static final String PLAYERHP = "playerhp";
-    public static final String KILLCOUNT = "killcount";
-    public static final String PLAYEREXPERIENCE = "playerexperience";
-    public static final String PLAYERLEVEL = "playerlevel";
-    public static final String PLAYERMAXHP = "playermaxhp";
-    public static final String PLAYERMAXENERGY = "playermaxenergy";
-    public static final String PLAYERSKILLPOWER = "playerskillpower";
-    public static final String PLAYERCOINPURSE = "playercoinpurse";
-    public static final String PLAYERIMAGEID = "playerimageid";
-    public static final String PLAYERINVENTORY = "playerinventory";
-    public static final String PLAYERHEAD = "playerhead";
-    public static final String PLAYERTORSO = "playertorso";
-    public static final String PLAYERHAND1 = "playerhand1";
-    public static final String PLAYERHAND2 = "playerhand2";
-    public static final String PLAYERLEGS = "playerlegs";
-    public static final String PLAYERFEET = "playerfeet";
+    public static final String PLAYERSAVE = "playersave";
 
     //===================SHARED PREFERENCES STRING NAMES - USED TO NAME PRIMITIVES BEING SAVED===================//
 
     @Override
+    //todo:[Medium] should display the hero's latest save data upon start of this activity (i.e. Create an onResume main method)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_player);
@@ -176,7 +144,7 @@ public class SelectPlayer extends AppCompatActivity {
     public void loadData(){
         SharedPreferences sharedPreferences = getSharedPreferences(playerSharedPrefrences,MODE_PRIVATE);
         Gson gson = new Gson();
-        String jsonOldPlayer = sharedPreferences.getString("OLDPLAYER",null);
+        String jsonOldPlayer = sharedPreferences.getString(PLAYERSAVE,null);
         Player oldPlayer = gson.fromJson(jsonOldPlayer,Player.class);
         if (oldPlayer!= null) {
             newPlayer = oldPlayer;
@@ -246,15 +214,13 @@ public class SelectPlayer extends AppCompatActivity {
     public void startBattleActivity(){
 
         Intent intent = new Intent(this, Battle.class);
-        intent.putExtra("NEWPLAYER",newPlayer);
+        intent.putExtra(EXTRA_PLAYER,newPlayer);
         startActivity(intent);
     }
 
     public void openPlayerInventory(){
-        //todo:[High] get and the player limbs and generate the corresponding intent variables
-        //todo:[High] pass the limbs as a gson intent to the InventoryMenu activity
         Intent intent = new Intent(this, PlayerInventory.class);
-        intent.putExtra("NEWPLAYER",newPlayer);
+        intent.putExtra(EXTRA_PLAYER,newPlayer);
         startActivity(intent);
     }
 }

@@ -3,11 +3,14 @@ package com.example.dungeoncrawlerframework.Activities;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -24,24 +27,56 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.EXTRA_PLAYER;
+
 
 public class PlayerInventory extends AppCompatActivity {
     //RECYCLER VIEW STUFF - DO NOT TOUCH
     private RecyclerView mRecyclerView;
     private InventoryAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<Integer> playerInventory;
-    private ArrayList<Integer> uniquePlayerInventory;
-    private ArrayList<Integer> filteredPlayerInventory;
+
 
     private View menuLayoutDisplay;
+    private ImageView selectedView;
+    private Limb selectedLimb;
     private ImageView playerLimb1EquippmentDisplay;
     private ImageView playerLimb2EquippmentDisplay;
     private ImageView playerLimb3EquippmentDisplay;
     private ImageView playerLimb4EquippmentDisplay;
     private ImageView playerLimb5EquippmentDisplay;
     private ImageView playerLimb6EquippmentDisplay;
-    private final ItemDictionary itemDictionary = new ItemDictionary();
+    private Button unequipButton;
+    private TextView inventoryPlayerHealthDisplay;
+    private TextView inventoryPlayerAttackDisplay;
+    private TextView inventoryPlayerDefenseDisplay;
+    private TextView inventoryPlayerSkillPowerDisplay;
+    private TextView inventoryPlayerEnergyDisplay;
+
+    Resources res;
+
+
+    Player newPlayer;
+    private int playerHealth;
+    private int itemHealthEffect = 0;
+
+    private int playerAttack;
+    private int itemAttackEffect = 0;
+
+    private int playerDefense;
+    private int itemDefenseEffect = 0;
+
+    private int playerMaxHealth;
+    private int itemMaxHealthEffect = 0;
+
+    private int playerEnergy;
+    private int itemEnergyEffect = 0;
+
+    private int playerMaxEnergy;
+    private int itemMaxEnergyEffect = 0;
+
+    private int playerSkillPower;
+    private int itemSkillPowerEffect = 0;
 
     Limb playerLimb1;
     Limb playerLimb2;
@@ -49,35 +84,30 @@ public class PlayerInventory extends AppCompatActivity {
     Limb playerLimb4;
     Limb playerLimb5;
     Limb playerLimb6;
-    Limb selectedLimb;
-    ImageView selectedView;
-    //Add regular views and other nonsenese here
+
+    private ArrayList<Integer> playerInventory;
+    private ArrayList<Integer> uniquePlayerInventory;
+    private ArrayList<Integer> filteredPlayerInventory;
+    private final ItemDictionary itemDictionary = new ItemDictionary();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_menu);
         Intent intent = getIntent();
-        //fixme:[Critical] the player being pulled up from SharedPreferences is not the same player being passed in the intent
-        Player newPlayer = intent.getParcelableExtra("NEWPLAYER");
+        newPlayer = intent.getParcelableExtra(EXTRA_PLAYER);
         playerLimb1 = newPlayer.getPlayerHead();
         playerLimb2 = newPlayer.getPlayerHand1();
         playerLimb3 = newPlayer.getPlayerTorso();
         playerLimb4 = newPlayer.getPlayerHand2();
         playerLimb5 = newPlayer.getPlayerLegs();
         playerLimb6 = newPlayer.getPlayerFeet();
-        int playerAttack = newPlayer.getPlayerAttack();
         playerInventory = newPlayer.getPlayerInventory();
 
-        menuLayoutDisplay = findViewById(R.id.itemMenuLayoutLayer);
-        playerLimb1EquippmentDisplay = findViewById(R.id.limb1EquippedItem);
-        playerLimb2EquippmentDisplay = findViewById(R.id.limb2EquippedItem);
-        playerLimb3EquippmentDisplay = findViewById(R.id.limb3EquippedItem);
-        playerLimb4EquippmentDisplay = findViewById(R.id.limb4EquippedItem);
-        playerLimb5EquippmentDisplay = findViewById(R.id.limb5EquippedItem);
-        playerLimb6EquippmentDisplay = findViewById(R.id.limb6EquippedItem);
+        initializeViews();
+        getPlayerStats();
+        updatePlayerViews();
 
-        //todo: [Critical] replace with the selected character's limbs - see Player class for parcelable implementation
         if (playerInventory != null ){
             Set<Integer> hashSet = new LinkedHashSet(playerInventory);
             uniquePlayerInventory = new ArrayList(hashSet);
@@ -93,6 +123,7 @@ public class PlayerInventory extends AppCompatActivity {
                 uniquePlayerInventory = new ArrayList(hashSet);
                 selectedLimb = null;
                 selectedView = null;
+                unequipButton.setText(R.string.unequipAll_StringValue);
                 applySelectionFormat();
                 buildRecyclerView();
             }
@@ -205,6 +236,13 @@ public class PlayerInventory extends AppCompatActivity {
             }
         });
 
+        unequipButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                unequipItem();
+            }
+        });
+
         BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -218,6 +256,91 @@ public class PlayerInventory extends AppCompatActivity {
     
     }
 
+    private void unequipItem() {
+        Drawable shape = getResources().getDrawable(R.drawable.shape);
+        //filteredPlayerInventory.clear();
+        if(selectedLimb != null){
+            if(selectedLimb.getEquippedItem() != null){
+                int itemEffectType = selectedLimb.getEquippedItem().getItemEffectType();
+                int itemEffectValue = selectedLimb.getEquippedItem().getEffectValue();
+                //todo:[BLOCKER] find a way to remove the item effect
+                switch (itemEffectType) {
+                    case 1:
+                        //affects playerMaxHealth
+                        itemMaxHealthEffect = itemMaxHealthEffect - itemEffectValue;
+                        break;
+                    case 2:
+                        //affects playerHealth
+                        itemHealthEffect = itemHealthEffect - itemEffectValue;
+                        break;
+                    case 3:
+                        //affects playerAttack
+                        itemAttackEffect = itemAttackEffect - itemEffectValue;
+                        break;
+                    case 4:
+                        //affects playerDefense
+                        itemDefenseEffect = itemDefenseEffect - itemEffectValue;
+                        break;
+                    case 5:
+                        //affects playerMaxEnergy;
+                        itemMaxEnergyEffect = itemMaxEnergyEffect - itemEffectValue;
+                        break;
+                    case 6:
+                        //affects playerEnergy;
+                        itemEnergyEffect = itemEnergyEffect - itemEffectValue;
+                    case 7:
+                        //affects playerSkillPower;
+                        itemSkillPowerEffect = itemSkillPowerEffect - itemEffectValue;
+                        break;
+                }
+            }
+            selectedLimb.setEquippedItem(null);
+            selectedView.setImageDrawable(null);
+            setPlayerStats();
+            getPlayerStats();
+            updatePlayerViews();
+        }else{
+            playerLimb1.setEquippedItem(null);
+            playerLimb2.setEquippedItem(null);
+            playerLimb3.setEquippedItem(null);
+            playerLimb4.setEquippedItem(null);
+            playerLimb5.setEquippedItem(null);
+            playerLimb6.setEquippedItem(null);
+            playerLimb1EquippmentDisplay.setImageDrawable(null);
+            playerLimb2EquippmentDisplay.setImageDrawable(null);
+            playerLimb3EquippmentDisplay.setImageDrawable(null);
+            playerLimb4EquippmentDisplay.setImageDrawable(null);
+            playerLimb5EquippmentDisplay.setImageDrawable(null);
+            playerLimb6EquippmentDisplay.setImageDrawable(null);
+            itemHealthEffect = 0;
+            itemAttackEffect = 0;
+            itemDefenseEffect = 0;
+            itemMaxHealthEffect = 0;
+            itemEnergyEffect = 0;
+            itemMaxEnergyEffect = 0;
+            itemSkillPowerEffect = 0;
+            setPlayerStats();
+            getPlayerStats();
+            updatePlayerViews();
+        }
+    }
+
+    private void initializeViews() {
+        menuLayoutDisplay = findViewById(R.id.itemMenuLayoutLayer);
+        playerLimb1EquippmentDisplay = findViewById(R.id.limb1EquippedItem);
+        playerLimb2EquippmentDisplay = findViewById(R.id.limb2EquippedItem);
+        playerLimb3EquippmentDisplay = findViewById(R.id.limb3EquippedItem);
+        playerLimb4EquippmentDisplay = findViewById(R.id.limb4EquippedItem);
+        playerLimb5EquippmentDisplay = findViewById(R.id.limb5EquippedItem);
+        playerLimb6EquippmentDisplay = findViewById(R.id.limb6EquippedItem);
+        unequipButton = findViewById(R.id.unequipButtonView);
+        inventoryPlayerHealthDisplay = findViewById(R.id.inventoryPlayerHPTextView);
+        inventoryPlayerAttackDisplay = findViewById(R.id.inventoryPlayerAttackTextView);
+        inventoryPlayerDefenseDisplay = findViewById(R.id.inventoryPlayerDefenseTextView);
+        inventoryPlayerSkillPowerDisplay = findViewById(R.id.inventoryPlayerSkillPowerTextView);
+        inventoryPlayerEnergyDisplay = findViewById(R.id.inventoryPlayerEnergyTextView);
+    }
+
     private ArrayList<Integer> getFilteredInventory(Limb limb){
         ArrayList<Integer> filteredInventory = new ArrayList<Integer>();
         for (int i = 0; i < playerInventory.size(); i++){
@@ -227,6 +350,51 @@ public class PlayerInventory extends AppCompatActivity {
             }
         }
         return filteredInventory;
+    }
+
+    private void getPlayerStats(){
+        //todo:[Critical] get player equipment as well
+        playerHealth = newPlayer.getPlayerHealth();
+        itemHealthEffect = newPlayer.getItemHealthEffect();
+        playerAttack = newPlayer.getPlayerAttack();
+        itemAttackEffect = newPlayer.getItemAttackEffect();
+        playerDefense = newPlayer.getPlayerDefense();
+        itemDefenseEffect = newPlayer.getItemDefenseEffect();
+        playerMaxHealth = newPlayer.getPlayerMaxHealth();
+        itemMaxHealthEffect = newPlayer.getItemMaxHealthEffect();
+        playerEnergy = newPlayer.getPlayerEnergy();
+        itemEnergyEffect = newPlayer.getItemEnergyEffect();
+        playerMaxEnergy = newPlayer.getPlayerMaxEnergy();
+        itemMaxEnergyEffect = newPlayer.getItemMaxEnergyEffect();
+        playerSkillPower = newPlayer.getPlayerSkillPower();
+        itemSkillPowerEffect = newPlayer.getItemSkillPowerEffect();
+    }
+
+    private void setPlayerStats(){
+        newPlayer.setPlayerHealth(playerHealth);
+        newPlayer.setItemHealthEffect(itemHealthEffect);
+        newPlayer.setPlayerAttack(playerAttack);
+        newPlayer.setItemAttackEffect(itemAttackEffect);
+        newPlayer.setPlayerDefense(playerDefense);
+        newPlayer.setItemDefenseEffect(itemDefenseEffect);
+        newPlayer.setPlayerMaxHealth(playerMaxHealth);
+        newPlayer.setItemMaxHealthEffect(itemMaxHealthEffect);
+        newPlayer.setPlayerEnergy(playerEnergy);
+        newPlayer.setItemEnergyEffect(itemEnergyEffect);
+        newPlayer.setPlayerMaxEnergy(playerMaxEnergy);
+        newPlayer.setItemMaxEnergyEffect(itemMaxEnergyEffect);
+        newPlayer.setPlayerSkillPower(playerSkillPower);
+        newPlayer.setItemSkillPowerEffect(itemSkillPowerEffect);
+    }
+
+    private void updatePlayerViews(){
+        //todo:[Critical] update limb views with equipment drawables
+        res = getResources();
+        inventoryPlayerHealthDisplay.setText(res.getString(R.string.inventoryHP_StringValue,playerHealth,playerMaxHealth,itemHealthEffect,itemMaxHealthEffect,playerHealth+itemHealthEffect,playerMaxHealth+itemMaxHealthEffect));
+        inventoryPlayerAttackDisplay.setText(res.getString(R.string.inventoryAttack_StringValue,playerAttack,itemAttackEffect,playerAttack+itemAttackEffect));
+        inventoryPlayerDefenseDisplay.setText(res.getString(R.string.inventoryDefense_StringValue,playerDefense,itemDefenseEffect,playerDefense+itemDefenseEffect));
+        inventoryPlayerSkillPowerDisplay.setText(res.getString(R.string.inventorySkillPower_StringValue,playerSkillPower,itemSkillPowerEffect,playerSkillPower+itemSkillPowerEffect));
+        inventoryPlayerEnergyDisplay.setText(res.getString(R.string.inventoryEnergy_StringValue,playerEnergy,playerMaxEnergy,itemEnergyEffect,itemMaxEnergyEffect,playerEnergy+itemEnergyEffect,playerMaxEnergy+itemMaxEnergyEffect));
     }
 
     private void buildRecyclerView() {
@@ -258,14 +426,24 @@ public class PlayerInventory extends AppCompatActivity {
         playerLimb6EquippmentDisplay.setBackground(shape);
         if(selectedView != null){
             selectedView.setBackgroundColor(Color.RED);
+            unequipButton.setText(R.string.unequipSingle_StringValue);
         }
 
     }
 
     private void playerEquipItem(Integer itemIndex) {
+
+        //todo: run the unequipItem method if there's already an item there
+        if (selectedLimb.getEquippedItem() != null){
+            unequipItem();
+        }
         Item equippedItem = itemDictionary.getItem(itemIndex);
         selectedLimb.setEquippedItem(equippedItem);
+        newPlayer.playerActivateEquipment(selectedLimb);
         Drawable itemImage = ContextCompat.getDrawable(this,selectedLimb.getEquippedItem().getItemImageId());
         selectedView.setImageDrawable(itemImage);
+        getPlayerStats();
+        updatePlayerViews();
+
     }
 }

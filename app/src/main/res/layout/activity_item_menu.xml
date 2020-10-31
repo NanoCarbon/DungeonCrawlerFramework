@@ -10,9 +10,8 @@
     tools:context=".Activities.PlayerInventory">
     <!--todo: [Low] update the constraints of the limb imageViews so they resemble the shape of a human boddy-->
     <!--todo: [High] pretty up and organize; add player stats onto this screen-->
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:background="@android:color/black"
@@ -20,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:context=".Activities.PlayerInventory">
 
-            <androidx.recyclerview.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/itemMenuRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="300dp"
@@ -44,56 +43,115 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:background="@drawable/shape"
+        android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:clickable="true"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/limb2EquippedItem"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/shape"
+        android:clickable="true"
         app:layout_constraintEnd_toStartOf="@+id/limb1EquippedItem"
-        app:layout_constraintTop_toTopOf="@+id/limb1EquippedItem"
-        android:clickable="true"/>
+        app:layout_constraintTop_toBottomOf="@+id/limb1EquippedItem" />
 
     <ImageView
         android:id="@+id/limb3EquippedItem"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/shape"
-        app:layout_constraintEnd_toStartOf="@+id/limb2EquippedItem"
-        app:layout_constraintTop_toTopOf="@+id/limb1EquippedItem"
-        android:clickable="true"/>
+        android:clickable="true"
+        app:layout_constraintEnd_toStartOf="@+id/limb4EquippedItem"
+        app:layout_constraintTop_toBottomOf="@+id/limb1EquippedItem" />
 
     <ImageView
         android:id="@+id/limb4EquippedItem"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/shape"
-        app:layout_constraintEnd_toEndOf="@+id/limb1EquippedItem"
-        app:layout_constraintTop_toBottomOf="@+id/limb1EquippedItem"
-        android:clickable="true"/>
+        android:clickable="true"
+        app:layout_constraintStart_toEndOf="@+id/limb1EquippedItem"
+        app:layout_constraintTop_toBottomOf="@+id/limb1EquippedItem" />
 
     <ImageView
         android:id="@+id/limb5EquippedItem"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/shape"
-        app:layout_constraintEnd_toStartOf="@+id/limb4EquippedItem"
-        app:layout_constraintTop_toTopOf="@+id/limb4EquippedItem"
-        android:clickable="true"/>
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="@+id/limb3EquippedItem"
+        app:layout_constraintTop_toBottomOf="@+id/limb3EquippedItem" />
 
     <ImageView
         android:id="@+id/limb6EquippedItem"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/shape"
-        app:layout_constraintEnd_toStartOf="@+id/limb5EquippedItem"
-        app:layout_constraintTop_toTopOf="@+id/limb4EquippedItem"
-        android:clickable="true"/>
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="@+id/limb5EquippedItem"
+        app:layout_constraintTop_toBottomOf="@+id/limb5EquippedItem" />
+
+    <Button
+        android:id="@+id/unequipButtonView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/unequipAll_StringValue"
+        app:layout_constraintEnd_toEndOf="@+id/limb4EquippedItem"
+        app:layout_constraintStart_toStartOf="@+id/limb2EquippedItem"
+        app:layout_constraintTop_toBottomOf="@+id/inventoryPlayerEnergyTextView" />
+
+    <TextView
+        android:id="@+id/inventoryPlayerHPTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/inventoryHP_StringValue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/limb6EquippedItem" />
+
+    <TextView
+        android:id="@+id/inventoryPlayerAttackTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/inventoryAttack_StringValue"
+        app:layout_constraintEnd_toEndOf="@+id/inventoryPlayerHPTextView"
+        app:layout_constraintStart_toStartOf="@+id/inventoryPlayerHPTextView"
+        app:layout_constraintTop_toBottomOf="@+id/inventoryPlayerHPTextView" />
+
+    <TextView
+        android:id="@+id/inventoryPlayerDefenseTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/inventoryDefense_StringValue"
+        app:layout_constraintEnd_toEndOf="@+id/inventoryPlayerHPTextView"
+        app:layout_constraintStart_toStartOf="@+id/inventoryPlayerHPTextView"
+        app:layout_constraintTop_toBottomOf="@+id/inventoryPlayerAttackTextView" />
+
+    <TextView
+        android:id="@+id/inventoryPlayerSkillPowerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/inventorySkillPower_StringValue"
+        app:layout_constraintEnd_toEndOf="@+id/inventoryPlayerHPTextView"
+        app:layout_constraintStart_toStartOf="@+id/inventoryPlayerHPTextView"
+        app:layout_constraintTop_toBottomOf="@+id/inventoryPlayerDefenseTextView" />
+
+    <TextView
+        android:id="@+id/inventoryPlayerEnergyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/inventoryEnergy_StringValue"
+        app:layout_constraintEnd_toEndOf="@+id/inventoryPlayerHPTextView"
+        app:layout_constraintStart_toStartOf="@+id/inventoryPlayerHPTextView"
+        app:layout_constraintTop_toBottomOf="@+id/inventoryPlayerSkillPowerTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
