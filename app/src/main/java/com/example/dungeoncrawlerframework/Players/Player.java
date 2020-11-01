@@ -468,43 +468,45 @@ public class Player implements Parcelable {
 
     public void getItemFromInventory(int inventoryIndex){ playerInventory.get(inventoryIndex);}
 
-    //todo:[CRITICAL] Create an activateEquipment method that gets the effects of each of the limb's equipped items
+
     public void playerActivateEquipment(Limb limb) {
+        //fixme:[BUG] the item effects are being counted twice somewhere
         ItemDictionary itemDictionary = new ItemDictionary();
 
-        Item item2Equip = limb.getEquippedItem();
-        int itemEffectType = item2Equip.getItemEffectType();
+            Item item2Equip = limb.getEquippedItem();
+            if(item2Equip != null) {
+                int itemEffectType = item2Equip.getItemEffectType();
 
-            switch (itemEffectType) {
-                case 1:
-                    //affects playerMaxHealth
-                    itemMaxHealthEffect = itemMaxHealthEffect + item2Equip.getEffectValue();
-                    break;
-                case 2:
-                    //affects playerHealth
-                    itemHealthEffect = itemHealthEffect + item2Equip.getEffectValue();
-                    break;
-                case 3:
-                    //affects playerAttack
-                    itemAttackEffect = itemAttackEffect + item2Equip.getEffectValue();
-                    break;
-                case 4:
-                    //affects playerDefense
-                    itemDefenseEffect = itemDefenseEffect + item2Equip.getEffectValue();
-                    break;
-                case 5:
-                    //affects playerMaxEnergy;
-                    itemMaxEnergyEffect = itemMaxEnergyEffect + item2Equip.getEffectValue();
-                    break;
-                case 6:
-                    //affects playerEnergy;
-                    itemEnergyEffect = itemEnergyEffect + item2Equip.getEffectValue();
-                case 7:
-                    //affects playerSkillPower;
-                    itemSkillPowerEffect = itemSkillPowerEffect + item2Equip.getEffectValue();
-                    break;
+                switch (itemEffectType) {
+                    case 1:
+                        //affects playerMaxHealth
+                        itemMaxHealthEffect = itemMaxHealthEffect + item2Equip.getEffectValue();
+                        break;
+                    case 2:
+                        //affects playerHealth
+                        itemHealthEffect = itemHealthEffect + item2Equip.getEffectValue();
+                        break;
+                    case 3:
+                        //affects playerAttack
+                        itemAttackEffect = itemAttackEffect + item2Equip.getEffectValue();
+                        break;
+                    case 4:
+                        //affects playerDefense
+                        itemDefenseEffect = itemDefenseEffect + item2Equip.getEffectValue();
+                        break;
+                    case 5:
+                        //affects playerMaxEnergy;
+                        itemMaxEnergyEffect = itemMaxEnergyEffect + item2Equip.getEffectValue();
+                        break;
+                    case 6:
+                        //affects playerEnergy;
+                        itemEnergyEffect = itemEnergyEffect + item2Equip.getEffectValue();
+                    case 7:
+                        //affects playerSkillPower;
+                        itemSkillPowerEffect = itemSkillPowerEffect + item2Equip.getEffectValue();
+                        break;
+                }
             }
-
     }
 
     //todo: [CRITICAL] Refactor this so this is limb independent

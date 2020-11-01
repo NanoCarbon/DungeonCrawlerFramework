@@ -47,6 +47,7 @@ public class PlayerInventory extends AppCompatActivity {
     private ImageView playerLimb5EquippmentDisplay;
     private ImageView playerLimb6EquippmentDisplay;
     private Button unequipButton;
+    private Button return2SelectPlayerButton;
     private TextView inventoryPlayerHealthDisplay;
     private TextView inventoryPlayerAttackDisplay;
     private TextView inventoryPlayerDefenseDisplay;
@@ -55,26 +56,19 @@ public class PlayerInventory extends AppCompatActivity {
 
     Resources res;
 
-
     Player newPlayer;
     private int playerHealth;
     private int itemHealthEffect = 0;
-
     private int playerAttack;
     private int itemAttackEffect = 0;
-
     private int playerDefense;
     private int itemDefenseEffect = 0;
-
     private int playerMaxHealth;
     private int itemMaxHealthEffect = 0;
-
     private int playerEnergy;
     private int itemEnergyEffect = 0;
-
     private int playerMaxEnergy;
     private int itemMaxEnergyEffect = 0;
-
     private int playerSkillPower;
     private int itemSkillPowerEffect = 0;
 
@@ -103,7 +97,12 @@ public class PlayerInventory extends AppCompatActivity {
         playerLimb5 = newPlayer.getPlayerLegs();
         playerLimb6 = newPlayer.getPlayerFeet();
         playerInventory = newPlayer.getPlayerInventory();
-
+        newPlayer.playerActivateEquipment(playerLimb1);
+        newPlayer.playerActivateEquipment(playerLimb2);
+        newPlayer.playerActivateEquipment(playerLimb3);
+        newPlayer.playerActivateEquipment(playerLimb4);
+        newPlayer.playerActivateEquipment(playerLimb5);
+        newPlayer.playerActivateEquipment(playerLimb6);
         initializeViews();
         getPlayerStats();
         updatePlayerViews();
@@ -133,8 +132,6 @@ public class PlayerInventory extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //filteredPlayerInventory.clear();
-
                 selectedLimb = playerLimb1;
                 selectedView = playerLimb1EquippmentDisplay;
                 applySelectionFormat();
@@ -150,8 +147,6 @@ public class PlayerInventory extends AppCompatActivity {
         playerLimb2EquippmentDisplay.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-
-                //filteredPlayerInventory.clear();
 
                 selectedLimb = playerLimb2;
                 selectedView = playerLimb2EquippmentDisplay;
@@ -169,8 +164,6 @@ public class PlayerInventory extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //filteredPlayerInventory.clear();
-
                 selectedLimb = playerLimb3;
                 selectedView = playerLimb3EquippmentDisplay;
                 applySelectionFormat();
@@ -187,8 +180,6 @@ public class PlayerInventory extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //filteredPlayerInventory.clear();
-
                 selectedLimb = playerLimb4;
                 selectedView = playerLimb4EquippmentDisplay;
                 applySelectionFormat();
@@ -204,7 +195,6 @@ public class PlayerInventory extends AppCompatActivity {
         playerLimb5EquippmentDisplay.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //filteredPlayerInventory.clear();
 
                 selectedLimb = playerLimb5;
                 selectedView = playerLimb5EquippmentDisplay;
@@ -221,8 +211,6 @@ public class PlayerInventory extends AppCompatActivity {
         playerLimb6EquippmentDisplay.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-
-                //filteredPlayerInventory.clear();
 
                 selectedLimb = playerLimb6;
                 selectedView = playerLimb6EquippmentDisplay;
@@ -243,6 +231,13 @@ public class PlayerInventory extends AppCompatActivity {
             }
         });
 
+        return2SelectPlayerButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                return2SelectPlayerActivity();
+            }
+        });
+
         BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -254,6 +249,12 @@ public class PlayerInventory extends AppCompatActivity {
             }
         };
     
+    }
+
+    public void return2SelectPlayerActivity(){
+        Intent intent = new Intent(this,SelectPlayer.class);
+        intent.putExtra(EXTRA_PLAYER,newPlayer);
+        startActivity(intent);
     }
 
     private void unequipItem() {
@@ -325,6 +326,7 @@ public class PlayerInventory extends AppCompatActivity {
     }
 
     private void initializeViews() {
+        //fixme:[BUG] equipment images aren't showing after resuming from Select Player
         menuLayoutDisplay = findViewById(R.id.itemMenuLayoutLayer);
         playerLimb1EquippmentDisplay = findViewById(R.id.limb1EquippedItem);
         playerLimb2EquippmentDisplay = findViewById(R.id.limb2EquippedItem);
@@ -333,6 +335,7 @@ public class PlayerInventory extends AppCompatActivity {
         playerLimb5EquippmentDisplay = findViewById(R.id.limb5EquippedItem);
         playerLimb6EquippmentDisplay = findViewById(R.id.limb6EquippedItem);
         unequipButton = findViewById(R.id.unequipButtonView);
+        return2SelectPlayerButton = findViewById(R.id.returnSelectPlayerButton);
         inventoryPlayerHealthDisplay = findViewById(R.id.inventoryPlayerHPTextView);
         inventoryPlayerAttackDisplay = findViewById(R.id.inventoryPlayerAttackTextView);
         inventoryPlayerDefenseDisplay = findViewById(R.id.inventoryPlayerDefenseTextView);
@@ -394,6 +397,25 @@ public class PlayerInventory extends AppCompatActivity {
         inventoryPlayerDefenseDisplay.setText(res.getString(R.string.inventoryDefense_StringValue,playerDefense,itemDefenseEffect,playerDefense+itemDefenseEffect));
         inventoryPlayerSkillPowerDisplay.setText(res.getString(R.string.inventorySkillPower_StringValue,playerSkillPower,itemSkillPowerEffect,playerSkillPower+itemSkillPowerEffect));
         inventoryPlayerEnergyDisplay.setText(res.getString(R.string.inventoryEnergy_StringValue,playerEnergy,playerMaxEnergy,itemEnergyEffect,itemMaxEnergyEffect,playerEnergy+itemEnergyEffect,playerMaxEnergy+itemMaxEnergyEffect));
+
+        if(playerLimb1.getEquippedItem() != null){
+            Drawable limb1ItemImage = ContextCompat.getDrawable(this,playerLimb1.getEquippedItem().getItemImageId());
+        }
+        if(playerLimb2.getEquippedItem() != null){
+            Drawable limb2ItemImage = ContextCompat.getDrawable(this,playerLimb2.getEquippedItem().getItemImageId());
+        }
+        if(playerLimb3.getEquippedItem() != null){
+            Drawable limb3ItemImage = ContextCompat.getDrawable(this,playerLimb3.getEquippedItem().getItemImageId());
+        }
+        if(playerLimb4.getEquippedItem() != null){
+            Drawable limb4ItemImage = ContextCompat.getDrawable(this,playerLimb4.getEquippedItem().getItemImageId());
+        }
+        if(playerLimb5.getEquippedItem() != null){
+            Drawable limb5ItemImage = ContextCompat.getDrawable(this,playerLimb5.getEquippedItem().getItemImageId());
+        }
+        if(playerLimb6.getEquippedItem() != null){
+            Drawable limb6ItemImage = ContextCompat.getDrawable(this,playerLimb6.getEquippedItem().getItemImageId());
+        }
     }
 
     private void buildRecyclerView() {
@@ -431,6 +453,8 @@ public class PlayerInventory extends AppCompatActivity {
     }
 
     private void playerEquipItem(Integer itemIndex) {
+
+        //todo:[High] set a limit on the number of items you can equip based on the number of items in equipment
 
         if (selectedLimb.getEquippedItem() != null){
             unequipItem();

@@ -78,7 +78,7 @@ public class SelectPlayer extends AppCompatActivity {
     //===================SHARED PREFERENCES STRING NAMES - USED TO NAME PRIMITIVES BEING SAVED===================//
 
     @Override
-    //todo:[Medium] should display the hero's latest save data upon start of this activity (i.e. Create an onResume main method)
+    //todo:[CRITICAL] should display the hero's latest save data upon start of this activity (i.e. Create an onResume main method)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_player);
@@ -86,7 +86,18 @@ public class SelectPlayer extends AppCompatActivity {
         initializeViews();
 
         classDictionary = new PlayerClassDictionary();
-        newPlayer = classDictionary.getPlayer(classIndex);
+
+        Intent intent = getIntent();
+        if(intent.getParcelableExtra(EXTRA_PLAYER) != null){
+            newPlayer = intent.getParcelableExtra(EXTRA_PLAYER);
+        }else{
+            newPlayer = classDictionary.getPlayer(classIndex);
+        }
+
+
+
+        //todo:[CRITICAL] should show player data from previous activity
+
         getPlayerStats();
         updatePlayerStats();
 

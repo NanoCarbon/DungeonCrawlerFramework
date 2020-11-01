@@ -21,6 +21,7 @@
     <string name="changeClass_StringValue">Change Class</string>
     <string name="unequipSingle_StringValue">Unequip Selected</string>
     <string name="unequipAll_StringValue">Unequip All</string>
+    <string name="returnSelectPlayer_StringValue">Select Player</string>
 
     <!--Temp view string resources-->
     <string name="inventoryHP_StringValue">Total Player Health: %d/%d + %d/%d = %d/%d</string>
