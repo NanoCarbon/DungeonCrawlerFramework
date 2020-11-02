@@ -48,12 +48,12 @@ public class Player implements Parcelable {
     private int playerKillCount=0;
     private int playerCoinPurse = 0;
     private ArrayList<Limb> playerBodyParts = new ArrayList<Limb>();
-    private final Limb playerHand1 = new Limb(3);
-    private final Limb playerHand2 = new Limb(3);
-    private final Limb playerFeet = new Limb(5);
-    private final Limb playerHead = new Limb(1);
-    private final Limb playerTorso = new Limb(2);
-    private final Limb playerLegs = new Limb(4);
+    private Limb playerHand1 = new Limb(3);
+    private Limb playerHand2 = new Limb(3);
+    private Limb playerFeet = new Limb(5);
+    private Limb playerHead = new Limb(1);
+    private Limb playerTorso = new Limb(2);
+    private Limb playerLegs = new Limb(4);
     //===================PRE INSTANTIATED VARS==================//
 
     //===================STARTING VARS==========================//
@@ -143,6 +143,12 @@ public class Player implements Parcelable {
         playerStartingSkillPower = in.readInt();
         playerSharedPreferences = in.readString();
         playerInventory = in.readArrayList(null);
+        playerHead = in.readParcelable(Limb.class.getClassLoader());
+        playerHand1 = in.readParcelable(Limb.class.getClassLoader());
+        playerTorso = in.readParcelable(Limb.class.getClassLoader());
+        playerHand2 = in.readParcelable(Limb.class.getClassLoader());
+        playerLegs = in.readParcelable(Limb.class.getClassLoader());
+        playerFeet = in.readParcelable(Limb.class.getClassLoader());
     }
 
     public static final Creator<Player> CREATOR = new Creator<Player>() {
@@ -470,7 +476,7 @@ public class Player implements Parcelable {
 
 
     public void playerActivateEquipment(Limb limb) {
-        //fixme:[BUG] the item effects are being counted twice somewhere
+        //fixme:[BUG] the item effects are being counted twice somewhere here
         ItemDictionary itemDictionary = new ItemDictionary();
 
             Item item2Equip = limb.getEquippedItem();
@@ -624,6 +630,12 @@ public class Player implements Parcelable {
         dest.writeInt(playerStartingSkillPower);
         dest.writeString(playerSharedPreferences);
         dest.writeList(playerInventory);
+        dest.writeParcelable(playerHead, flags);
+        dest.writeParcelable(playerHand1, flags);
+        dest.writeParcelable(playerTorso, flags);
+        dest.writeParcelable(playerHand2, flags);
+        dest.writeParcelable(playerLegs, flags);
+        dest.writeParcelable(playerFeet, flags);
     }
     //=============================PARCELABLE METHODS=======================//
 

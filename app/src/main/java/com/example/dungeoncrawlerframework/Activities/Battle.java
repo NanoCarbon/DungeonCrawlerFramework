@@ -81,25 +81,25 @@ public class Battle extends AppCompatActivity {
     private Drawable playerImage;
 
     private int playerHP;
-    private int equipmentHPEffect;
+    private int itemHPEffect;
 
     private int playerMaxHP;
-    private int equipmentMaxHPEffect;
+    private int itemMaxHPEffect;
 
     private int playerEnergy;
-    private int equipmentEnergyEffect;
+    private int itemEnergyEffect;
 
     private int playerMaxEnergy;
-    private int equipmentMaxEnergyEffect;
+    private int itemMaxEnergyEffect;
 
     private int playerAttack;
-    private int equipmentAttackEffect;
+    private int itemAttackEffect;
 
     private int playerDefense;
-    private int equipmentDefenseEffect;
+    private int itemDefenseEffect;
 
     private int playerSkillPower;
-    private int equipmentSkillPowerEffect;
+    private int itemSkillPowerEffect;
 
     private int playerExperience;
     private int playerLevel;
@@ -107,9 +107,16 @@ public class Battle extends AppCompatActivity {
     private int playerCoinPurse;
 
     private String playerDescription;
-    private String playerSharedPreferences;
+    private String playerSharedPrefrences;
     private ArrayList<Integer> playerInventory;
     private ArrayList<Limb> playerBodyParts;
+
+    Limb playerLimb1;
+    Limb playerLimb2;
+    Limb playerLimb3;
+    Limb playerLimb4;
+    Limb playerLimb5;
+    Limb playerLimb6;
 
     //============================PLAYER RELATED VARS==================================//
 
@@ -140,11 +147,15 @@ public class Battle extends AppCompatActivity {
         //player starts with max HP and max Energy upon entering the dungeon
         newPlayer = intent.getParcelableExtra(EXTRA_PLAYER);
         playerInventory = newPlayer.getPlayerInventory();
-
-
-
         Intent finishPriorActivities = new Intent("finish_activity");
         sendBroadcast(finishPriorActivities);
+
+        playerLimb1 = newPlayer.getPlayerHead();
+        playerLimb2 = newPlayer.getPlayerHand1();
+        playerLimb3 = newPlayer.getPlayerTorso();
+        playerLimb4 = newPlayer.getPlayerHand2();
+        playerLimb5 = newPlayer.getPlayerLegs();
+        playerLimb6 = newPlayer.getPlayerLegs();
 
         getPlayerStats();
         updatePlayerStats();
@@ -205,7 +216,7 @@ public class Battle extends AppCompatActivity {
     public void saveData() {
 
         //[fixme]:[Bug] player stats being stored are including weapon buffs
-        SharedPreferences sharedPreferences = getSharedPreferences(playerSharedPreferences, MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(playerSharedPrefrences, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
         String jsonPlayer = gson.toJson(newPlayer);
@@ -220,7 +231,9 @@ public class Battle extends AppCompatActivity {
     public void startSelectPlayerActivity(){
 
         Intent intent = new Intent(this,SelectPlayer.class);
+        intent.putExtra(EXTRA_PLAYER,newPlayer);
         startActivity(intent);
+
     }
     private void loadSounds() {
         //fixme:[Bug] the sound is adjusted using the System sounds bar and not the Media volumes
@@ -319,28 +332,31 @@ public class Battle extends AppCompatActivity {
         playerBodyParts = newPlayer.getPlayerBodyParts();
         playerInventory = newPlayer.getPlayerInventory();
 
-        equipmentHPEffect = newPlayer.getItemHealthEffect();
-        equipmentMaxHPEffect = newPlayer.getItemMaxHealthEffect();
-        equipmentEnergyEffect = newPlayer.getItemEnergyEffect();
-        equipmentMaxEnergyEffect = newPlayer.getItemMaxEnergyEffect();
-        equipmentAttackEffect = newPlayer.getItemAttackEffect();
-        equipmentDefenseEffect = newPlayer.getItemDefenseEffect();
-        equipmentSkillPowerEffect = newPlayer.getItemSkillPowerEffect();
+        itemHPEffect = newPlayer.getItemHealthEffect();
+        itemMaxHPEffect = newPlayer.getItemMaxHealthEffect();
+        itemEnergyEffect = newPlayer.getItemEnergyEffect();
+        itemMaxEnergyEffect = newPlayer.getItemMaxEnergyEffect();
+        itemAttackEffect = newPlayer.getItemAttackEffect();
+        itemDefenseEffect = newPlayer.getItemDefenseEffect();
+        itemSkillPowerEffect = newPlayer.getItemSkillPowerEffect();
+
+
 
         //BATTLE CALCULATIONS RELATIVE TO PLAYER
         //todo: [Medium] this cannot be a SOLID coding practice, extract this into its own method
         //todo: [High] refactor this so that the damage is a function of playerAttack and itemEffects on player Attack
-        if(playerAttack - monsterDefense <=0){
+        if(playerAttack + itemAttackEffect - monsterDefense <=0){
             damage = 1;
         }else{
-            damage = playerAttack - monsterDefense;
+            damage = playerAttack + itemAttackEffect- monsterDefense;
         }
 
-        healAmount = playerSkillPower+1;
-            if(playerDefense >= monsterAttack){
+        healAmount = playerSkillPower + itemSkillPowerEffect + 1;
+
+        if(playerDefense + itemDefenseEffect >= monsterAttack){
             playerDamage = 1;
         }else{
-            playerDamage = monsterAttack - playerDefense;
+            playerDamage = monsterAttack - playerDefense - itemDefenseEffect;
         }
     }
 
@@ -354,16 +370,16 @@ public class Battle extends AppCompatActivity {
         }else{
             playerHPDisplay.setTextColor(Color.rgb(0,0,0));
         }
-        playerEnergyDisplay.setText(res.getString(R.string.playerEnergy_StringValue,playerEnergy,playerMaxEnergy));
-        playerAttackDisplay.setText(res.getString(R.string.playerAttack_StringValue,playerAttack));
-        playerDefenseDisplay.setText(res.getString(R.string.playerDefense_StringValue,playerDefense));
-        playerSkillPowerDisplay.setText(res.getString(R.string.playerSP_StringValue,playerSkillPower));
+        playerEnergyDisplay.setText(res.getString(R.string.playerEnergy_StringValue,playerEnergy+itemEnergyEffect,playerMaxEnergy+itemMaxEnergyEffect));
+        playerAttackDisplay.setText(res.getString(R.string.playerAttack_StringValue,playerAttack+itemAttackEffect));
+        playerDefenseDisplay.setText(res.getString(R.string.playerDefense_StringValue,playerDefense+itemDefenseEffect));
+        playerSkillPowerDisplay.setText(res.getString(R.string.playerSP_StringValue,playerSkillPower+itemSkillPowerEffect));
 
         playerExperienceDisplay.setText(res.getString(R.string.playerExperience_StringValue,playerExperience));
         playerLevelDisplay.setText(res.getString(R.string.playerLevel_StringValue,playerLevel));
         killCountDisplay.setText(res.getString(R.string.killCount_StringValue,killCount));
         playerCoinPurseDisplay.setText(res.getString(R.string.playerCoinPurse_StringValue,playerCoinPurse));
-        playerSharedPreferences = newPlayer.getPlayerSharedPreferences();
+        playerSharedPrefrences = newPlayer.getPlayerSharedPreferences();
         if(playerInventory != null) {
             currentInventoryCountDisplay.setText(res.getString(R.string.inventoryCount_StringValue, playerInventory.size()));
         }else{
@@ -406,6 +422,13 @@ public class Battle extends AppCompatActivity {
         newPlayer.setPlayerDescription(playerDescription);
         newPlayer.setPlayerSkillPower(playerSkillPower);
         newPlayer.setPlayerCoinPurse(playerCoinPurse);
+        newPlayer.setItemHealthEffect(itemHPEffect);
+        newPlayer.setItemMaxHealthEffect(itemMaxHPEffect);
+        newPlayer.setItemEnergyEffect(itemEnergyEffect);
+        newPlayer.setItemMaxEnergyEffect(itemMaxEnergyEffect);
+        newPlayer.setItemAttackEffect(itemAttackEffect);
+        newPlayer.setItemDefenseEffect(itemDefenseEffect);
+        newPlayer.setItemSkillPowerEffect(itemSkillPowerEffect);
     }
 
 

@@ -90,6 +90,8 @@ public class PlayerInventory extends AppCompatActivity {
         setContentView(R.layout.activity_item_menu);
         Intent intent = getIntent();
         newPlayer = intent.getParcelableExtra(EXTRA_PLAYER);
+
+
         playerLimb1 = newPlayer.getPlayerHead();
         playerLimb2 = newPlayer.getPlayerHand1();
         playerLimb3 = newPlayer.getPlayerTorso();
@@ -97,12 +99,8 @@ public class PlayerInventory extends AppCompatActivity {
         playerLimb5 = newPlayer.getPlayerLegs();
         playerLimb6 = newPlayer.getPlayerFeet();
         playerInventory = newPlayer.getPlayerInventory();
-        newPlayer.playerActivateEquipment(playerLimb1);
-        newPlayer.playerActivateEquipment(playerLimb2);
-        newPlayer.playerActivateEquipment(playerLimb3);
-        newPlayer.playerActivateEquipment(playerLimb4);
-        newPlayer.playerActivateEquipment(playerLimb5);
-        newPlayer.playerActivateEquipment(playerLimb6);
+
+
         initializeViews();
         getPlayerStats();
         updatePlayerViews();
@@ -251,11 +249,8 @@ public class PlayerInventory extends AppCompatActivity {
     
     }
 
-    public void return2SelectPlayerActivity(){
-        Intent intent = new Intent(this,SelectPlayer.class);
-        intent.putExtra(EXTRA_PLAYER,newPlayer);
-        startActivity(intent);
-    }
+
+
 
     private void unequipItem() {
         Drawable shape = getResources().getDrawable(R.drawable.shape);
@@ -400,21 +395,27 @@ public class PlayerInventory extends AppCompatActivity {
 
         if(playerLimb1.getEquippedItem() != null){
             Drawable limb1ItemImage = ContextCompat.getDrawable(this,playerLimb1.getEquippedItem().getItemImageId());
+            playerLimb1EquippmentDisplay.setImageDrawable(limb1ItemImage);
         }
         if(playerLimb2.getEquippedItem() != null){
             Drawable limb2ItemImage = ContextCompat.getDrawable(this,playerLimb2.getEquippedItem().getItemImageId());
+            playerLimb2EquippmentDisplay.setImageDrawable(limb2ItemImage);
         }
         if(playerLimb3.getEquippedItem() != null){
             Drawable limb3ItemImage = ContextCompat.getDrawable(this,playerLimb3.getEquippedItem().getItemImageId());
+            playerLimb3EquippmentDisplay.setImageDrawable(limb3ItemImage);
         }
         if(playerLimb4.getEquippedItem() != null){
             Drawable limb4ItemImage = ContextCompat.getDrawable(this,playerLimb4.getEquippedItem().getItemImageId());
+            playerLimb4EquippmentDisplay.setImageDrawable(limb4ItemImage);
         }
         if(playerLimb5.getEquippedItem() != null){
             Drawable limb5ItemImage = ContextCompat.getDrawable(this,playerLimb5.getEquippedItem().getItemImageId());
+            playerLimb5EquippmentDisplay.setImageDrawable(limb5ItemImage);
         }
         if(playerLimb6.getEquippedItem() != null){
             Drawable limb6ItemImage = ContextCompat.getDrawable(this,playerLimb6.getEquippedItem().getItemImageId());
+            playerLimb6EquippmentDisplay.setImageDrawable(limb6ItemImage);
         }
     }
 
@@ -468,4 +469,11 @@ public class PlayerInventory extends AppCompatActivity {
         updatePlayerViews();
 
     }
+
+    public void return2SelectPlayerActivity(){
+        Intent intent = new Intent(this,SelectPlayer.class);
+        intent.putExtra(EXTRA_PLAYER,newPlayer);
+        startActivity(intent);
+    }
+
 }

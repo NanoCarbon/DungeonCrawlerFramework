@@ -40,18 +40,32 @@ public class SelectPlayer extends AppCompatActivity {
 
     private int playerImageId;
     private int playerHP;
+    private int itemHPEffect;
+
     private int playerMaxHP;
+    private int itemMaxHPEffect;
+
     private int playerEnergy;
+    private int itemEnergyEffect;
+
     private int playerMaxEnergy;
+    private int itemMaxEnergyEffect;
+
     private int playerAttack;
+    private int itemAttackEffect;
+
     private int playerDefense;
+    private int itemDefenseEffect;
+
     private int playerSkillPower;
-    private Limb playerHead;
-    private Limb playerTorso;
-    private Limb playerHand1;
-    private Limb playerHand2;
-    private Limb playerLegs;
-    private Limb playerFeet;
+    private int itemSkillPowerEffect;
+
+    private Limb playerLimb1;
+    private Limb playerLimb2;
+    private Limb playerLimb3;
+    private Limb playerLimb4;
+    private Limb playerLimb5;
+    private Limb playerLimb6;
 
 
     private int killCount;
@@ -78,7 +92,7 @@ public class SelectPlayer extends AppCompatActivity {
     //===================SHARED PREFERENCES STRING NAMES - USED TO NAME PRIMITIVES BEING SAVED===================//
 
     @Override
-    //todo:[CRITICAL] should display the hero's latest save data upon start of this activity (i.e. Create an onResume main method)
+    //todo:[CRITICAL] the
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_player);
@@ -94,14 +108,12 @@ public class SelectPlayer extends AppCompatActivity {
             newPlayer = classDictionary.getPlayer(classIndex);
         }
 
-
-
-        //todo:[CRITICAL] should show player data from previous activity
-
         getPlayerStats();
         updatePlayerStats();
 
         changeClassButton.setOnClickListener(new View.OnClickListener(){
+
+            //fixme:[BUG] the inventory isn't change with the change class button
             @Override
             public void onClick(View view) {
                 if(classIndex+1>classDictionary.getSize()-1){
@@ -159,19 +171,34 @@ public class SelectPlayer extends AppCompatActivity {
         Player oldPlayer = gson.fromJson(jsonOldPlayer,Player.class);
         if (oldPlayer!= null) {
             newPlayer = oldPlayer;
-            playerInventory = newPlayer.getPlayerInventory();
-            playerEnergy = newPlayer.getPlayerEnergy();
-            playerAttack = newPlayer.getPlayerAttack();
-            playerDefense = newPlayer.getPlayerDefense();
             playerHP = newPlayer.getPlayerHealth();
+            itemHPEffect = newPlayer.getItemHealthEffect();
+            playerMaxHP = newPlayer.getPlayerMaxHealth();
+            itemMaxHPEffect = newPlayer.getItemMaxHealthEffect();
+            playerAttack = newPlayer.getPlayerAttack();
+            itemAttackEffect = newPlayer.getItemAttackEffect();
+            playerDefense = newPlayer.getPlayerDefense();
+            itemDefenseEffect = newPlayer.getItemDefenseEffect();
+            playerEnergy = newPlayer.getPlayerEnergy();
+            itemEnergyEffect = newPlayer.getItemEnergyEffect();
+            playerMaxEnergy = newPlayer.getPlayerMaxEnergy();
+            itemMaxEnergyEffect = newPlayer.getItemMaxEnergyEffect();
+            playerSkillPower = newPlayer.getPlayerSkillPower();
+            itemSkillPowerEffect = newPlayer.getItemSkillPowerEffect();
+
+            playerInventory = newPlayer.getPlayerInventory();
             killCount = newPlayer.getPlayerKillCount();
             playerExperience = newPlayer.getPlayerKillCount();
             playerLevel = newPlayer.getPlayerLevel();
             playerImageId = newPlayer.getPlayerImageId();
-            playerMaxHP = newPlayer.getPlayerMaxHealth();
-            playerMaxEnergy = newPlayer.getPlayerMaxEnergy();
-            playerSkillPower = newPlayer.getPlayerSkillPower();
             playerCoinPurse = newPlayer.getPlayerCoinPurse();
+
+            playerLimb1 = newPlayer.getPlayerHead();
+            playerLimb2 = newPlayer.getPlayerHand1();
+            playerLimb3 = newPlayer.getPlayerTorso();
+            playerLimb4 = newPlayer.getPlayerHand2();
+            playerLimb5 = newPlayer.getPlayerLegs();
+            playerLimb6 = newPlayer.getPlayerFeet();
         }
     }
 
@@ -179,32 +206,47 @@ public class SelectPlayer extends AppCompatActivity {
         //todo:[BUG] player image overwritten with a monster image ID for some reason upon loading
         Drawable image = ContextCompat.getDrawable(this, newPlayer.getPlayerImageId());
         selectedClassDisplay.setImageDrawable(image);
-        playerEnergy = newPlayer.getPlayerEnergy();
-        playerAttack = newPlayer.getPlayerAttack();
-        playerDefense = newPlayer.getPlayerDefense();
         playerHP = newPlayer.getPlayerHealth();
+        itemHPEffect = newPlayer.getItemHealthEffect();
+        playerMaxHP = newPlayer.getPlayerMaxHealth();
+        itemMaxHPEffect = newPlayer.getItemMaxHealthEffect();
+        playerAttack = newPlayer.getPlayerAttack();
+        itemAttackEffect = newPlayer.getItemAttackEffect();
+        playerDefense = newPlayer.getPlayerDefense();
+        itemDefenseEffect = newPlayer.getItemDefenseEffect();
+        playerEnergy = newPlayer.getPlayerEnergy();
+        itemEnergyEffect = newPlayer.getItemEnergyEffect();
+        playerMaxEnergy = newPlayer.getPlayerMaxEnergy();
+        itemMaxEnergyEffect = newPlayer.getItemMaxEnergyEffect();
+        playerSkillPower = newPlayer.getPlayerSkillPower();
+        itemSkillPowerEffect = newPlayer.getItemSkillPowerEffect();
+
         killCount = newPlayer.getPlayerKillCount();
         playerExperience = newPlayer.getPlayerExperience();
         playerLevel = newPlayer.getPlayerLevel();
         playerImageId = newPlayer.getPlayerImageId();
-        playerMaxHP = newPlayer.getPlayerMaxHealth();
-        playerMaxEnergy = newPlayer.getPlayerMaxEnergy();
         playerDescription = newPlayer.getPlayerDescription();
-        playerSkillPower = newPlayer.getPlayerSkillPower();
         playerCoinPurse = newPlayer.getPlayerCoinPurse();
         playerSharedPrefrences = newPlayer.getPlayerSharedPreferences();
-        playerInventory = new ArrayList<Integer>();
+        playerInventory = newPlayer.getPlayerInventory();
+
+        playerLimb1 = newPlayer.getPlayerHead();
+        playerLimb2 = newPlayer.getPlayerHand1();
+        playerLimb3 = newPlayer.getPlayerTorso();
+        playerLimb4 = newPlayer.getPlayerHand2();
+        playerLimb5 = newPlayer.getPlayerLegs();
+        playerLimb6 = newPlayer.getPlayerLegs();
     }
 
     private void updatePlayerStats(){
         Resources res = getResources();
-        playerEnergyDisplay.setText(res.getString(R.string.playerEnergy_StringValue,playerEnergy,playerMaxEnergy));
-        playerHPDisplay.setText(res.getString(R.string.playerHP_StringValue,playerHP,playerMaxHP));
-        playerDefenseDisplay.setText(res.getString(R.string.playerDefense_StringValue,playerDefense));
-        playerAttackDisplay.setText(res.getString(R.string.playerAttack_StringValue,playerAttack));
-        playerDescriptionDisplay.setText(newPlayer.getPlayerDescription());
-        playerSkillPowerDisplay.setText(res.getString(R.string.playerSP_StringValue,playerSkillPower));
+        playerEnergyDisplay.setText(res.getString(R.string.playerEnergy_StringValue,playerEnergy+itemEnergyEffect,playerMaxEnergy+itemMaxEnergyEffect));
+        playerHPDisplay.setText(res.getString(R.string.playerHP_StringValue,playerHP+itemHPEffect,playerMaxHP+itemMaxHPEffect));
+        playerDefenseDisplay.setText(res.getString(R.string.playerDefense_StringValue,playerDefense+itemDefenseEffect));
+        playerAttackDisplay.setText(res.getString(R.string.playerAttack_StringValue,playerAttack+itemAttackEffect));
+        playerSkillPowerDisplay.setText(res.getString(R.string.playerSP_StringValue,playerSkillPower+itemSkillPowerEffect));
         playerInventoryCountDisplay.setText(res.getString(R.string.inventoryCount_StringValue,playerInventory.size()));
+        playerDescriptionDisplay.setText(newPlayer.getPlayerDescription());
     }
 
     private void initializeViews() {
@@ -223,7 +265,6 @@ public class SelectPlayer extends AppCompatActivity {
     }
 
     public void startBattleActivity(){
-
         Intent intent = new Intent(this, Battle.class);
         intent.putExtra(EXTRA_PLAYER,newPlayer);
         startActivity(intent);
