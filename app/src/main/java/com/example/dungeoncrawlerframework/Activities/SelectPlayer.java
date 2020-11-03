@@ -92,7 +92,7 @@ public class SelectPlayer extends AppCompatActivity {
     //===================SHARED PREFERENCES STRING NAMES - USED TO NAME PRIMITIVES BEING SAVED===================//
 
     @Override
-    //todo:[CRITICAL] the
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_player);
@@ -113,7 +113,6 @@ public class SelectPlayer extends AppCompatActivity {
 
         changeClassButton.setOnClickListener(new View.OnClickListener(){
 
-            //fixme:[BUG] the inventory isn't change with the change class button
             @Override
             public void onClick(View view) {
                 if(classIndex+1>classDictionary.getSize()-1){
@@ -203,7 +202,7 @@ public class SelectPlayer extends AppCompatActivity {
     }
 
     private void getPlayerStats() {
-        //todo:[BUG] player image overwritten with a monster image ID for some reason upon loading
+        //todo:[Bug] player image overwritten with a monster image ID for some reason upon loading
         Drawable image = ContextCompat.getDrawable(this, newPlayer.getPlayerImageId());
         selectedClassDisplay.setImageDrawable(image);
         playerHP = newPlayer.getPlayerHealth();

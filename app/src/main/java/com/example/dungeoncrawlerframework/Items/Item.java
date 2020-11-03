@@ -108,7 +108,7 @@ public class Item implements Parcelable {
     //===========================GETTERS AND SETTERS================================//
 
 
-    //todo: [High] create a method that unequips item as well
+
     //====================MAIN ITEM METHODS=========================================//
     public void equipItem(Limb playerLimb){
         if (this.equippable = true && limbRestriction == playerLimb.getLimbType()){

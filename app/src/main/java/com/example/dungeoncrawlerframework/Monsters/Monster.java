@@ -6,7 +6,6 @@ import com.example.dungeoncrawlerframework.Items.ItemDictionary;
 import java.util.Random;
 
 public class Monster {
-    //todo: [Low] generate an attack animation for the monster (shift left to right for simple animation and move arm up and down for more complex animations)
 
     //===============================MONSTER VARS========================================//
     private int name;

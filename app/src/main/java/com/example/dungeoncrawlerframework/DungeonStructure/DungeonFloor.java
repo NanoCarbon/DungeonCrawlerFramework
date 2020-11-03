@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 public class DungeonFloor {
 
+    //todo: [Medium] Clean up code formatting (i.e. white space and comments)
+
     private MonsterDictionary monsterDictionary = new MonsterDictionary();
     private ArrayList<Monster> floorMonsters;
     private int floorNumber;
@@ -14,7 +16,7 @@ public class DungeonFloor {
     DungeonFloor(int floorNumber){
 
         this.floorNumber = floorNumber;
-        //todo:[High] randomly generate a list of monsters that you would fight based on the population of the Dungeon Floor with one boss monster at the end
+        //todo:[CRITICAL] randomly generate a list of monsters that you would fight based on the population of the Dungeon Floor with one boss monster at the end
     }
 
     public MonsterDictionary getMonsterDictionary() {

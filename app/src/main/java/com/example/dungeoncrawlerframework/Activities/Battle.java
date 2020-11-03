@@ -158,12 +158,8 @@ public class Battle extends AppCompatActivity {
         playerLimb6 = newPlayer.getPlayerLegs();
 
         getPlayerStats();
-        updatePlayerStats();
+        updatePlayerViews();
 
-        /*
-        //todo: [High] use the new newPlayer.activateEquipment() method instead
-        getPlayerEquipment();
-        */
         loadSounds();
 
         attackButton.setOnClickListener(new View.OnClickListener(){
@@ -215,7 +211,6 @@ public class Battle extends AppCompatActivity {
 
     public void saveData() {
 
-        //[fixme]:[Bug] player stats being stored are including weapon buffs
         SharedPreferences sharedPreferences = getSharedPreferences(playerSharedPrefrences, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
@@ -314,7 +309,7 @@ public class Battle extends AppCompatActivity {
 
     //BATTLE METHODS
 
-    //todo:[High] refactor so that the get data is separate from the update of the displays like the Select Player activity
+
     private void getPlayerStats() {
         playerImage = ContextCompat.getDrawable(this, newPlayer.getPlayerImageId());
         playerHP = newPlayer.getPlayerHealth();
@@ -360,7 +355,7 @@ public class Battle extends AppCompatActivity {
         }
     }
 
-    private void updatePlayerStats() {
+    private void updatePlayerViews() {
 
         playerImageDisplay.setImageDrawable(playerImage);
         playerImageDisplay.setVisibility(View.VISIBLE);
@@ -444,7 +439,7 @@ public class Battle extends AppCompatActivity {
             playerEnergy = playerEnergy - 1;
             setPlayerStats();
             getPlayerStats();
-            updatePlayerStats();
+            updatePlayerViews();
             soundPool.play(sound1, 1, 1, 0, 0, 1);
             combatLogDisplay.append(res.getString(R.string.playerAttackMonster,monsterName,damage));
             monsterHpDisplay.setText(res.getString(R.string.monsterHP_StringValue,monsterHp));
@@ -452,7 +447,7 @@ public class Battle extends AppCompatActivity {
                 killMonster();
                 setPlayerStats();
                 getPlayerStats();
-                updatePlayerStats();
+                updatePlayerViews();
             }
         }else if(playerEnergy<=0){
             YoYo.with(Techniques.Flash)
@@ -486,13 +481,13 @@ public class Battle extends AppCompatActivity {
                 playerEnergy = playerEnergy - 1;
                 setPlayerStats();
                 getPlayerStats();
-                updatePlayerStats();
+                updatePlayerViews();
             }else{
                 playerHP = playerHP + healAmount;
                 playerEnergy = playerEnergy - 1;
                 setPlayerStats();
                 getPlayerStats();
-                updatePlayerStats();
+                updatePlayerViews();
             }
             soundPool.play(sound2, 1, 1, 0, 0, 1);
             combatLogDisplay.append(res.getString(R.string.playerHealSelf,healAmount));
@@ -553,7 +548,7 @@ public class Battle extends AppCompatActivity {
         return freshMonster;
     }
 
-    //todo: [High] return the player back to 1-1 equivalent... need to return them back to the main menu
+    //todo: [High] reset dungeon progress to the beginning
 
     private void attackPlayer(Player newPlayer){
         YoYo.with(Techniques.Tada)
@@ -564,7 +559,7 @@ public class Battle extends AppCompatActivity {
         playerHP = playerHP - playerDamage;
         setPlayerStats();
         getPlayerStats();
-        updatePlayerStats();
+        updatePlayerViews();
         turnCounter++;
         turnCounterDisplay.setText(res.getString(R.string.turnCounter_StringValue,turnCounter));
         combatLogDisplay.setText(res.getString(R.string.monsterAttackPlayer,monsterName,playerDamage));
@@ -582,7 +577,7 @@ public class Battle extends AppCompatActivity {
     private void playerDeath() {
         resetTurnCounter();
         getPlayerStats();
-        updatePlayerStats();
+        updatePlayerViews();
         playerImageDisplay.setVisibility(View.INVISIBLE);
         endTurnButton.setVisibility(View.INVISIBLE);
         saveButton.setVisibility(View.INVISIBLE);
@@ -596,7 +591,7 @@ public class Battle extends AppCompatActivity {
         playerCoinPurse = monsterActualGoldDrop + playerCoinPurse;
         setPlayerStats();
         getPlayerStats();
-        updatePlayerStats();
+        updatePlayerViews();
         combatLogDisplay.setText(res.getString(R.string.monsterDeath,monsterName,monsterExp,monsterActualGoldDrop));
         monsterImageDisplay.animate().alpha(0.0f).setDuration(600);
         monsterHpDisplay.setVisibility(View.INVISIBLE);
@@ -606,7 +601,7 @@ public class Battle extends AppCompatActivity {
             if(newPlayer.checkLevel(playerExperience) > newPlayer.getPlayerLevel()){
                 newPlayer.levelUp(newPlayer.checkLevel(playerExperience));
                 getPlayerStats();
-                updatePlayerStats();
+                updatePlayerViews();
             }
 
         }else{

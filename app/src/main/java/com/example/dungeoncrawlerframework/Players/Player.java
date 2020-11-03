@@ -10,8 +10,8 @@ import com.example.dungeoncrawlerframework.Limbs.Limb;
 import java.util.ArrayList;
 
 public class Player implements Parcelable {
-    //todo: [BLOCKER] implement Parcelable so we're not always passing primitives back and fourth and always having to keep track
-    //todo: [Medium] create a skill class and skill dictionary
+
+    //todo: [High] create a skill class and skill dictionary
 
     //======THE 7 PLAYER STATS THAT ARE AFFECTED BY ITEMS========//
     private int playerHealth;
@@ -476,7 +476,7 @@ public class Player implements Parcelable {
 
 
     public void playerActivateEquipment(Limb limb) {
-        //fixme:[BUG] the item effects are being counted twice somewhere here
+
         ItemDictionary itemDictionary = new ItemDictionary();
 
             Item item2Equip = limb.getEquippedItem();
@@ -515,7 +515,8 @@ public class Player implements Parcelable {
             }
     }
 
-    //todo: [CRITICAL] Refactor this so this is limb independent
+    //todo: [Critical] Refactor this so this is limb independent
+    //todo: [Blocker] Create item slots for general use items in Battle Activity
     public void playerUseItem(int inventoryIndex, Limb limb2Equip){
         //method for equipment and permanent items
 

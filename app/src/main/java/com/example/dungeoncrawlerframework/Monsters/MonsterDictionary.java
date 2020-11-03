@@ -5,11 +5,11 @@ import com.example.dungeoncrawlerframework.R;
 
 public class MonsterDictionary {
     //todo: [Low] refactor this to use an ArrayList<Integer> rather than just a fixed array
-    private Monster[] monsters;
+    private final Monster[] monsters;
 
 
     public MonsterDictionary(){
-
+        //todo:[Medium] refactor so this is an ArrayList rather than an Array
         //UPDATE WHEN YOU ADD A NEW MONSTER
         monsters = new Monster[7];
 

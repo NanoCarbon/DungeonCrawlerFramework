@@ -8,8 +8,6 @@
     android:layout_height="match_parent"
     android:background="@android:color/darker_gray"
     tools:context=".Activities.PlayerInventory">
-    <!--todo: [Low] update the constraints of the limb imageViews so they resemble the shape of a human boddy-->
-    <!--todo: [High] pretty up and organize; add player stats onto this screen-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"

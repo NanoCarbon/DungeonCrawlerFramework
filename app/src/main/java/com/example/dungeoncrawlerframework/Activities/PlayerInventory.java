@@ -321,7 +321,7 @@ public class PlayerInventory extends AppCompatActivity {
     }
 
     private void initializeViews() {
-        //fixme:[BUG] equipment images aren't showing after resuming from Select Player
+
         menuLayoutDisplay = findViewById(R.id.itemMenuLayoutLayer);
         playerLimb1EquippmentDisplay = findViewById(R.id.limb1EquippedItem);
         playerLimb2EquippmentDisplay = findViewById(R.id.limb2EquippedItem);
@@ -350,7 +350,7 @@ public class PlayerInventory extends AppCompatActivity {
     }
 
     private void getPlayerStats(){
-        //todo:[Critical] get player equipment as well
+
         playerHealth = newPlayer.getPlayerHealth();
         itemHealthEffect = newPlayer.getItemHealthEffect();
         playerAttack = newPlayer.getPlayerAttack();
@@ -385,7 +385,7 @@ public class PlayerInventory extends AppCompatActivity {
     }
 
     private void updatePlayerViews(){
-        //todo:[Critical] update limb views with equipment drawables
+
         res = getResources();
         inventoryPlayerHealthDisplay.setText(res.getString(R.string.inventoryHP_StringValue,playerHealth,playerMaxHealth,itemHealthEffect,itemMaxHealthEffect,playerHealth+itemHealthEffect,playerMaxHealth+itemMaxHealthEffect));
         inventoryPlayerAttackDisplay.setText(res.getString(R.string.inventoryAttack_StringValue,playerAttack,itemAttackEffect,playerAttack+itemAttackEffect));
@@ -455,7 +455,7 @@ public class PlayerInventory extends AppCompatActivity {
 
     private void playerEquipItem(Integer itemIndex) {
 
-        //todo:[High] set a limit on the number of items you can equip based on the number of items in equipment
+        //fixme:[Bug] set a limit on the number of items you can equip based on the number of items in equipment
 
         if (selectedLimb.getEquippedItem() != null){
             unequipItem();
