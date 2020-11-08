@@ -23,6 +23,8 @@ import androidx.core.content.ContextCompat;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.example.dungeoncrawlerframework.DungeonStructure.DungeonFloor;
+import com.example.dungeoncrawlerframework.DungeonStructure.DungeonFloorDictionary;
 import com.example.dungeoncrawlerframework.Items.Item;
 import com.example.dungeoncrawlerframework.Items.ItemDictionary;
 import com.example.dungeoncrawlerframework.Limbs.Limb;
@@ -41,12 +43,20 @@ import static com.example.dungeoncrawlerframework.Activities.SelectPlayer.PLAYER
 public class Battle extends AppCompatActivity {
 
     //==============MONSTER RELATED VARS================//
+    private int floorNumber=0;
+    private int roomNumber=0;
+
+    private final DungeonFloorDictionary dungeonFloorDictionary = new DungeonFloorDictionary();
+    private DungeonFloor dungeonFloor = dungeonFloorDictionary.getDungeonFloor(floorNumber);
+    private ArrayList<Monster> floorMonsters = dungeonFloor.getFloorMonsters();
     private MonsterDictionary monsterDictionary;
-    private Monster opponent;
+    private Monster opponentMonster;
+    private Drawable monsterImage;
     private ImageView monsterImageDisplay;
     private TextView monsterAttackDisplay;
     private TextView monsterDefenseDisplay;
     private TextView monsterHpDisplay;
+    private TextView floorRoomDisplay;
 
     private int monsterHp;
     private int monsterExp;
@@ -137,11 +147,10 @@ public class Battle extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_battle);
-
         initializeViews();
-
-
-        opponent = createMonster(0);
+        opponentMonster = floorMonsters.get(roomNumber);
+        getMonsterStats();
+        updateMonsterViews();
 
         Intent intent = getIntent();
         //player starts with max HP and max Energy upon entering the dungeon
@@ -182,8 +191,20 @@ public class Battle extends AppCompatActivity {
                 if (monsterHp<=0){
                     //todo:[High] get the next room's event* can be good or bad event
                     //good event = free item/gold; bad event = new monster to fight;
+
+                    if(roomNumber+1<floorMonsters.size()){
+                        roomNumber = roomNumber +1;
+                    }else if(roomNumber+1>=floorMonsters.size()){
+                        //todo:[Critical] what happens if there are no more dungeons left?
+                        floorNumber = floorNumber+1;
+                        dungeonFloor = dungeonFloorDictionary.getDungeonFloor(floorNumber);
+                        floorMonsters = dungeonFloor.getFloorMonsters();
+                        roomNumber = 0;
+                    }
                     saveData();
-                    opponent = createMonster(getRandomNumberInRange(0,monsterDictionary.getSize()-1));
+                    opponentMonster = floorMonsters.get(roomNumber);
+                    getMonsterStats();
+                    updateMonsterViews();
                     resetTurnCounter();
                 }else{
                     updateTurnCounter();
@@ -305,6 +326,7 @@ public class Battle extends AppCompatActivity {
         monsterDefenseDisplay = findViewById(R.id.monsterDefenseTextView);
         monsterImageDisplay = findViewById(R.id.monsterImageView);
         currentInventoryCountDisplay = findViewById(R.id.playerBattleInventoryCountTextView);
+        floorRoomDisplay = findViewById(R.id.floorRoomTextView);
     }
 
     //BATTLE METHODS
@@ -514,39 +536,31 @@ public class Battle extends AppCompatActivity {
 
     }
 
-    private Monster createMonster(int monsterNumber) {
-        res = getResources();
-        monsterDictionary = new MonsterDictionary();
-        Monster freshMonster;
+    private void getMonsterStats(){
+        monsterImage = ContextCompat.getDrawable(this, opponentMonster.getMonsterImageId());
+        monsterName = res.getString(opponentMonster.getName());
+        monsterHp = opponentMonster.getHealthPoints();
+        monsterAttack = opponentMonster.getAttackPower();
+        monsterDefense= opponentMonster.getDefensePower();
+        monsterExp = opponentMonster.getExperience();
+        monsterDropItemIndex = opponentMonster.getItemIndex();
+        monsterDropChance = opponentMonster.getItemDropChance();
+        monsterActualGoldDrop = opponentMonster.dropGold();
+    }
 
-        //todo:[High] pass the current room's monster into here
-        freshMonster = monsterDictionary.getMonster(monsterNumber);
-
-        Drawable monsterImage = ContextCompat.getDrawable(this,freshMonster.getMonsterImageId());
-
-        //todo: [Low] create an updateMonsterStats method same as updatePlayerStats
+    private void updateMonsterViews(){
         monsterImageDisplay.setImageDrawable(monsterImage);
-
-        monsterName = res.getString(freshMonster.getName());
-        monsterDefense=freshMonster.getDefensePower();
-        monsterDefenseDisplay.setText(res.getString(R.string.monsterDefense_StringValue,monsterDefense));
-        monsterHp = freshMonster.getHealthPoints();
         monsterHpDisplay.setText(res.getString(R.string.monsterHP_StringValue,monsterHp));
-        monsterAttack = freshMonster.getAttackPower();
         monsterAttackDisplay.setText(res.getString(R.string.monsterAttack_StringValue,monsterAttack));
-        monsterExp = freshMonster.getExperience();
+        monsterDefenseDisplay.setText(res.getString(R.string.monsterDefense_StringValue,monsterDefense));
         combatLogDisplay.setText(res.getString(R.string.wildMonsterAppears,monsterName));
-        monsterDropItemIndex = freshMonster.getItemIndex();
-        monsterDropChance = freshMonster.getItemDropChance();
-        monsterActualGoldDrop = freshMonster.dropGold();
-
         monsterImageDisplay.animate().alpha(1.0f).setDuration(100);
         monsterHpDisplay.setVisibility(View.VISIBLE);
         monsterAttackDisplay.setVisibility(View.VISIBLE);
         monsterDefenseDisplay.setVisibility(View.VISIBLE);
-
-        return freshMonster;
+        floorRoomDisplay.setText(res.getString(R.string.floorRoom_StringValue,floorNumber+1,roomNumber+1));
     }
+
 
     //todo: [High] reset dungeon progress to the beginning
 

@@ -4,6 +4,7 @@ import com.example.dungeoncrawlerframework.Monsters.Monster;
 import com.example.dungeoncrawlerframework.Monsters.MonsterDictionary;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class DungeonFloor {
 
@@ -11,12 +12,11 @@ public class DungeonFloor {
 
     private final MonsterDictionary monsterDictionary = new MonsterDictionary();
     private DungeonFloorDictionary dungeonFloorDictionary;
-    private ArrayList<Monster> floorMonsters;
-    private int floorNumber;
+    private ArrayList<Integer> floorMonsterIds;
+    private final ArrayList<Monster> floorMonsters = new ArrayList<Monster>(){};
 
-    DungeonFloor(int floorNumber){
-
-        this.floorNumber = floorNumber;
+    DungeonFloor(ArrayList<Integer> floorMonsterIds){
+        this.floorMonsterIds = floorMonsterIds;
         //todo:[CRITICAL] randomly generate a list of monsters that you would fight based on the population of the Dungeon Floor with one boss monster at the end
     }
 
@@ -32,20 +32,23 @@ public class DungeonFloor {
 
 
     public ArrayList<Monster> getFloorMonsters() {
-
+        int floorLength = 10;
+        for (int i = 0; i < floorLength; i++){
+            Monster newMonster = monsterDictionary.getMonster(getRandomMonsterId(floorMonsterIds));
+            floorMonsters.add(newMonster);
+        }
         return floorMonsters;
     }
 
-    public void setFloorMonsters(ArrayList<Monster> floorMonsters) {
-        this.floorMonsters = floorMonsters;
+
+    public ArrayList<Integer> getFloorMonstersIds(ArrayList<Integer> floorMonstersIds) {
+        this.floorMonsterIds = floorMonsterIds;
+        return floorMonsterIds;
     }
 
-    public int getFloorNumber() {
-        return floorNumber;
-    }
-
-    public void setFloorNumber(int floorNumber) {
-        this.floorNumber = floorNumber;
+    public int getRandomMonsterId(ArrayList<Integer> floorMonsterIds){
+        Random rand = new Random();
+        return floorMonsterIds.get(rand.nextInt(floorMonsterIds.size()));
     }
 
 }
