@@ -78,7 +78,9 @@ public class SelectPlayer extends AppCompatActivity {
     private int classIndex = 0;
     private PlayerClassDictionary classDictionary;
     private ArrayList<Integer> playerInventory;
-
+    //todo: [Critical] create a two simple user input views to capture the dungeon floor they want to visit
+    //todo: [Critical] limit the possible selections based on the selected Characters' floor and room Progress
+    //todo: [Medium] revisit creating a bottom navigation activity/tabbed activity to store all these non-battle activities
     //todo: [Medium] Add a settings tab to adjust bgm
 
     //==========INTENT STRING NAMES  - USED TO DEFINE WHAT TO PASS TO BATTLE ACTIVITY=================//

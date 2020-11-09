@@ -17,6 +17,7 @@ public class Monster {
     private int itemIndex;
     private double itemDropChance;
     private int baseGoldDrop;
+    //todo:[High] associate a monster rarity int to affect how often it shows up in dungeon floors
     //===============================MONSTER VARS========================================//
 
     //===============================CONSTRUCTOR=========================================//

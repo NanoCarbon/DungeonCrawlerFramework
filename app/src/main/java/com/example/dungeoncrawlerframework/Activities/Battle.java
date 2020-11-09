@@ -45,7 +45,7 @@ public class Battle extends AppCompatActivity {
     //==============MONSTER RELATED VARS================//
     private int floorNumber=0;
     private int roomNumber=0;
-
+    //todo: [Critical] refactor so that it takes selected floor and room as intents from another activity (new actvity or Select Player Activity doesnt matter)
     private final DungeonFloorDictionary dungeonFloorDictionary = new DungeonFloorDictionary();
     private DungeonFloor dungeonFloor = dungeonFloorDictionary.getDungeonFloor(floorNumber);
     private ArrayList<Monster> floorMonsters = dungeonFloor.getFloorMonsters();
@@ -148,9 +148,7 @@ public class Battle extends AppCompatActivity {
 
         setContentView(R.layout.activity_battle);
         initializeViews();
-        opponentMonster = floorMonsters.get(roomNumber);
-        getMonsterStats();
-        updateMonsterViews();
+
 
         Intent intent = getIntent();
         //player starts with max HP and max Energy upon entering the dungeon
@@ -168,6 +166,10 @@ public class Battle extends AppCompatActivity {
 
         getPlayerStats();
         updatePlayerViews();
+
+        opponentMonster = floorMonsters.get(roomNumber);
+        getMonsterStats();
+        updateMonsterViews();
 
         loadSounds();
 
@@ -189,13 +191,13 @@ public class Battle extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (monsterHp<=0){
-                    //todo:[High] get the next room's event* can be good or bad event
+                    //todo:[Medium] get the next room's event* can be good or bad event
                     //good event = free item/gold; bad event = new monster to fight;
 
                     if(roomNumber+1<floorMonsters.size()){
                         roomNumber = roomNumber +1;
                     }else if(roomNumber+1>=floorMonsters.size()){
-                        //todo:[Critical] what happens if there are no more dungeons left?
+
                         floorNumber = floorNumber+1;
                         dungeonFloor = dungeonFloorDictionary.getDungeonFloor(floorNumber);
                         floorMonsters = dungeonFloor.getFloorMonsters();
@@ -361,7 +363,7 @@ public class Battle extends AppCompatActivity {
 
         //BATTLE CALCULATIONS RELATIVE TO PLAYER
         //todo: [Medium] this cannot be a SOLID coding practice, extract this into its own method
-        //todo: [High] refactor this so that the damage is a function of playerAttack and itemEffects on player Attack
+        //todo: [Medium] refactor this so that the damage is a function of playerAttack and itemEffects on player Attack
         if(playerAttack + itemAttackEffect - monsterDefense <=0){
             damage = 1;
         }else{
@@ -449,7 +451,7 @@ public class Battle extends AppCompatActivity {
     }
 
 
-    //todo:[Medium] refactor to focus on targeting of a specific monster
+    //todo:[Low] refactor to focus on targeting of a specific monster
     private void attackMonster(){
 
         if(turnCounter % 2 == 1 && playerEnergy > 0 && monsterHp > 0 && playerHP > 0){
@@ -562,7 +564,7 @@ public class Battle extends AppCompatActivity {
     }
 
 
-    //todo: [High] reset dungeon progress to the beginning
+
 
     private void attackPlayer(Player newPlayer){
         YoYo.with(Techniques.Tada)
@@ -589,6 +591,7 @@ public class Battle extends AppCompatActivity {
     }
 
     private void playerDeath() {
+
         resetTurnCounter();
         getPlayerStats();
         updatePlayerViews();

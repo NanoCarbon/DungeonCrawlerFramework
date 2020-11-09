@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class Player implements Parcelable {
 
     //todo: [High] create a skill class and skill dictionary
+    //todo: [Critical] create floorProgress and roomProgress ints to save user progress
 
     //======THE 7 PLAYER STATS THAT ARE AFFECTED BY ITEMS========//
     private int playerHealth;
@@ -40,6 +41,8 @@ public class Player implements Parcelable {
     private int playerImageId;
     private ArrayList<Integer> playerInventory;
     private String playerDescription;
+    private int floorProgress;
+    private int roomProgress;
     //==============OTHER PARAMETERIZED VARS====================//
 
     //===================PRE INSTANTIATED VARS==================//
@@ -68,6 +71,7 @@ public class Player implements Parcelable {
     final private int playerStartingMaxEnergy;
     final private int playerStartingSkillPower;
     final private String playerSharedPreferences;
+
     //===================STARTING VARS==========================//
 
     //=============================CONSTRUCTOR====================================//
@@ -149,6 +153,8 @@ public class Player implements Parcelable {
         playerHand2 = in.readParcelable(Limb.class.getClassLoader());
         playerLegs = in.readParcelable(Limb.class.getClassLoader());
         playerFeet = in.readParcelable(Limb.class.getClassLoader());
+        floorProgress = in.readInt();
+        roomProgress = in.readInt();
     }
 
     public static final Creator<Player> CREATOR = new Creator<Player>() {
@@ -396,6 +402,22 @@ public class Player implements Parcelable {
     public Limb getPlayerLegs() {
         return playerLegs;
     }
+
+    public int getFloorProgress() {
+        return floorProgress;
+    }
+
+    public void setFloorProgress(int floorProgress) {
+        this.floorProgress = floorProgress;
+    }
+
+    public int getRoomProgress() {
+        return roomProgress;
+    }
+
+    public void setRoomProgress(int roomProgress) {
+        this.roomProgress = roomProgress;
+    }
 //====================GETTERS AND SETTERS============================================//
 
 //====================LEVELING METHODS===============================================//
@@ -637,6 +659,8 @@ public class Player implements Parcelable {
         dest.writeParcelable(playerHand2, flags);
         dest.writeParcelable(playerLegs, flags);
         dest.writeParcelable(playerFeet, flags);
+        dest.writeInt(floorProgress);
+        dest.writeInt(roomProgress);
     }
     //=============================PARCELABLE METHODS=======================//
 

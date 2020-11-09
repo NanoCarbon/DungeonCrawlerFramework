@@ -8,7 +8,7 @@ public class DungeonFloorDictionary {
     private final ArrayList<DungeonFloor> floorList = new ArrayList<DungeonFloor>(){};
 
     public DungeonFloorDictionary() {
-
+        //todo:[Critical] procedurally generate dungeon floors to infinity and beyond given the possible monsters
         DungeonFloor dungeonFloor0 = new DungeonFloor(new ArrayList<Integer>(Arrays.asList(0,1)));
         floorList.add(0,dungeonFloor0);
 
