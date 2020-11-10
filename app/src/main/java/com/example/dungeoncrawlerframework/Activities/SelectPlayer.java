@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,6 +38,10 @@ public class SelectPlayer extends AppCompatActivity {
     private TextView playerDescriptionDisplay;
     private TextView playerSkillPowerDisplay;
     private TextView playerInventoryCountDisplay;
+    //todo:[Critical] update these views to not be manual input but button for up and down
+    // todo:[Critical] limit possible values relative to player progress
+    private EditText selectedFloorDisplay;
+    private EditText selectedRoomDisplay;
 
     private int playerImageId;
     private int playerHP;
@@ -67,6 +72,8 @@ public class SelectPlayer extends AppCompatActivity {
     private Limb playerLimb5;
     private Limb playerLimb6;
 
+    private int playerFloorProgress;
+    private int playerRoomProgress;
 
     private int killCount;
     private int playerExperience;
@@ -172,34 +179,7 @@ public class SelectPlayer extends AppCompatActivity {
         Player oldPlayer = gson.fromJson(jsonOldPlayer,Player.class);
         if (oldPlayer!= null) {
             newPlayer = oldPlayer;
-            playerHP = newPlayer.getPlayerHealth();
-            itemHPEffect = newPlayer.getItemHealthEffect();
-            playerMaxHP = newPlayer.getPlayerMaxHealth();
-            itemMaxHPEffect = newPlayer.getItemMaxHealthEffect();
-            playerAttack = newPlayer.getPlayerAttack();
-            itemAttackEffect = newPlayer.getItemAttackEffect();
-            playerDefense = newPlayer.getPlayerDefense();
-            itemDefenseEffect = newPlayer.getItemDefenseEffect();
-            playerEnergy = newPlayer.getPlayerEnergy();
-            itemEnergyEffect = newPlayer.getItemEnergyEffect();
-            playerMaxEnergy = newPlayer.getPlayerMaxEnergy();
-            itemMaxEnergyEffect = newPlayer.getItemMaxEnergyEffect();
-            playerSkillPower = newPlayer.getPlayerSkillPower();
-            itemSkillPowerEffect = newPlayer.getItemSkillPowerEffect();
-
-            playerInventory = newPlayer.getPlayerInventory();
-            killCount = newPlayer.getPlayerKillCount();
-            playerExperience = newPlayer.getPlayerKillCount();
-            playerLevel = newPlayer.getPlayerLevel();
-            playerImageId = newPlayer.getPlayerImageId();
-            playerCoinPurse = newPlayer.getPlayerCoinPurse();
-
-            playerLimb1 = newPlayer.getPlayerHead();
-            playerLimb2 = newPlayer.getPlayerHand1();
-            playerLimb3 = newPlayer.getPlayerTorso();
-            playerLimb4 = newPlayer.getPlayerHand2();
-            playerLimb5 = newPlayer.getPlayerLegs();
-            playerLimb6 = newPlayer.getPlayerFeet();
+            getPlayerStats();
         }
     }
 
@@ -222,6 +202,8 @@ public class SelectPlayer extends AppCompatActivity {
         playerSkillPower = newPlayer.getPlayerSkillPower();
         itemSkillPowerEffect = newPlayer.getItemSkillPowerEffect();
 
+        playerFloorProgress = newPlayer.getFloorProgress();
+        playerRoomProgress = newPlayer.getRoomProgress();
         killCount = newPlayer.getPlayerKillCount();
         playerExperience = newPlayer.getPlayerExperience();
         playerLevel = newPlayer.getPlayerLevel();
@@ -263,11 +245,16 @@ public class SelectPlayer extends AppCompatActivity {
         loadButton = findViewById(R.id.loadButtonView);
         playerInventoryCountDisplay = findViewById(R.id.playerBattleInventoryCountTextView);
         toPlayerInventoryButton = findViewById(R.id.playerInventoryButton);
+        selectedFloorDisplay = findViewById(R.id.floorNumberEditTN);
+        selectedRoomDisplay = findViewById(R.id.roomNumberEditTN);
     }
 
     public void startBattleActivity(){
         Intent intent = new Intent(this, Battle.class);
         intent.putExtra(EXTRA_PLAYER,newPlayer);
+
+        intent.putExtra("Floor Number",selectedFloorDisplay.getText());
+        intent.putExtra("Room Number",selectedRoomDisplay.getText());
         startActivity(intent);
     }
 

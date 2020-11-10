@@ -120,6 +120,8 @@ public class Battle extends AppCompatActivity {
     private String playerSharedPrefrences;
     private ArrayList<Integer> playerInventory;
     private ArrayList<Limb> playerBodyParts;
+    private int playerFloorProgress;
+    private int playerRoomProgress;
 
     Limb playerLimb1;
     Limb playerLimb2;
@@ -350,6 +352,8 @@ public class Battle extends AppCompatActivity {
         playerDescription = newPlayer.getPlayerDescription();
         playerBodyParts = newPlayer.getPlayerBodyParts();
         playerInventory = newPlayer.getPlayerInventory();
+        playerFloorProgress = newPlayer.getFloorProgress();
+        playerRoomProgress = newPlayer.getRoomProgress();
 
         itemHPEffect = newPlayer.getItemHealthEffect();
         itemMaxHPEffect = newPlayer.getItemMaxHealthEffect();
@@ -448,6 +452,13 @@ public class Battle extends AppCompatActivity {
         newPlayer.setItemAttackEffect(itemAttackEffect);
         newPlayer.setItemDefenseEffect(itemDefenseEffect);
         newPlayer.setItemSkillPowerEffect(itemSkillPowerEffect);
+
+        if (floorNumber>playerFloorProgress){
+            newPlayer.setFloorProgress(floorNumber);
+            if(roomNumber>playerRoomProgress){
+                newPlayer.setRoomProgress(roomNumber);
+            }
+        }
     }
 
 

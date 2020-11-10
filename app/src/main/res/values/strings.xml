@@ -31,6 +31,8 @@
     <string name="inventorySkillPower_StringValue">Total Player Skill Power: %d + %d = %d</string>
     <string name="inventoryEnergy_StringValue">Total Player Energy: %d/%d + %d/%d = %d/%d</string>
 
+    <string name="floorNumberHint">Enter Floor #</string>
+    <string name="roomNumberHint">Enter Room #</string>
 
     <!--Monster names-->
     <string name="monster1">Green Goober</string>
@@ -80,5 +82,6 @@
     <string name="tab_text_1">Overview</string>
     <string name="tab_text_2">Stats</string>
     <string name="tab_text_3">Inventory</string>
+
 
 </resources>

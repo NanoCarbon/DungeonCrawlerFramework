@@ -41,11 +41,12 @@ public class Player implements Parcelable {
     private int playerImageId;
     private ArrayList<Integer> playerInventory;
     private String playerDescription;
-    private int floorProgress;
-    private int roomProgress;
+
     //==============OTHER PARAMETERIZED VARS====================//
 
     //===================PRE INSTANTIATED VARS==================//
+    private int floorProgress=0;
+    private int roomProgress=0;
     private int playerExperience=0;
     private int playerLevel=0;
     private int playerKillCount=0;

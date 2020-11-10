@@ -181,4 +181,24 @@
         android:text="@string/toPlayerInventoryButton_StringValue"
         app:layout_constraintStart_toStartOf="@+id/loadButtonView"
         app:layout_constraintTop_toBottomOf="@+id/loadButtonView" />
+
+    <EditText
+        android:id="@+id/floorNumberEditTN"
+        android:layout_width="170dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:hint="@string/floorNumberHint"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/startButtonView"
+        app:layout_constraintStart_toStartOf="@+id/startButtonView" />
+
+    <EditText
+        android:id="@+id/roomNumberEditTN"
+        android:layout_width="170dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:hint="@string/roomNumberHint"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/startButtonView"
+        app:layout_constraintEnd_toEndOf="@+id/startButtonView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
