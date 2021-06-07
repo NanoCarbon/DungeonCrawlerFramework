@@ -456,6 +456,7 @@ public class PlayerInventory extends AppCompatActivity {
     private void playerEquipItem(Integer itemIndex) {
 
         //fixme:[Bug] set a limit on the number of items you can equip based on the number of items in equipment
+        //fixme:[Bug] cannot equip items for Advanced character
 
         if (selectedLimb.getEquippedItem() != null){
             unequipItem();
