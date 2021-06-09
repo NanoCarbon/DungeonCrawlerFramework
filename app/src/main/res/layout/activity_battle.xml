@@ -266,51 +266,56 @@
         app:layout_constraintTop_toTopOf="@+id/playerSPIconImageView" />
 
     <ImageView
-    android:id="@+id/limb1EquippedItem"
-    android:layout_width="30dp"
-    android:layout_height="30dp"
-    android:layout_marginEnd="12dp"
-    android:layout_marginRight="12dp"
-    android:background="@drawable/shape"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toTopOf="@+id/turnCounterTextView" />
+        android:id="@+id/limb1EquippedItem"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="48dp"
+        android:background="@drawable/shape"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/turnCounterTextView"
+        />
 
     <ImageView
         android:id="@+id/limb2EquippedItem"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@drawable/shape"
-        app:layout_constraintEnd_toStartOf="@+id/limb1EquippedItem"
-        app:layout_constraintTop_toTopOf="@+id/limb1EquippedItem" />
+        app:layout_constraintEnd_toStartOf="@+id/limb3EquippedItem"
+        app:layout_constraintTop_toBottomOf="@+id/limb1EquippedItem" />
+
     <ImageView
         android:id="@+id/limb3EquippedItem"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@drawable/shape"
-        app:layout_constraintEnd_toStartOf="@+id/limb2EquippedItem"
-        app:layout_constraintTop_toTopOf="@+id/limb1EquippedItem" />
+        app:layout_constraintEnd_toEndOf="@+id/limb1EquippedItem"
+        app:layout_constraintTop_toBottomOf="@+id/limb1EquippedItem" />
 
     <ImageView
         android:id="@+id/limb4EquippedItem"
         android:layout_width="30dp"
         android:layout_height="30dp"
+
         android:background="@drawable/shape"
-        app:layout_constraintEnd_toEndOf="@+id/limb1EquippedItem"
+
+        app:layout_constraintStart_toEndOf="@+id/limb3EquippedItem"
         app:layout_constraintTop_toBottomOf="@+id/limb1EquippedItem" />
+
     <ImageView
         android:id="@+id/limb5EquippedItem"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@drawable/shape"
-        app:layout_constraintEnd_toStartOf="@+id/limb4EquippedItem"
-        app:layout_constraintTop_toTopOf="@+id/limb4EquippedItem" />
+        app:layout_constraintEnd_toEndOf="@+id/limb3EquippedItem"
+        app:layout_constraintTop_toBottomOf="@+id/limb3EquippedItem" />
+
     <ImageView
         android:id="@+id/limb6EquippedItem"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@drawable/shape"
-        app:layout_constraintEnd_toStartOf="@+id/limb5EquippedItem"
-        app:layout_constraintTop_toTopOf="@+id/limb4EquippedItem" />
+        app:layout_constraintEnd_toEndOf="@+id/limb3EquippedItem"
+        app:layout_constraintTop_toBottomOf="@+id/limb5EquippedItem" />
 
     <TextView
         android:id="@+id/playerCoinPurseTextView"

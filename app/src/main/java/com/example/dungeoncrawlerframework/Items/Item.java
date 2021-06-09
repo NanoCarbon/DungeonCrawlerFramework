@@ -16,7 +16,8 @@ public class Item implements Parcelable {
     private String itemDescription;
     private int limbRestriction;
     //=============================CONSTRUCTOR====================================//
-    public Item(int itemName, int itemImageId, int effectValue, int itemEffectType,boolean equippable, String itemDescription, int limbRestriction){
+    public Item(int itemName, int itemImageId, int effectValue, int itemEffectType,
+                boolean equippable, String itemDescription, int limbRestriction){
         this.itemName = itemName;
         this.itemImageId = itemImageId;
         this.effectValue = effectValue;

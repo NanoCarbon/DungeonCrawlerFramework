@@ -38,8 +38,9 @@ public class SelectPlayer extends AppCompatActivity {
     private TextView playerDescriptionDisplay;
     private TextView playerSkillPowerDisplay;
     private TextView playerInventoryCountDisplay;
-    //todo:[Critical] update these views to not be manual input but button for up and down
-    // todo:[Critical] limit possible values relative to player progress
+    //todo:[Critical] update these views to not be manual
+    // input but button for up and down
+    //todo:[Critical] limit possible values relative to player progress
     private EditText selectedFloorDisplay;
     private EditText selectedRoomDisplay;
 
@@ -89,6 +90,7 @@ public class SelectPlayer extends AppCompatActivity {
     //todo: [Critical] limit the possible selections based on the selected Characters' floor and room Progress
     //todo: [Medium] revisit creating a bottom navigation activity/tabbed activity to store all these non-battle activities
     //todo: [Medium] Add a settings tab to adjust bgm
+    //todo: [Medium] Load a saved player account rather than offer to start a new one
 
     //==========INTENT STRING NAMES  - USED TO DEFINE WHAT TO PASS TO BATTLE ACTIVITY=================//
     public static final String EXTRA_PLAYER = "com.example.dungeoncrawlerframework.EXTRA_PLAYER";

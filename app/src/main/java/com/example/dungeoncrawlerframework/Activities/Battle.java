@@ -45,10 +45,15 @@ public class Battle extends AppCompatActivity {
     //==============MONSTER RELATED VARS================//
     private int floorNumber=0;
     private int roomNumber=0;
-    //todo: [Critical] refactor so that it takes selected floor and room as intents from another activity (new actvity or Select Player Activity doesnt matter)
-    private final DungeonFloorDictionary dungeonFloorDictionary = new DungeonFloorDictionary();
-    private DungeonFloor dungeonFloor = dungeonFloorDictionary.getDungeonFloor(floorNumber);
-    private ArrayList<Monster> floorMonsters = dungeonFloor.getFloorMonsters();
+    //todo: [Critical] refactor so that it takes selected
+    // floor and room as intents from another activity
+    // (new actvity or Select Player Activity doesnt matter)
+    private final DungeonFloorDictionary dungeonFloorDictionary =
+            new DungeonFloorDictionary();
+    private DungeonFloor dungeonFloor =
+            dungeonFloorDictionary.getDungeonFloor(floorNumber);
+    private ArrayList<Monster> floorMonsters =
+            dungeonFloor.getFloorMonsters();
     private MonsterDictionary monsterDictionary;
     private Monster opponentMonster;
     private Drawable monsterImage;
@@ -123,12 +128,26 @@ public class Battle extends AppCompatActivity {
     private int playerFloorProgress;
     private int playerRoomProgress;
 
-    Limb playerLimb1;
-    Limb playerLimb2;
-    Limb playerLimb3;
-    Limb playerLimb4;
-    Limb playerLimb5;
-    Limb playerLimb6;
+    private Limb playerLimb1;
+    private Limb playerLimb2;
+    private Limb playerLimb3;
+    private Limb playerLimb4;
+    private Limb playerLimb5;
+    private Limb playerLimb6;
+
+    private Item playerLimb1Equipment;
+    private Item playerLimb2Equipment;
+    private Item playerLimb3Equipment;
+    private Item playerLimb4Equipment;
+    private Item playerLimb5Equipment;
+    private Item playerLimb6Equipment;
+
+    private ImageView playerLimb1EquipmentDisplay;
+    private ImageView playerLimb2EquipmentDisplay;
+    private ImageView playerLimb3EquipmentDisplay;
+    private ImageView playerLimb4EquipmentDisplay;
+    private ImageView playerLimb5EquipmentDisplay;
+    private ImageView playerLimb6EquipmentDisplay;
 
     //============================PLAYER RELATED VARS==================================//
 
@@ -236,13 +255,15 @@ public class Battle extends AppCompatActivity {
 
     public void saveData() {
 
-        SharedPreferences sharedPreferences = getSharedPreferences(playerSharedPrefrences, MODE_PRIVATE);
+        SharedPreferences sharedPreferences =
+                getSharedPreferences(playerSharedPrefrences, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
         String jsonPlayer = gson.toJson(newPlayer);
         editor.putString(PLAYERSAVE,jsonPlayer);
 
-        //fixme:[Bug] monster Image id's from the dictionary are overwriting the Shared Preferences on occasion
+        //fixme:[Bug] monster Image id's from the dictionary
+        // are overwriting the Shared Preferences on occasion
         editor.apply();
         Toast.makeText(this,"Data saved",Toast.LENGTH_SHORT).show();
 
@@ -256,7 +277,8 @@ public class Battle extends AppCompatActivity {
 
     }
     private void loadSounds() {
-        //fixme:[Bug] the sound is adjusted using the System sounds bar and not the Media volumes
+        //fixme:[Bug] the sound is adjusted using the
+        // System sounds bar and not the Media volumes
         //creates a pool of sounds
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
@@ -269,7 +291,8 @@ public class Battle extends AppCompatActivity {
                     .build();
         }
         else{
-            soundPool = new SoundPool(6, AudioManager.STREAM_MUSIC,0);
+            soundPool = new SoundPool(6,
+                    AudioManager.STREAM_MUSIC,0);
         }
 
         sound1 = soundPool.load(this,R.raw.sound1, 1);
@@ -329,15 +352,23 @@ public class Battle extends AppCompatActivity {
         monsterAttackDisplay = findViewById(R.id.monsterAttackTextView);
         monsterDefenseDisplay = findViewById(R.id.monsterDefenseTextView);
         monsterImageDisplay = findViewById(R.id.monsterImageView);
-        currentInventoryCountDisplay = findViewById(R.id.playerBattleInventoryCountTextView);
+        currentInventoryCountDisplay =
+                findViewById(R.id.playerBattleInventoryCountTextView);
         floorRoomDisplay = findViewById(R.id.floorRoomTextView);
+        playerLimb1EquipmentDisplay = findViewById(R.id.limb1EquippedItem);
+        playerLimb2EquipmentDisplay = findViewById(R.id.limb2EquippedItem);
+        playerLimb3EquipmentDisplay = findViewById(R.id.limb3EquippedItem);
+        playerLimb4EquipmentDisplay = findViewById(R.id.limb4EquippedItem);
+        playerLimb5EquipmentDisplay = findViewById(R.id.limb5EquippedItem);
+        playerLimb6EquipmentDisplay = findViewById(R.id.limb6EquippedItem);
     }
 
     //BATTLE METHODS
 
 
     private void getPlayerStats() {
-        playerImage = ContextCompat.getDrawable(this, newPlayer.getPlayerImageId());
+        playerImage =
+                ContextCompat.getDrawable(this, newPlayer.getPlayerImageId());
         playerHP = newPlayer.getPlayerHealth();
         playerMaxHP = newPlayer.getPlayerMaxHealth();
         playerEnergy = newPlayer.getPlayerEnergy();
@@ -363,11 +394,12 @@ public class Battle extends AppCompatActivity {
         itemDefenseEffect = newPlayer.getItemDefenseEffect();
         itemSkillPowerEffect = newPlayer.getItemSkillPowerEffect();
 
-
-
         //BATTLE CALCULATIONS RELATIVE TO PLAYER
-        //todo: [Medium] this cannot be a SOLID coding practice, extract this into its own method
-        //todo: [Medium] refactor this so that the damage is a function of playerAttack and itemEffects on player Attack
+        //todo: [Medium] this cannot be a
+        // SOLID coding practice, extract this into its own method
+        //todo: [Medium] refactor this so
+        // that the damage is a function of playerAttack
+        // and itemEffects on player Attack
         if(playerAttack + itemAttackEffect - monsterDefense <=0){
             damage = 1;
         }else{
@@ -393,7 +425,8 @@ public class Battle extends AppCompatActivity {
         }else{
             playerHPDisplay.setTextColor(Color.rgb(0,0,0));
         }
-        playerEnergyDisplay.setText(res.getString(R.string.playerEnergy_StringValue,playerEnergy+itemEnergyEffect,playerMaxEnergy+itemMaxEnergyEffect));
+        playerEnergyDisplay
+                .setText(res.getString(R.string.playerEnergy_StringValue,playerEnergy+itemEnergyEffect,playerMaxEnergy+itemMaxEnergyEffect));
         playerAttackDisplay.setText(res.getString(R.string.playerAttack_StringValue,playerAttack+itemAttackEffect));
         playerDefenseDisplay.setText(res.getString(R.string.playerDefense_StringValue,playerDefense+itemDefenseEffect));
         playerSkillPowerDisplay.setText(res.getString(R.string.playerSP_StringValue,playerSkillPower+itemSkillPowerEffect));
@@ -404,34 +437,69 @@ public class Battle extends AppCompatActivity {
         playerCoinPurseDisplay.setText(res.getString(R.string.playerCoinPurse_StringValue,playerCoinPurse));
         playerSharedPrefrences = newPlayer.getPlayerSharedPreferences();
         if(playerInventory != null) {
-            currentInventoryCountDisplay.setText(res.getString(R.string.inventoryCount_StringValue, playerInventory.size()));
+            currentInventoryCountDisplay
+                    .setText(res.getString(R.string.inventoryCount_StringValue, playerInventory.size()));
         }else{
             currentInventoryCountDisplay.setText(res.getString(R.string.inventoryCount_StringValue, 0));
         }
         attackButton.setText(res.getString(R.string.attackButton_TextValue,damage));
         healButton.setText(res.getString(R.string.healButton_StringValue,healAmount));
+
+        getPlayerEquipment();
     }
     //Get Player Equipment Method (NEEDS REFACTORING)
-    /*
+
     private void getPlayerEquipment() {
         try {
-            playerLimb1EquippedItem = playerLimb1.getEquippedItem();
-            Drawable equipment1 = ContextCompat.getDrawable(this, playerLimb1EquippedItem.getItemImageId());
-            playerLimb1EquippmentDisplay.setImageDrawable(equipment1);
+            playerLimb1Equipment = playerLimb1.getEquippedItem();
+            Drawable equipment1 = ContextCompat.getDrawable(this, playerLimb1Equipment.getItemImageId());
+            playerLimb1EquipmentDisplay.setImageDrawable(equipment1);
         }catch(NullPointerException e){
-            Log.d("Battle.Limb1.GetEquip","No equippment found for player Limb 1");
+            Log.d("Battle.Limb1.GetEquip","No equipment found for player Limb 1");
         }
 
         try {
-            playerLimb2EquippedItem = playerLimb2.getEquippedItem();
-            Drawable equipment2 = ContextCompat.getDrawable(this, playerLimb2EquippedItem.getItemImageId());
-            playerLimb2EquippmentDisplay.setImageDrawable(equipment2);
+            playerLimb2Equipment = playerLimb2.getEquippedItem();
+            Drawable equipment2 = ContextCompat.getDrawable(this, playerLimb2Equipment.getItemImageId());
+            playerLimb2EquipmentDisplay.setImageDrawable(equipment2);
         }catch(NullPointerException e){
             Log.d("Battle.Limb2.GetEquip","No equipment found for player Limb 2");
         }
-        getPlayerStats();
+
+        try {
+            playerLimb3Equipment = playerLimb3.getEquippedItem();
+            Drawable equipment3 = ContextCompat.getDrawable(this, playerLimb3Equipment.getItemImageId());
+            playerLimb3EquipmentDisplay.setImageDrawable(equipment3);
+        }catch(NullPointerException e){
+            Log.d("Battle.Limb3.GetEquip","No equipment found for player Limb 3");
+        }
+
+        try {
+            playerLimb4Equipment = playerLimb4.getEquippedItem();
+            Drawable equipment4 = ContextCompat.getDrawable(this, playerLimb4Equipment.getItemImageId());
+            playerLimb4EquipmentDisplay.setImageDrawable(equipment4);
+        }catch(NullPointerException e){
+            Log.d("Battle.Limb2.GetEquip","No equipment found for player Limb 2");
+        }
+
+        try {
+            playerLimb5Equipment = playerLimb5.getEquippedItem();
+            Drawable equipment5 = ContextCompat.getDrawable(this, playerLimb5Equipment.getItemImageId());
+            playerLimb5EquipmentDisplay.setImageDrawable(equipment5);
+        }catch(NullPointerException e){
+            Log.d("Battle.Limb5.GetEquip","No equipment found for player Limb 5");
+        }
+
+        try {
+            playerLimb6Equipment = playerLimb6.getEquippedItem();
+            Drawable equipment6 = ContextCompat.getDrawable(this, playerLimb6Equipment.getItemImageId());
+            playerLimb6EquipmentDisplay.setImageDrawable(equipment6);
+        }catch(NullPointerException e){
+            Log.d("Battle.Limb6.GetEquip","No equipment found for player Limb 6");
+        }
+
     }
-    */
+
 
     private void setPlayerStats(){
         newPlayer.setPlayerExperience(playerExperience);

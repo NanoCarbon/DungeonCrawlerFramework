@@ -69,7 +69,8 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
     @NonNull
     @Override
     public InventoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.inventoryitem,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.inventoryitem,
+                parent,false);
         InventoryViewHolder inventoryViewHolder = new InventoryViewHolder(v,mListener);
         return inventoryViewHolder;
     }
@@ -84,7 +85,8 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.Inve
         holder.itemImageDisplay.setImageResource(currentItem.getItemImageId());
         holder.itemNameDisplay.setText(currentItem.getItemName());
         holder.itemDescriptionDisplay.setText(currentItem.getItemDescription());
-        holder.itemCountDisplay.setText(Integer.toString(Collections.frequency(mPlayerInventory,itemIndex)));
+        holder.itemCountDisplay.setText(Integer.
+                toString(Collections.frequency(mPlayerInventory,itemIndex)));
     }
 
     @Override
