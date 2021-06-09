@@ -189,6 +189,7 @@ public class Battle extends AppCompatActivity {
         updatePlayerViews();
 
         opponentMonster = floorMonsters.get(roomNumber);
+
         getMonsterStats();
         updateMonsterViews();
 
@@ -220,7 +221,14 @@ public class Battle extends AppCompatActivity {
                     }else if(roomNumber+1>=floorMonsters.size()){
 
                         floorNumber = floorNumber+1;
-                        dungeonFloor = dungeonFloorDictionary.getDungeonFloor(floorNumber);
+                        try{
+                            dungeonFloor = dungeonFloorDictionary.getDungeonFloor(floorNumber);
+                        }catch(IndexOutOfBoundsException e){
+                            dungeonFloorDictionary.addDungeonFloors(1);
+                            dungeonFloor = dungeonFloorDictionary.getDungeonFloor(floorNumber);
+                            Log.d("Battle.NewFloor","A new floor was created!");
+                        }
+
                         floorMonsters = dungeonFloor.getFloorMonsters();
                         roomNumber = 0;
                     }

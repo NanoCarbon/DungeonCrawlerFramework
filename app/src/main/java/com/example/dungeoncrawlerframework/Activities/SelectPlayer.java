@@ -38,9 +38,8 @@ public class SelectPlayer extends AppCompatActivity {
     private TextView playerDescriptionDisplay;
     private TextView playerSkillPowerDisplay;
     private TextView playerInventoryCountDisplay;
-    //todo:[Critical] update these views to not be manual
-    // input but button for up and down
     //todo:[Critical] limit possible values relative to player progress
+    //todo:[Critical] show the player progress as a TextView for now
     private EditText selectedFloorDisplay;
     private EditText selectedRoomDisplay;
 

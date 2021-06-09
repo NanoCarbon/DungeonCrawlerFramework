@@ -18,7 +18,7 @@ public class DungeonFloor {
         this.floorMonsterIds = floorMonsterIds;
     }
 
-    //todo:[High] dungeon floor should have a floor boss at the end of the generated Array List
+    //todo:[Medium] dungeon floor should have a floor boss at the end of the generated Array List
     //todo:[High] dungeon floor should have a difficulty multiplier that increases monster stats after the pre defined levels have been completed
 
 
